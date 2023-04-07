@@ -48,10 +48,15 @@ export default function Editville() {
 
     return (
         <ThemeProvider theme={theme}>
-            <Container component="main" maxWidth="sm" style={{ alignItems: "left" }}>
+            <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <form onSubmit={(e) => onSubmit(e)} noValidate>
-                    <Box sx={{ mt: 3 }}>
+                    <Box sx={{
+                        marginTop: 10,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}>
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={30}>
                                 <TextField

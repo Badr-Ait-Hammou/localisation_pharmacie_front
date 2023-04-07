@@ -10,7 +10,7 @@ export class Navbar extends Component{
     render() {
         return(
             <Box sx={{ flexGrow: 1 }}>
-                <AppBar position="static" color={"primary"}>
+                <AppBar position="absolute" color={"primary"}>
                     <Toolbar>
                         <IconButton
                             size="large"
@@ -24,8 +24,12 @@ export class Navbar extends Component{
                         </IconButton>
                         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                             loc_Pharmacie
+                            <Button className="mx-3" s color="inherit"  href="/">Ville</Button>
+                            <Button className="mx-3" s color="inherit"  href="/zone">Zone</Button>
+
                         </Typography>
-                        <Button color="inherit" href="/zone">Zone</Button>
+
+                        {/*<Button color="inherit" href="/zone">Home</Button>*/}
                     </Toolbar>
                 </AppBar>
             </Box>

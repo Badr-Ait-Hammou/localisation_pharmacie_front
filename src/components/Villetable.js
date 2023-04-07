@@ -16,7 +16,6 @@ export default function Villetable(){
             const res = await fetch('http://localhost:8080/api/villes/');
             const getdata = await res.json();
             setVille(getdata);
-           // console.log(getdata)
             loadVilles();
         }
         getville();

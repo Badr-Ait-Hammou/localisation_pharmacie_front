@@ -1,13 +1,11 @@
-import logo from './logo.svg';
 import './App.css';
 import React,{Component} from "react";
 
-import Ville from './components/Ville';
 import {Navbar} from './components/Navbar';
-import Button from 'react-bootstrap-buttons';
 import {BrowserRouter as Router,Routes,Route} from "react-router-dom";
-import Villeform from "./components/Villeform";
 import Editville from "./components/Editville"
+//import SideBar from "./components/SideBar"
+import Ville from './components/Ville';
 import Zone from "./components/Zone";
 function App() {
   return (
