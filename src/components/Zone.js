@@ -10,7 +10,6 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from "axios";
 import React,{useState,useEffect} from "react";
-import Zonetable from "../components/Zonetable";
 import ZoneList from "../components/ZoneList";
 
 

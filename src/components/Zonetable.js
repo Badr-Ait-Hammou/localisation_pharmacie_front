@@ -51,8 +51,9 @@ export default function Zonetable({ cityId }) {
         setModalIsOpen(false);
     };
 
-    const handleSave = () => {
+    const handleSave =  () => {
         // TODO: handle save logic
+
         handleCloseModal();
     };
 
@@ -94,14 +95,14 @@ export default function Zonetable({ cityId }) {
                 <ul>
                     <li>
                         <label>Nom de la zone:</label>
-                        <input type="text" value={selectedZone && selectedZone.name} />
+                        <input type="text" value={selectedZone && selectedZone.nom} />
                     </li>
                     <li>
                         <label>Ville:</label>
                         <select value={selectedZone && selectedZone.city && selectedZone.city.id}>
                             {cities.map((city) => (
                                 <option key={city.id} value={city.id}>
-                                    {city.name}
+                                    {city.nom}
                                 </option>
                             ))}
                         </select>

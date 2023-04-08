@@ -26,6 +26,7 @@ export class Navbar extends Component{
                             loc_Pharmacie
                             <Button className="mx-3" s color="inherit"  href="/">Ville</Button>
                             <Button className="mx-3" s color="inherit"  href="/zone">Zone</Button>
+                            <Button className="mx-3" s color="inherit"  href="/garde">Garde</Button>
 
                         </Typography>
 
