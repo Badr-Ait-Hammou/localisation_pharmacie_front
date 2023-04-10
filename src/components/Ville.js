@@ -1,4 +1,4 @@
-import React,{Component,useState,useEffect} from "react";
+import React,{useState,useEffect} from "react";
 import axios from 'axios';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';

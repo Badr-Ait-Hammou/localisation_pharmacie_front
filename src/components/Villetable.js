@@ -1,8 +1,8 @@
-import React,{Component,useState,useEffect} from "react";
+import React,{useState,useEffect} from "react";
 import 'bootstrap/dist/css/bootstrap.css';
 import Button from '@mui/material/Button';
 import axios from "axios";
-import {Link,useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 
 
 

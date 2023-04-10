@@ -1,9 +1,8 @@
 
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
 import axios from "axios";
-import React,{Component,useState,useEffect} from "react";
-import {Modal} from "@mui/material";
-import { Link } from "react-router-dom";
+import React,{useState,useEffect} from "react";
+
 
 
 

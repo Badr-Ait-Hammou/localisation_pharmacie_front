@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import Modal from "react-modal";
 
-const ZoneList = ({ cityId }) => {
+export default function ZoneList({ cityId })  {
     const [zones, setZones] = useState([]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [selectedZone, setSelectedZone] = useState(null);
@@ -109,4 +108,3 @@ const ZoneList = ({ cityId }) => {
     );
 };
 
-export default ZoneList

@@ -1,23 +1,29 @@
 import './App.css';
-import React,{Component} from "react";
+import React from "react";
 
-import {Navbar} from './components/Navbar';
+import Nav from "./components/Nav";
 import {BrowserRouter as Router,Routes,Route} from "react-router-dom";
 import Editville from "./components/Editville"
 //import SideBar from "./components/SideBar"
 import Ville from './components/Ville';
 import Zone from "./components/Zone";
-import Garde from "./components/Garde"
+import Garde from "./components/Garde";
+
+import GardePharmacie from "./components/Gardepharmacie";
+
 function App() {
   return (
-    <div className="container">
+
+    <div className="App" >
+
         <Router>
-        <Navbar/>
+            <Nav/>
             <Routes>
                 <Route exact path="/" element={<Ville/>}/>
                 <Route exact path="/zone" element={<Zone/>}/>
                 <Route exact path="/edit/:id" element={<Editville/>}/>
                 <Route exact path="/garde" element={<Garde/>}/>
+                <Route exact path="/gardepharmacie" element={<GardePharmacie/>}/>
 
             </Routes>
 
