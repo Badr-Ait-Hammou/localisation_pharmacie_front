@@ -20,9 +20,10 @@ nav {
 
 #navbar li a {
     text-decoration: none;
-    font-size: 1.3rem;
+    font-size: 17px;
     font-weight: 600;
     color: #fff;
+
     transition: 0.3s ease-in-out;
 }
 #navbar li a:hover,
@@ -39,6 +40,7 @@ nav {
     position: absolute;
     bottom: -4px;
     left: 20px;
+
 }
 
 #mobile {
@@ -48,6 +50,7 @@ nav {
 #mobile i {
     color: #fff;
     align-items: center;
+
 }
 
 @media screen and (max-width: 769px) {
