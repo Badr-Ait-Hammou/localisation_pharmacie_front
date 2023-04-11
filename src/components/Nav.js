@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import "../styles/nav.css"
 import logo from "../images/pharmacielogo.png"
+import Link from "@mui/material/Link";
 class Nav extends Component{
     state={clicked:false}
     handleClick=()=>{
@@ -17,10 +18,10 @@ class Nav extends Component{
 
             <div>
                 <ul id="navbar" className={this.state.clicked ? "#navbar active" : "#navbar"}>
-                    <li><a className="active" href="/">Ville</a></li>
-                    <li><a href>Zone</a></li>
-                    <li><a href>Garde</a></li>
-                    <li><a href>GardePharmacie</a></li>
+                    <li><a className="active" href="/" >Ville</a></li>
+                    <li><a href="/zone">Zone</a></li>
+                    <li><a href="/garde">Garde</a></li>
+                    <li><a href="/gardepharmacie">GardePharmacie</a></li>
                     <li><a href>Pharmacie</a></li>
                     <li><a href>sign in</a></li>
                 </ul>
