@@ -3,6 +3,7 @@ import { FaFacebook } from "react-icons/fa";
 import { AiFillInstagram } from "react-icons/ai";
 import { FaTwitter } from 'react-icons/fa';
 import { BsTelegram } from 'react-icons/bs';
+import "../styles/footer.css"
 
 export default function Footer() {
     return (

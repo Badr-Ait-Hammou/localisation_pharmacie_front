@@ -45,11 +45,21 @@ nav {
 
 #mobile {
     display: none;
+
 }
 
 #mobile i {
-    color: #fff;
+    position: absolute;
+    top: 10px;
+
+
+    height: 50px; /* Change this value to adjust the height of the element */
+
+    z-index: 9999; /* Set a high z-index to ensure the element is always on top */
+    display: flex;
     align-items: center;
+    justify-content: center;
+    color: #fff;
 
 }
 
@@ -61,12 +71,12 @@ nav {
         justify-content: flex-start;
         position: fixed;
 
-        top: 80px;
+        top: 0px;
         right: -300px;
         width: 300px;
         height: 100vh;
         background: #2a3239;
-        box-shadow: 0 40px 60px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 40px 60px rgba(225, 21, 21, 0.1);
         padding: 40px 0 0 10px;
         transition: 0.3s ease-in-out;
         z-index: 999;
