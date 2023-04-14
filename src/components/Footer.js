@@ -1,8 +1,8 @@
 import React from "react";
-import { FaFacebook } from "react-icons/fa";
-import { AiFillInstagram } from "react-icons/ai";
-import { FaTwitter } from 'react-icons/fa';
-import { BsTelegram } from 'react-icons/bs';
+import { RiFacebookCircleFill } from "react-icons/ri";
+import { RiInstagramFill } from "react-icons/ri";
+import { AiFillTwitterCircle } from 'react-icons/ai';
+import { RiTelegramFill } from 'react-icons/ri';
 import "../styles/footer.css"
 
 export default function Footer() {
@@ -20,9 +20,9 @@ export default function Footer() {
                         <div className="col-sm-6 col-md-3 item">
                             <h3>About Us</h3>
                             <ul>
-                                <li><a href="#">Company</a></li>
-                                <li><a href="#">Team</a></li>
-                                <li><a href="#">Careers</a></li>
+                                <li><a href="/#">Company</a></li>
+                                <li><a href="/#">Team</a></li>
+                                <li><a href="/#">Careers</a></li>
                             </ul>
                         </div>
                         <div className="col-sm-6 col-md-3 item">
@@ -30,14 +30,14 @@ export default function Footer() {
                             <ul>
                                 <li><a href="#">Phone: 555-123-4567</a></li>
                                 <li><a href="#">Email: info@pharmacylocationapp.com</a></li>
-                                <li><a href="#">Address: 123 Main St, Anytown USA</a></li>
+                                <li><a href="#">Address: 123 Main St, Morocco</a></li>
                             </ul>
                         </div>
                         <div className="col item social">
-                            <a href="#"><BsTelegram/></a>
-                            <a href="#"><FaFacebook/></a>
-                            <a href="#"><FaTwitter/></a>
-                            <a href="#"><AiFillInstagram/></a></div>
+                            <a href="#"><RiTelegramFill/></a>
+                            <a href="#"><RiFacebookCircleFill/></a>
+                            <a href="#"><AiFillTwitterCircle/></a>
+                            <a href="#"><RiInstagramFill/></a></div>
                     </div>
                     <p className="copyright">B.A.H Pharmacy © 2023</p>
                 </div>

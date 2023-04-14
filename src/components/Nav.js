@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import "../styles/nav.css"
-import logo from "../images/pharmacielogo.png"
+import logo from "../images/B.A.H pharmacy.svg"
 import {Link} from "react-router-dom";
 
 class Nav extends Component{
@@ -17,7 +17,7 @@ class Nav extends Component{
         return(
         <>
         <nav >
-            <img src={logo} alt="logo" style={{width:"45px",height:"40px"}} />
+            <img src={logo} alt="logo" style={{width:"50px",height:"40px"}} />
 
             <div>
                 <ul id="navbar" className={this.state.clicked ? "#navbar active" : "#navbar"}>

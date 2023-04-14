@@ -64,7 +64,7 @@
 }
 
 .footer-dark .item.social > a {
-    font-size:20px;
+    font-size:36px;
     width:36px;
     height:36px;
     line-height:36px;
@@ -78,7 +78,8 @@
 }
 
 .footer-dark .item.social > a:hover {
-    opacity:0.9;
+    opacity:1.9;
+
 }
 
 .footer-dark .copyright {

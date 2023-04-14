@@ -8,7 +8,7 @@ import Editville from "./components/Editville"
 import Ville from './components/Ville';
 import Zone from "./components/Zone";
 import Garde from "./components/Garde";
-import Footer from "./components/Footer"
+import Footer from "./components/Footer";
 
 import GardePharmacie from "./components/Gardepharmacie";
 
@@ -25,6 +25,8 @@ function App() {
                 <Route exact path="/edit/:id" element={<Editville/>}/>
                 <Route exact path="/garde" element={<Garde/>}/>
                 <Route exact path="/gardepharmacie" element={<GardePharmacie/>}/>
+
+
 
             </Routes>
             <Footer/>
