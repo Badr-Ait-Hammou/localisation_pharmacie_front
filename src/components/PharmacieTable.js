@@ -106,7 +106,7 @@ export default function PharmacieTable() {
     }
 
     return (
-        <div>
+        <div >
             <div className="table-responsive">
                 <table className="table mt-5 text-center">
                     <thead>
@@ -153,11 +153,10 @@ export default function PharmacieTable() {
                 onRequestClose={handleCloseModal}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
-
                 style={{
                     overlay: {
                         backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                        zIndex: 1000
+                        zIndex: 999
                     },
                     content: {
                         top: '50%',
@@ -170,26 +169,32 @@ export default function PharmacieTable() {
                         borderRadius: '10px',
                         boxShadow: '20px 30px 25px rgba(0, 0, 0, 0.2)',
                         padding: '20px',
-                        width:'360px',
-
+                        width: '100%', /* updated width */
+                        maxWidth: '700px', /* updated max-width */
+                        height: 'auto', /* updated height */
+                        maxHeight: '90%', /* updated max-height */
+                        overflow: 'auto' /* added overflow */
                     }
                 }}
             >
-                <div className="card">
-                    <div className="card-body">
+                <div className="card" >
+                    <div className="card-body" >
                         <h5 className="card-title" id="modal-modal-title">Update User</h5>
                         <form>
                             <div className="mb-3">
                                 <label htmlFor="pharmacie-nom" className="form-label">Nom:</label>
                                 <input type="text" className="form-control" id="user-nom" value={pharmacienom} onChange={(e) => setPharmacieNom(e.target.value)} required/>
                             </div>
-                            <div className="mb-3">
+
+                            <div className="row mb-3">
+                                <div className="col-md-6">
                                 <label htmlFor="pharmacie-latitude" className="form-label">Latitude:</label>
                                 <input type="text" className="form-control" id="user-prenom" value={pharmacielatitude} onChange={(e) => setPharmacieLatitude(e.target.value)} required />
                             </div>
-                            <div className="mb-3">
+                                <div className="col-md-6">
                                 <label htmlFor="pharmacie-longitude" className="form-label">Longitude:</label>
                                 <input type="text" className="form-control" id="user-email" value={pharmacielongitude} onChange={(e) => setPharmacieLongitude(e.target.value)} />
+                            </div>
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="pharmacie-adresse" className="form-label">Adresse:</label>
@@ -199,7 +204,8 @@ export default function PharmacieTable() {
                                 <label htmlFor="pharmacie-adresse" className="form-label">Photo:</label>
                                 <input type="text" className="form-control" id="user-password" value={pharmaciePhoto} onChange={(e) => setPharmaciePhoto(e.target.value)} />
                             </div>
-                            <div className="mb-3">
+                            <div className="row mb-3">
+                                <div className="col-md-6">
                                 <label htmlFor="pharmacie-adresse" className="form-label">Zone:</label>
                                 <select
                                     value={pharmacieZone}
@@ -222,7 +228,7 @@ export default function PharmacieTable() {
                                     ))}
                                 </select>
                             </div>
-                            <div className="mb-3">
+                                <div className="col-md-6">
                                 <label htmlFor="pharmacie-adresse" className="form-label">Adresse:</label>
                                 <select
                                     value={pharmacieUser}
@@ -245,6 +251,7 @@ export default function PharmacieTable() {
                                     ))}
                                 </select>
                             </div>
+                            </div>
                         </form>
                         <div className="d-flex justify-content-center mt-3">
                             <button type="button" className="btn btn-secondary me-2" onClick={handleCloseModal}>Annuler</button>
@@ -255,7 +262,10 @@ export default function PharmacieTable() {
             </Modal>
 
         </div>
+
+
     );
 
 }
+
 
