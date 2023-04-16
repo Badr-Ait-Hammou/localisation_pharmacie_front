@@ -6,7 +6,12 @@ export default function ZoneList({ cityId })  {
     const [zones, setZones] = useState([]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [selectedZone, setSelectedZone] = useState(null);
-    const [cities, setCities] = useState([]);
+    const [villes, setVilles] = useState([]);
+    const [showModal, setShowModal] = useState(false);
+    const [zoneName, setZoneName] = useState('');
+    const [zoneCity, setZoneCity] = useState('');
+
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -19,7 +24,7 @@ export default function ZoneList({ cityId })  {
     useEffect(() => {
         const fetchCities = async () => {
             const result = await axios(`http://localhost:8080/api/villes/`);
-            setCities(result.data);
+            setVilles(result.data);
         };
         fetchCities();
     }, []);
@@ -38,14 +43,40 @@ export default function ZoneList({ cityId })  {
     };
 
     const handleCloseModal = () => {
-        setSelectedZone(null);
-        setModalIsOpen(false);
+        setShowModal(false);
+        setModalIsOpen(false)
     };
 
-    const handleSave = () => {
-        // TODO: handle save logic
-        handleCloseModal();
+
+
+    const handleEditZone = async (id) => {
+        try {
+            const response = await axios.put(`http://localhost:8080/api/zones/id/${id}`, {
+                nom: zoneName,
+                ville: {
+                    id: zoneCity
+                }
+            })
+            const updatedZones = zones.map((zone) => {
+                if (zone.id === id) {
+                    return response.data;
+                }else{
+                    return zone;
+                }
+            });
+            setZones(updatedZones);
+            setModalIsOpen(false);
+            loadzones();
+        } catch (error) {
+            console.error(error);
+        }
     };
+
+
+    const loadzones=async ()=>{
+        const res=await axios.get(`http://localhost:8080/api/zones/`);
+        setZones(res.data);
+    }
 
 
     return (
@@ -83,14 +114,14 @@ export default function ZoneList({ cityId })  {
                 <ul>
                     <li>
                         <label>Nom de la zone:</label>
-                        <input type="text" value={selectedZone && selectedZone.name} />
+                        <input type="text" value={zoneName} onChange={(e) => setZoneName(e.target.value)} />
                     </li>
                     <li>
                         <label>Ville:</label>
-                        <select value={selectedZone && selectedZone.city && selectedZone.city.id}>
-                            {cities.map((city) => (
-                                <option key={city.id} value={city.id}>
-                                    {city.nom}
+                        <select value={zoneCity} onChange={(e) => setZoneCity(e.target.value)}>
+                            {villes.map((ville) => (
+                                <option key={ville.id} value={ville.id}>
+                                    {ville.nom}
                                 </option>
                             ))}
                         </select>
@@ -99,7 +130,7 @@ export default function ZoneList({ cityId })  {
                 <button className="btn btn-primary" onClick={handleCloseModal}>
                     Annuler
                 </button>
-                <button className="btn btn-success" onClick={handleSave}>
+                <button className="btn btn-success" onClick={() => handleEditZone(selectedZone.id)}>
                     Sauvegarder
                 </button>
             </Modal>
