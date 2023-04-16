@@ -49,7 +49,7 @@ export default function Ville() {
 
     return (
         <ThemeProvider theme={theme}>
-            <Container component="main" maxWidth="md">
+            <Container component="main" maxWidth="lg">
                 <CssBaseline />
                 <Box
                     sx={{
@@ -64,12 +64,22 @@ export default function Ville() {
                         Ville
                     </Typography>
                 <form onSubmit={(e) => onSubmit(e)} noValidate>
-                    <Box sx={{ mt: 3 }}>
+                    <Box
+                        sx={{
+                            marginTop: 8,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                        }}
+                    >
                         <Grid container spacing={2}>
-                            <Grid item xs={12} sm={30}>
+
+
+                            <Grid item xs={12} >
                                 <TextField
-                                    label="Ville"
+                                    required
                                     fullWidth
+
                                     name="ville"
                                     value={nom}
                                     onChange={(e) => onInputChange(e)}
@@ -83,10 +93,9 @@ export default function Ville() {
 
                 </form>
                 </Box>
-                <div>
-                    <Villetable />
-                </div>
+
             </Container>
+            <Villetable />
         </ThemeProvider>
     );
 

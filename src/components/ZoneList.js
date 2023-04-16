@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Modal from "react-modal";
 import 'bootstrap/dist/css/bootstrap.css';
-import {Select} from "@mui/material";
-import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
+
 
 
 export default function ZoneList({ cityId })  {
@@ -100,12 +100,12 @@ export default function ZoneList({ cityId })  {
                         <td>{zone.nom}</td>
                         <td>{zone.ville && zone.ville.nom}</td>
                         <td>
-                            <button className="btn btn-danger" onClick={() => handleDelete(zone.id)}>
+                            <Button variant="contained" color="warning"  onClick={() => handleDelete(zone.id)}>
                                 Delete
-                            </button>
-                            <button className="btn btn-primary" onClick={() => handleOpenModal(zone)}>
+                            </Button>
+                            <Button variant="contained" color="info" sx={{ ml:1 }} onClick={() => handleOpenModal(zone)}>
                                 Edit
-                            </button>
+                            </Button>
                         </td>
                     </tr>
                 ))}
@@ -135,7 +135,7 @@ export default function ZoneList({ cityId })  {
                         boxShadow: '20px 30px 25px rgba(0, 0, 0, 0.2)',
                         padding: '20px',
                         width:'350px',
-                        height:'300px'
+                        height:'340px'
                     }
                 }}
             >
@@ -168,17 +168,18 @@ export default function ZoneList({ cityId })  {
                                             {ville.nom}
                                         </option>
                                     ))}
-                                </select>                    </div>
+                                </select>
+                            </div>
 
 
                         </form>
                         <div className="d-flex justify-content-center mt-3">
-                            <button className="btn btn-primary" onClick={handleCloseModal}>
+                            <Button variant="contained" color="error"  onClick={handleCloseModal}>
                                 Annuler
-                            </button>
-                            <button className="btn btn-success" onClick={() => handleEditZone(selectedZone.id)}>
+                            </Button>
+                            <Button variant="contained" color="success" sx={{ ml:1 }} onClick={() => handleEditZone(selectedZone.id)}>
                                 Sauvegarder
-                            </button>
+                            </Button>
                         </div>
                     </div>
                 </div>

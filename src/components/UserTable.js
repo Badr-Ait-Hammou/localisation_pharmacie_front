@@ -3,6 +3,7 @@ import axios from "axios";
 import React,{useState,useEffect} from "react";
 import Modal from "react-modal";
 import 'bootstrap/dist/css/bootstrap.css';
+import Button from "@mui/material/Button";
 
 
 
@@ -98,12 +99,12 @@ export default function UserTable() {
                             <td>{user.email}</td>
                             <td>{user.password}</td>
                             <td>
-                                <button className="btn btn-danger" onClick={() => handleDelete(user.id)}>
+                                <Button variant="contained" color="warning" onClick={() => handleDelete(user.id)}>
                                     Delete
-                                </button>
-                                <button className="btn btn-secondary ml-2" onClick={() => handleOpenModal(user)}>
+                                </Button>
+                                <Button variant="contained" color="info" sx={{ ml:2 }}  onClick={() => handleOpenModal(user)}>
                                     Edit
-                                </button>
+                                </Button>
                             </td>
                         </tr>
                     ))}
@@ -144,11 +145,11 @@ export default function UserTable() {
                         <form>
                             <div className="mb-3">
                                 <label htmlFor="user-nom" className="form-label">Nom:</label>
-                                <input type="text" className="form-control" id="user-nom" value={userNom} onChange={(e) => setUserNom(e.target.value)} />
+                                <input type="text" className="form-control" id="user-nom" value={userNom} onChange={(e) => setUserNom(e.target.value)} required/>
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="user-prenom" className="form-label">Prenom:</label>
-                                <input type="text" className="form-control" id="user-prenom" value={userPrenom} onChange={(e) => setUserPrenom(e.target.value)} />
+                                <input type="text" className="form-control" id="user-prenom" value={userPrenom} onChange={(e) => setUserPrenom(e.target.value)} required />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="user-email" className="form-label">Email:</label>

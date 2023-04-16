@@ -11,7 +11,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 import UserTable from "../components/UserTable";
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import ZoneList from "./ZoneList";
 
 const theme = createTheme();
 export default function User() {
