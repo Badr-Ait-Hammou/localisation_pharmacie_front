@@ -155,7 +155,7 @@ export default function Pharmacie() {
                                     />
                                 </Grid>
 
-                                <Grid item xs={12} >
+                                <Grid item xs={12} sm={6} >
 
 
                                     <select
@@ -172,7 +172,7 @@ export default function Pharmacie() {
                                         ))}
                                     </select>
                                 </Grid>
-                                   <Grid item xs={12}>
+                                   <Grid item xs={12} sm={6}>
 
 
                                     <select

@@ -169,11 +169,11 @@ export default function PharmacieTable() {
                         borderRadius: '10px',
                         boxShadow: '20px 30px 25px rgba(0, 0, 0, 0.2)',
                         padding: '20px',
-                        width: '100%', /* updated width */
-                        maxWidth: '700px', /* updated max-width */
-                        height: 'auto', /* updated height */
-                        maxHeight: '90%', /* updated max-height */
-                        overflow: 'auto' /* added overflow */
+                        width: '100%',
+                        maxWidth: '700px',
+                        height: 'auto',
+                        maxHeight: '90%',
+                        overflow: 'auto'
                     }
                 }}
             >

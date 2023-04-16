@@ -117,11 +117,10 @@ export default function UserTable() {
                 onRequestClose={handleCloseModal}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
-
                 style={{
                     overlay: {
                         backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                        zIndex: 1000
+                        zIndex: 999
                     },
                     content: {
                         top: '50%',
@@ -134,8 +133,11 @@ export default function UserTable() {
                         borderRadius: '10px',
                         boxShadow: '20px 30px 25px rgba(0, 0, 0, 0.2)',
                         padding: '20px',
-                        width:'360px',
-
+                        width: '100%',
+                        maxWidth: '700px',
+                        height: 'auto',
+                        maxHeight: '90%',
+                        overflow: 'auto'
                     }
                 }}
             >
