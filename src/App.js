@@ -9,7 +9,7 @@ import Ville from './components/Ville';
 import Zone from "./components/Zone";
 import Garde from "./components/Garde";
 import Footer from "./components/Footer";
-
+import User from "./components/User"
 import GardePharmacie from "./components/Gardepharmacie";
 
 function App() {
@@ -25,6 +25,7 @@ function App() {
                 <Route exact path="/edit/:id" element={<Editville/>}/>
                 <Route exact path="/garde" element={<Garde/>}/>
                 <Route exact path="/gardepharmacie" element={<GardePharmacie/>}/>
+                <Route exact path="/user" element={<User/>}/>
 
 
 

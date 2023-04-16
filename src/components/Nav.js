@@ -25,6 +25,7 @@ class Nav extends Component{
                     <Link to='/zone' style={{ textDecoration: 'none' }}><li><a >Zone</a></li></Link>
                     <Link to='/garde' style={{ textDecoration: 'none' }}><li><a >Garde</a></li></Link>
                     <Link to='/gardepharmacie' style={{ textDecoration: 'none' }}><li><a>GardePharmacie</a></li></Link>
+                    <Link to='/user' style={{ textDecoration: 'none' }}><li><a>User</a></li></Link>
                     <li><a href>Pharmacie</a></li>
                     <li><a href>sign in</a></li>
                 </ul>
