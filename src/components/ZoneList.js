@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Modal from "react-modal";
+import 'bootstrap/dist/css/bootstrap.css';
+import {Select} from "@mui/material";
+import Grid from "@mui/material/Grid";
+
 
 export default function ZoneList({ cityId })  {
     const [zones, setZones] = useState([]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [selectedZone, setSelectedZone] = useState(null);
     const [villes, setVilles] = useState([]);
-    const [showModal, setShowModal] = useState(false);
     const [zoneName, setZoneName] = useState('');
     const [zoneCity, setZoneCity] = useState('');
 
@@ -43,7 +46,6 @@ export default function ZoneList({ cityId })  {
     };
 
     const handleCloseModal = () => {
-        setShowModal(false);
         setModalIsOpen(false)
     };
 
@@ -81,8 +83,8 @@ export default function ZoneList({ cityId })  {
 
     return (
         <div>
-
-            <table className="table">
+            <div className="table-responsive">
+                <table className="table mt-5 text-center">
                 <thead>
                 <tr>
                     <th>ID</th>
@@ -109,30 +111,77 @@ export default function ZoneList({ cityId })  {
                 ))}
                 </tbody>
             </table>
-            <Modal isOpen={modalIsOpen} onRequestClose={handleCloseModal}>
-                <h3>Modification de la zone</h3>
-                <ul>
-                    <li>
-                        <label>Nom de la zone:</label>
-                        <input type="text" value={zoneName} onChange={(e) => setZoneName(e.target.value)} />
-                    </li>
-                    <li>
-                        <label>Ville:</label>
-                        <select value={zoneCity} onChange={(e) => setZoneCity(e.target.value)}>
-                            {villes.map((ville) => (
-                                <option key={ville.id} value={ville.id}>
-                                    {ville.nom}
-                                </option>
-                            ))}
-                        </select>
-                    </li>
-                </ul>
-                <button className="btn btn-primary" onClick={handleCloseModal}>
-                    Annuler
-                </button>
-                <button className="btn btn-success" onClick={() => handleEditZone(selectedZone.id)}>
-                    Sauvegarder
-                </button>
+            </div>
+            <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={handleCloseModal}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+
+                style={{
+                    overlay: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                        zIndex: 1000
+                    },
+                    content: {
+                        top: '50%',
+                        left: '50%',
+                        right: 'auto',
+                        bottom: 'auto',
+                        marginRight: '-50%',
+                        transform: 'translate(-50%, -50%)',
+                        backgroundColor: '#fff',
+                        borderRadius: '10px',
+                        boxShadow: '20px 30px 25px rgba(0, 0, 0, 0.2)',
+                        padding: '20px',
+                        width:'350px',
+                        height:'300px'
+                    }
+                }}
+            >
+                <div className="card">
+                    <div className="card-body">
+                        <h5 className="card-title" id="modal-modal-title">Update User</h5>
+                        <form>
+                            <div className="mb-3">
+                                <label htmlFor="user-nom" className="form-label">Zone:</label>
+                                <input type="text" className="form-control" id="user-nom" value={zoneName} onChange={(e) => setZoneName(e.target.value)} />
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="user-prenom" className="form-label">ville:</label>
+                                <select
+                                    value={zoneCity}
+                                    onChange={(e) => setZoneCity(e.target.value)}
+                                    style={{
+                                        backgroundColor: "#f2f2f2",
+                                        border: "none",
+                                        borderRadius: "4px",
+                                        color: "#555",
+                                        fontSize: "16px",
+                                        padding: "8px 12px",
+                                        width: "100%",
+                                        marginBottom: "12px"
+                                    }}
+                                >
+                                    {villes.map((ville) => (
+                                        <option key={ville.id} value={ville.id}>
+                                            {ville.nom}
+                                        </option>
+                                    ))}
+                                </select>                    </div>
+
+
+                        </form>
+                        <div className="d-flex justify-content-center mt-3">
+                            <button className="btn btn-primary" onClick={handleCloseModal}>
+                                Annuler
+                            </button>
+                            <button className="btn btn-success" onClick={() => handleEditZone(selectedZone.id)}>
+                                Sauvegarder
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </Modal>
 
         </div>

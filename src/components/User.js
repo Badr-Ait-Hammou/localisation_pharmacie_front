@@ -67,11 +67,11 @@ export default function User() {
                         <Typography component="h1" variant="h5">
                             Users
                         </Typography>
-                        <Box   sx={{ mt: 3 }}>
+
                             <Grid container spacing={2}>
 
 
-                                <Grid item xs={12}>
+                                <Grid item xs={12} sm={6}>
                                     <TextField
                                         required
                                         fullWidth
@@ -83,7 +83,8 @@ export default function User() {
                                         value={nom}
                                         onChange={(event) => setNom(event.target.value)}
                                     />
-                                </Grid>  <Grid item xs={12}>
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
                                     <TextField
                                         required
                                         fullWidth
@@ -134,10 +135,11 @@ export default function User() {
 
 
                         </Box>
-                    </Box>
+
                 </form>
 
             </Container>
+
             <UserTable/>
 
         </ThemeProvider>
