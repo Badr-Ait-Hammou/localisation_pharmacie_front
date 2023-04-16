@@ -1,7 +1,7 @@
 import './App.css';
 import React from "react";
 
-import Nav from "./components/Nav";
+import Header from "./components/Header";
 import {BrowserRouter as Router,Routes,Route} from "react-router-dom";
 
 //import SideBar from "./components/SideBar"
@@ -19,7 +19,7 @@ function App() {
     <div className="App" >
 
         <Router>
-            <Nav/>
+            <Header/>
             <Routes>
                 <Route exact path="/" element={<Ville/>}/>
                 <Route exact path="/zone" element={<Zone/>}/>

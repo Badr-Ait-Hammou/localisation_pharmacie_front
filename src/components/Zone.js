@@ -10,7 +10,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from "axios";
 import React,{useState,useEffect} from "react";
-import ZoneList from "../components/ZoneList";
+import ZoneTable from "../components/ZoneTable";
 
 
 
@@ -114,7 +114,7 @@ export default function Zone() {
 
 
             </Container>
-            <ZoneList/>
+            <ZoneTable/>
         </ThemeProvider>
     );
 }

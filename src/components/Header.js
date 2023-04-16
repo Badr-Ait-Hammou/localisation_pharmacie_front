@@ -3,7 +3,7 @@ import "../styles/nav.css"
 import logo from "../images/B.A.H pharmacy.svg"
 import {Link} from "react-router-dom";
 
-class Nav extends Component{
+class Header extends Component{
     state={clicked:false}
     handleClick=()=>{
         this.setState({clicked:
@@ -39,4 +39,4 @@ class Nav extends Component{
     );
 }
 }
-export default Nav;
+export default Header;

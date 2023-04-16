@@ -82,7 +82,7 @@ export default function PharmacieTable() {
                 },
                 zone: {
                     id: pharmacieZone
-                },
+                }
 
             })
             const updatedPharmacie = pharmacies.map((pharmacie) => {
@@ -130,9 +130,10 @@ export default function PharmacieTable() {
                             <td>{pharmacie.latitude}</td>
                             <td>{pharmacie.longitude}</td>
                             <td>{pharmacie.adresse}</td>
-                            <td>{pharmacie.zone}</td>
-                            <td>{pharmacie.user}</td>
+                            <td>{pharmacie.zone && pharmacie.zone.nom}</td>
+                            <td>{pharmacie.user && pharmacie.user.nom}</td>
                             <td>{pharmacie.photos}</td>
+
                             <td>
                                 <Button variant="contained" color="warning" onClick={() => handleDelete(pharmacie.id)}>
                                     Delete
@@ -195,7 +196,11 @@ export default function PharmacieTable() {
                                 <input type="text" className="form-control" id="user-password" value={pharmacieAdresse} onChange={(e) => setPharmacieAdresse(e.target.value)} />
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="pharmacie-adresse" className="form-label">Adresse:</label>
+                                <label htmlFor="pharmacie-adresse" className="form-label">Photo:</label>
+                                <input type="text" className="form-control" id="user-password" value={pharmaciePhoto} onChange={(e) => setPharmaciePhoto(e.target.value)} />
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="pharmacie-adresse" className="form-label">Zone:</label>
                                 <select
                                     value={pharmacieZone}
                                     onChange={(e) => setPharmacieZone(e.target.value)}
