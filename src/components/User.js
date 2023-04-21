@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import axios from 'axios';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -21,13 +21,15 @@ export default function User() {
     const [prenom, setPrenom] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [upTB, forceUpdate] = useReducer((x) => x + 1, 0);
+    const [tableKey, setTableKey] = useState(Date.now());
 
 
     useEffect(() => {
         axios.get("http://localhost:8080/api/users/").then((response) => {
             setUser(response.data);
         });
-    }, []);
+    }, [upTB]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -42,6 +44,8 @@ export default function User() {
                 setPrenom("");
                 setEmail("");
                 setPassword("");
+                forceUpdate();
+                setTableKey(Date.now());
             })
             .catch((error) => {
                 console.error(error);
@@ -139,7 +143,7 @@ export default function User() {
 
             </Container>
 
-            <UserTable/>
+            <UserTable key={tableKey}/>
 
         </ThemeProvider>
     );

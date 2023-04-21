@@ -10,6 +10,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from "axios";
 import React,{useState,useEffect} from "react";
+import GardePharmacietable from "./GardePharmacietable";
 
 
 
@@ -20,8 +21,10 @@ const theme = createTheme();
 export default function Gardepharmacie() {
     const [gardes, setgardes] = useState([]);
     const [pharmacies, setpharmacies] = useState([]);
-    const [datedebut, setdatedebut] = useState("");
-    const [datefin, setdatefin] = useState("");
+    const [gardepharmacies, setgardepharmacies] = useState("");
+
+    const [dateDebut, setdatedebut] = useState("");
+    const [date_fin, setdatefin] = useState("");
     const [gardeid, setgardeid] = useState("");
     const [pharmacieid, setpharmacieid] = useState("");
 
@@ -31,30 +34,28 @@ export default function Gardepharmacie() {
         axios.get("http://localhost:8080/api/gardes/").then((response) => {
             setgardes(response.data);
         });
-    }, []);
-
-    useEffect(() => {
         axios.get("http://localhost:8080/api/pharmacies/").then((response) => {
-            setgardes(response.data);
+            setpharmacies(response.data);
         });
     }, []);
 
+
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        axios.post("http://localhost:8080//api/gardepharmacies/save", {
-            datedebut,
-            datefin,
-            garde: {
-                id: gardeid
+        axios.post("http://localhost:8080/api/gardepharmacies/save", {
+            garde_pharmacyEMb: {
+                pharmacie: pharmacieid,
+                garde: gardeid,
+                dateDebut,
             },
-            pharmacie: {
-                id:pharmacieid
-            }
+            date_fin,
         }).then((response) => {
             setdatedebut("");
             setdatefin("");
             setgardeid("");
             setpharmacieid("");
+
         });
     };
 
@@ -74,7 +75,7 @@ export default function Gardepharmacie() {
                     >
 
                         <Typography component="h1" variant="h5">
-                            Zone
+                            GardePharmacie
                         </Typography>
                         <Box   sx={{ mt: 3 }}>
                             <Grid container spacing={2}>
@@ -89,7 +90,7 @@ export default function Gardepharmacie() {
 
                                        // autoComplete="garde"
                                         id="nom"
-                                        value={datedebut}
+                                        value={dateDebut}
                                         onChange={(event) => setdatedebut(event.target.value)}
                                     />
                                 </Grid>
@@ -103,7 +104,7 @@ export default function Gardepharmacie() {
 
                                         // autoComplete="garde"
                                         id="nom"
-                                        value={datefin}
+                                        value={date_fin}
                                         onChange={(event) => setdatefin(event.target.value)}
                                     />
                                 </Grid>
@@ -117,7 +118,7 @@ export default function Gardepharmacie() {
                                         value={gardeid}
                                         onChange={(event) => setgardeid(event.target.value)}
                                     >
-                                        <option value="">Select a city </option>
+                                        <option value="">Select garde</option>
                                         {gardes && gardes.map((garde) => (
                                             <option key={garde.id} value={garde.id}>
                                                 {garde.type}
@@ -135,10 +136,10 @@ export default function Gardepharmacie() {
                                         value={pharmacieid}
                                         onChange={(event) => setpharmacieid(event.target.value)}
                                     >
-                                        <option value="">Select a city </option>
+                                        <option value="">Select pharmacy </option>
                                         {pharmacies && pharmacies.map((pharmacie) => (
                                             <option key={pharmacie.id} value={pharmacie.id}>
-                                                {pharmacie.id}
+                                                {pharmacie.nom}
                                             </option>
                                         ))}
                                     </select>
@@ -161,7 +162,7 @@ export default function Gardepharmacie() {
 
 
             </Container>
-
+<GardePharmacietable/>
         </ThemeProvider>
     );
 }

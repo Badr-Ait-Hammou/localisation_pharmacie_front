@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import axios from 'axios';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -15,13 +15,14 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 const theme = createTheme();
 export default function Ville() {
 
-
     const [ville, setVille] = useState([]);
     const [nom, setNom] = useState("");
+    const [upTB, forceUpdate] = useReducer((x) => x + 1, 0);
+    const [tableKey, setTableKey] = useState(Date.now());
 
     const onInputChange = (e) => {
         setNom(e.target.value);
-        setVille({ ...ville,nom: e.target.value });
+        setVille({ ...ville, nom: e.target.value });
     };
 
     const onSubmit = async (e) => {
@@ -31,20 +32,20 @@ export default function Ville() {
         } else {
             await axios.post("http://localhost:8080/api/villes/save", ville);
             setNom("");
-            loadVilles();
-
-
+            forceUpdate();
+            setTableKey(Date.now()); // update the key to re-render the table
         }
     };
+
     useEffect(() => {
-        loadVilles();
-    }, []);
+        getVilles();
+    }, [upTB]); // add upTB to the dependency array
 
+    const getVilles = async () => {
 
-
-    const loadVilles=async ()=>{
-        const res=await axios.get(`http://localhost:8080/api/villes/`);
+        const res = await axios.get(`http://localhost:8080/api/villes/`);
         setVille(res.data);
+
     }
 
     return (
@@ -63,39 +64,38 @@ export default function Ville() {
                     <Typography component="h1" variant="h5">
                         Ville
                     </Typography>
-                <form onSubmit={(e) => onSubmit(e)} noValidate>
-                    <Box
-                        sx={{
-                            marginTop: 8,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <Grid container spacing={2}>
+                    <form onSubmit={(e) => onSubmit(e)} noValidate>
+                        <Box
+                            sx={{
+                                marginTop: 8,
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                            }}
+                        >
+                            <Grid container spacing={2}>
 
 
-                            <Grid item xs={12} >
-                                <TextField
-                                    required
-                                    fullWidth
-
-                                    name="ville"
-                                    value={nom}
-                                    onChange={(e) => onInputChange(e)}
-                                />
+                                <Grid item xs={12} >
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        name="ville"
+                                        value={nom}
+                                        onChange={(e) => onInputChange(e)}
+                                    />
+                                </Grid>
                             </Grid>
-                        </Grid>
-                        <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-                            add
-                        </Button>
-                    </Box>
+                            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+                                add
+                            </Button>
+                        </Box>
 
-                </form>
+                    </form>
                 </Box>
 
             </Container>
-            <Villetable />
+            <Villetable key={tableKey} /> {/* pass the key to the table component */}
         </ThemeProvider>
     );
 
