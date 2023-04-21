@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import axios from 'axios';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -18,6 +18,8 @@ export default function Garde() {
 
     const [garde, setgarde] = useState([]);
     const [type, settype] = useState("");
+    const [upTB, forceUpdate] = useReducer((x) => x + 1, 0);
+    const [tableKey, setTableKey] = useState(Date.now());
    
 
     const onInputChange = (e) => {
@@ -33,13 +35,16 @@ export default function Garde() {
             await axios.post("http://localhost:8080/api/gardes/save", garde);
             settype("");
             loadgardes();
+            forceUpdate();
+            setTableKey(Date.now());
+
 
 
         }
     };
     useEffect(() => {
         loadgardes();
-    }, []);
+    }, [upTB]);
 
 
 
@@ -87,7 +92,7 @@ export default function Garde() {
                 <div>
                 </div>
             </Container>
-            <GardeTable/>
+            <GardeTable key={tableKey}/>
         </ThemeProvider>
     );
 

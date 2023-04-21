@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from "axios";
-import React,{useState,useEffect} from "react";
+import React,{useState,useEffect,useReducer} from "react";
 import PharmacieTable from "../components/PharmacieTable";
 
 
@@ -28,6 +28,8 @@ export default function Pharmacie() {
     const [latitude, setLatitude] = useState("");
     const [adresse, setAdresse] = useState("");
     const [photos, setPhotos] = useState("");
+    const [upTB, forceUpdate] = useReducer((x) => x + 1, 0);
+    const [tableKey, setTableKey] = useState(Date.now());
 
 
 
@@ -39,7 +41,7 @@ export default function Pharmacie() {
         axios.get("http://localhost:8080/api/zones/").then((response) => {
             setZones(response.data);
         });
-    }, []);
+    }, [upTB]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -63,6 +65,10 @@ export default function Pharmacie() {
             setPhotos("");
             setZoneid("");
             setUserid("");
+            forceUpdate();
+            setTableKey(Date.now());
+
+
         });
     };
 
@@ -207,7 +213,7 @@ export default function Pharmacie() {
 
 
             </Container>
-<PharmacieTable/>
+<PharmacieTable key={tableKey} />
         </ThemeProvider>
     );
 }
