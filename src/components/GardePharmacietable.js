@@ -43,10 +43,10 @@ export default function GardePharmacietable() {
         fetchgardes();
     }, []);
 
-    const handleDelete = (id) => {
+    const handleDelete = (idg) => {
         if (window.confirm("Are you sure you want to delete this Item?")) {
-            axios.delete(`http://localhost:8080/api/gardepharmacies/${id}`).then(() => {
-                setgardepharmacies(gardepharmacies.filter((garde_pharmacyEMb) => garde_pharmacyEMb.id !== id));
+            axios.delete(`http://localhost:8080/api/gardepharmacies/${idg}`).then(() => {
+                setgardepharmacies(gardepharmacies.filter((gardepharmacie) => gardepharmacie.garde_pharmacyEMb !== idg));
             });
         }
     };

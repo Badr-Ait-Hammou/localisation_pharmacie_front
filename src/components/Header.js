@@ -1,42 +1,74 @@
-import React, {Component} from "react";
-import "../styles/nav.css"
-import logo from "../images/B.A.H pharmacy.svg"
-import {Link} from "react-router-dom";
 
-class Header extends Component{
-    state={clicked:false}
-    handleClick=()=>{
-        this.setState({clicked:
-        !this.state.clicked})
-    }
+import {useNavigate} from "react-router-dom";
+
+import logo from "../images/Pharmacielogo.svg"
+import React, {useEffect} from 'react';
+import { Menubar } from 'primereact/menubar';
+
+export default function Header() {
+    const navigate = useNavigate();
+
+    const items = [
+        {
+            label: 'Ville',
+            icon: 'pi pi-fw pi-user',
+            command: () => {navigate('/') }
+        },
+        {
+            label: 'Zone',
+            icon: 'pi pi-fw pi-book',
+            command: () => {navigate('/zone') }
+        },
+        {
+            label: 'Garde',
+            icon: 'pi pi-fw pi-verified',
+            command: () => {navigate('/garde') }
+        },
+        {
+            label: 'Pharmacie',
+            icon: 'pi pi-fw pi-slack',
+            command: () => {navigate('/pharmacie') }
+        },
+        {
+            label: 'GardePharmacie',
+            icon: 'pi pi-spin pi-spinner',
+            command: () => {navigate('/gardepharmacie') }
+        },
+        {
+            label: 'User',
+            icon: 'pi pi-bolt',
+            command: () => {navigate('/user') }
+        },
 
 
-    render() {
+    ];
+    const style = {
+        backgroundColor: 'rgba(245,243,246,0.88)',
+        color: '#230202',
+        borderRadius:"20px",
+        justifyContent: 'left'
+    };
 
 
-        return(
-        <>
-        <nav >
-            <img src={logo} alt="logo" style={{width:"50px",height:"40px"}} />
-
-            <div>
-                <ul id="navbar" className={this.state.clicked ? "#navbar active" : "#navbar"}>
-                    <Link to='/' style={{ textDecoration: 'none' }}><li><a className="active" >Ville</a></li></Link>
-                    <Link to='/zone' style={{ textDecoration: 'none' }}><li><a >Zone</a></li></Link>
-                    <Link to='/garde' style={{ textDecoration: 'none' }}><li><a >Garde</a></li></Link>
-                    <Link to='/pharmacie' style={{ textDecoration: 'none' }}><li><a>Pharmacie</a></li></Link>
-                    <Link to='/user' style={{ textDecoration: 'none' }}><li><a>User</a></li></Link>
-                    <Link to='/gardepharmacie' style={{ textDecoration: 'none' }}><li><a>GardePharmacie</a></li></Link>
-                    <li><a href>sign in</a></li>
-                </ul>
-            </div>
-            <div id="mobile" onClick={this.handleClick}>
-                <i id="bar" className={this.state.clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
-
-            </div>
-        </nav>
-        </>
+    const end = (
+        <img
+            alt="logo"
+            src={logo}
+            width="50px"
+            className="mr-2"
+        />
     );
+
+
+
+    return (
+        <div>
+            <div className="card">
+                <Menubar  end={end} style={style}  model={items}  />
+
+            </div>
+        </div>
+    );
+
 }
-}
-export default Header;
+

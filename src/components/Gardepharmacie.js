@@ -2,6 +2,7 @@
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
+import { Dropdown } from 'primereact/dropdown';
 
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -131,18 +132,21 @@ export default function Gardepharmacie() {
 
 
                                     <select
+                                        className="form-select"
+                                        aria-label="Select pharmacy"
                                         classdatedebut="form-control"
                                         id="pharmacieid"
                                         value={pharmacieid}
                                         onChange={(event) => setpharmacieid(event.target.value)}
                                     >
-                                        <option value="">Select pharmacy </option>
+                                        <option value="">Select pharmacy</option>
                                         {pharmacies && pharmacies.map((pharmacie) => (
                                             <option key={pharmacie.id} value={pharmacie.id}>
                                                 {pharmacie.nom}
                                             </option>
                                         ))}
                                     </select>
+
                                 </Grid>
 
                             </Grid>
