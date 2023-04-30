@@ -42,7 +42,7 @@ export default function GardePharmacietable() {
         };
         fetchgardes();
     }, []);
-
+/*
     const handleDelete = (idg) => {
         if (window.confirm("Are you sure you want to delete this Item?")) {
             axios.delete(`http://localhost:8080/api/gardepharmacies/${idg}`).then(() => {
@@ -50,6 +50,34 @@ export default function GardePharmacietable() {
             });
         }
     };
+*/
+
+    const handleDelete = (datedebut, idpharmacie, idgarde) => {
+        console.log("datedebut:", datedebut);
+        console.log("idpharmacie:", idpharmacie);
+        console.log("idgarde:", idgarde);
+
+        if (window.confirm("Are you sure you want to delete this item?")) {
+            axios
+                .delete(
+                    `http://localhost:8080/api/gardepharmacies/${datedebut}/idpharmacie/${idpharmacie}/idgarde/${idgarde}`
+                )
+                .then(() => {
+                    setgardepharmacies((prevGardePharmacies) =>
+                        prevGardePharmacies.filter(
+                            (gardepharmacie) =>
+                                gardepharmacie.garde_pharmacyEMb !== gardepharmacie.garde_pharmacyEMb ||
+                                gardepharmacie.dateDebut !== datedebut ||
+                                gardepharmacie.pharmacie !== idpharmacie ||
+                                gardepharmacie.garde !== idgarde
+                        )
+                    );
+                    loadgardePharmacies();
+                });
+        }
+    };
+
+
 
     const handleOpenModal = (gardepharmacie) => {
         setselectedGardePharmacie(gardepharmacie);
@@ -107,16 +135,23 @@ export default function GardePharmacietable() {
                     </thead>
                     <tbody>
                     {gardepharmacies.map((gardepharmacie) => (
-                        <tr key={gardepharmacie.id}>
+                        <tr key={gardepharmacie.id } >
                             <td>{gardepharmacie.id}</td>
-                            <td>{gardepharmacie.dateDebut}</td>
+                            <td>{gardepharmacie.garde_pharmacyEMb.dateDebut}</td>
                             <td>{gardepharmacie.date_fin}</td>
-                            <td>{gardepharmacie.pharmacie && gardepharmacie.pharmacie.nom}</td>
-                            <td>{gardepharmacie.garde && gardepharmacie.garde.nom}</td>
+                            <td>{gardepharmacie.garde_pharmacyEMb.pharmacie}</td>
+                            <td>{gardepharmacie.garde_pharmacyEMb.garde}</td>
+
 
 
                             <td>
-                                <Button variant="contained" color="warning" onClick={() => handleDelete(gardepharmacie.id)}>
+                                <Button variant="contained" color="warning" onClick={() =>
+                                    handleDelete(
+                                        gardepharmacie.garde_pharmacyEMb.dateDebut,
+                                        gardepharmacie.garde_pharmacyEMb.pharmacie,
+                                        gardepharmacie.garde_pharmacyEMb.garde
+                                    )
+                                }>
                                     Delete
                                 </Button>
                                 <Button variant="contained" color="info" sx={{ ml:2 }}  onClick={() => handleOpenModal(gardepharmacie)}>
