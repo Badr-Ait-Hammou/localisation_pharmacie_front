@@ -80,6 +80,7 @@ export default function GardePharmacietable() {
 
 
     const handleOpenModal = (gardepharmacie) => {
+        console.log(gardepharmacie);
         setselectedGardePharmacie(gardepharmacie);
         setModalIsOpen(true);
     };
@@ -88,31 +89,37 @@ export default function GardePharmacietable() {
         setModalIsOpen(false)
     };
 
-    const handleEditPharmacie = async (id) => {
+    const handleEditPharmacie = async (datedebut, idpharmacie, idgarde) => {
         try {
-            const response = await axios.put(`http://localhost:8080/api/gardepharmacies/${id}`, {
+            const response = await axios.put(`http://localhost:8080/api/gardepharmacies/${datedebut}/idpharmacie/${idpharmacie}/idgarde/${idgarde}`, {
                 garde_pharmacyEMb: {
                     pharmacie: gardePharmaciepharmacie,
                     garde: gardepharmaciegarde,
-                    dateDebut:gardepharmacieDateDebut,
+                    dateDebut: gardepharmacieDateDebut,
                 },
-                date_fin:gardepharmacieDateFin,
+                date_fin: gardepharmacieDateFin,
+            });
 
-            })
-            const updatedgardePharmacie = gardepharmacies.map((garde_pharmacy) => {
-                if (garde_pharmacy.id === id) {
+            const updatedGardePharmacies = gardepharmacies.map((gardePharmacie) => {
+                if (gardePharmacie.garde_pharmacyEMb.dateDebut === gardepharmacieDateDebut
+                    && gardePharmacie.garde_pharmacyEMb.pharmacie === gardePharmaciepharmacie
+                    && gardePharmacie.garde_pharmacyEMb.garde === gardepharmaciegarde
+                    && gardePharmacie.date_fin === gardepharmacieDateFin)
+                {
                     return response.data;
-                }else{
-                    return garde_pharmacy;
+                } else {
+                    return gardePharmacie;
                 }
             });
-            setgardepharmacies(updatedgardePharmacie);
+
+            setgardepharmacies(updatedGardePharmacies);
             setModalIsOpen(false);
             loadgardePharmacies();
         } catch (error) {
             console.error(error);
         }
     };
+
 
     const loadgardePharmacies=async ()=>{
         const res=await axios.get(`http://localhost:8080/api/gardepharmacies/`);
@@ -125,7 +132,7 @@ export default function GardePharmacietable() {
                 <table className="table mt-5 text-center">
                     <thead>
                     <tr>
-                        <th>ID</th>
+
                         <th>Date Debut</th>
                         <th>Date Fin</th>
                         <th>Pharmacie</th>
@@ -135,15 +142,12 @@ export default function GardePharmacietable() {
                     </thead>
                     <tbody>
                     {gardepharmacies.map((gardepharmacie) => (
-                        <tr key={gardepharmacie.id } >
-                            <td>{gardepharmacie.id}</td>
+                        <tr key={gardepharmacie.garde_pharmacyEMb.dateDebut + gardepharmacie.garde_pharmacyEMb.pharmacie + gardepharmacie.garde_pharmacyEMb.garde}>
                             <td>{gardepharmacie.garde_pharmacyEMb.dateDebut}</td>
                             <td>{gardepharmacie.date_fin}</td>
-                            <td>{gardepharmacie.garde_pharmacyEMb.pharmacie}</td>
-                            <td>{gardepharmacie.garde_pharmacyEMb.garde}</td>
 
-
-
+                            <td>{pharmacies.find((pharmacie) => pharmacie.id === gardepharmacie.garde_pharmacyEMb.pharmacie)?.nom}</td>
+                            <td>{gardes.find((garde) => garde.id === gardepharmacie.garde_pharmacyEMb.garde)?.type}</td>
                             <td>
                                 <Button variant="contained" color="warning" onClick={() =>
                                     handleDelete(
@@ -154,7 +158,10 @@ export default function GardePharmacietable() {
                                 }>
                                     Delete
                                 </Button>
-                                <Button variant="contained" color="info" sx={{ ml:2 }}  onClick={() => handleOpenModal(gardepharmacie)}>
+                                <Button variant="contained" color="info" sx={{ ml:2 }}  onClick={() => handleOpenModal(gardepharmacie
+
+
+                                )}>
                                     Edit
                                 </Button>
                             </td>
@@ -207,7 +214,6 @@ export default function GardePharmacietable() {
                                     <label htmlFor="date fin" className="form-label">Date fin:</label>
                                     <input type="date" className="form-control" id="user-prenom" value={gardepharmacieDateFin} onChange={(e) => setgardePharmacieDateFin(e.target.value)} required />
                                 </div>
-
                             </div>
 
                             <div className="row mb-3">
@@ -226,10 +232,12 @@ export default function GardePharmacietable() {
                                             width: "100%",
                                             marginBottom: "12px"
                                         }}
+                                        required
                                     >
-                                        {gardepharmacies.map((garde) => (
+                                        <option value="">Select garde</option>
+                                        {gardes.map((garde) => (
                                             <option key={garde.id} value={garde.id}>
-                                                {garde.nom}
+                                                {garde.type}
                                             </option>
                                         ))}
                                     </select>
@@ -249,8 +257,10 @@ export default function GardePharmacietable() {
                                             width: "100%",
                                             marginBottom: "12px"
                                         }}
+                                        required
                                     >
-                                        {gardepharmacies.map((pharmacie) => (
+                                        <option value="">Select pharmacy</option>
+                                        {pharmacies.map((pharmacie) => (
                                             <option key={pharmacie.id} value={pharmacie.id}>
                                                 {pharmacie.nom}
                                             </option>
@@ -259,9 +269,12 @@ export default function GardePharmacietable() {
                                 </div>
                             </div>
                         </form>
+
                         <div className="d-flex justify-content-center mt-3">
                             <button type="button" className="btn btn-secondary me-2" onClick={handleCloseModal}>Annuler</button>
-                            <button type="button" className="btn btn-primary" onClick={() => handleEditPharmacie(selectedGardePharmacie.id)}>Sauvegarder</button>
+                            <button type="button" className="btn btn-primary" onClick={() => handleEditPharmacie(selectedGardePharmacie.garde_pharmacyEMb.dateDebut,
+                                selectedGardePharmacie.garde_pharmacyEMb.pharmacie,
+                                selectedGardePharmacie.garde_pharmacyEMb.garde)}>Sauvegarder</button>
                         </div>
                     </div>
                 </div>

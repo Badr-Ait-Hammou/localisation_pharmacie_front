@@ -10,8 +10,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from "axios";
-import React,{useState,useEffect} from "react";
 import GardePharmacietable from "./GardePharmacietable";
+import React, { useState, useEffect, useReducer } from "react";
 
 
 
@@ -28,6 +28,8 @@ export default function Gardepharmacie() {
     const [date_fin, setdatefin] = useState("");
     const [gardeid, setgardeid] = useState("");
     const [pharmacieid, setpharmacieid] = useState("");
+    const [upTB, forceUpdate] = useReducer((x) => x + 1, 0);
+    const [tableKey, setTableKey] = useState(Date.now());
 
 
 
@@ -38,7 +40,7 @@ export default function Gardepharmacie() {
         axios.get("http://localhost:8080/api/pharmacies/").then((response) => {
             setpharmacies(response.data);
         });
-    }, []);
+    }, [upTB]);
 
 
 
@@ -56,6 +58,8 @@ export default function Gardepharmacie() {
             setdatefin("");
             setgardeid("");
             setpharmacieid("");
+            forceUpdate();
+            setTableKey(Date.now());
 
         });
     };
@@ -87,10 +91,11 @@ export default function Gardepharmacie() {
                                         required
                                         fullWidth
                                         type="date"
+                                        label="date debut"
 
 
-                                       // autoComplete="garde"
-                                        id="nom"
+                                        autoComplete="date debut"
+                                        id="date debut"
                                         value={dateDebut}
                                         onChange={(event) => setdatedebut(event.target.value)}
                                     />
@@ -101,10 +106,11 @@ export default function Gardepharmacie() {
                                         required
                                         fullWidth
                                         type="date"
+                                        label="date fin"
 
 
                                         // autoComplete="garde"
-                                        id="nom"
+                                        id="date fin"
                                         value={date_fin}
                                         onChange={(event) => setdatefin(event.target.value)}
                                     />
@@ -114,6 +120,7 @@ export default function Gardepharmacie() {
 
 
                                     <select
+                                        className="form-select"
                                         classdatedebut="form-control"
                                         id="gardeid"
                                         value={gardeid}
@@ -166,7 +173,7 @@ export default function Gardepharmacie() {
 
 
             </Container>
-<GardePharmacietable/>
+<GardePharmacietable key={tableKey} />
         </ThemeProvider>
     );
 }
