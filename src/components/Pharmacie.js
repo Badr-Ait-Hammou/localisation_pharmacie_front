@@ -44,6 +44,8 @@ export default function Pharmacie() {
     }, [upTB]);
 
     const handleSubmit = (event) => {
+        console.log("jsjkjksjkjkqsdjks",photos);
+
         event.preventDefault();
         axios.post("http://localhost:8080/api/pharmacies/save", {
             nom,
@@ -68,8 +70,17 @@ export default function Pharmacie() {
             forceUpdate();
             setTableKey(Date.now());
 
-
         });
+    };
+
+
+    const handlePhotoChange = (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            setPhotos(e.target.result);
+        };
+        reader.readAsDataURL(file);
     };
 
 
@@ -153,11 +164,11 @@ export default function Pharmacie() {
                                         fullWidth
 
                                         label="photo"
-
-                                        autoComplete="photo"
-                                        id="photo"
-                                        value={photos}
-                                        onChange={(event) => setPhotos(event.target.value)}
+                                        type="file" accept="image/*" onChange={handlePhotoChange}
+                                        //autoComplete="photo"
+                                        //id="photo"
+                                        //value={photos}
+                                        //onChange={(event) => setPhotos(event.target.value)}
                                     />
                                 </Grid>
 
@@ -178,7 +189,7 @@ export default function Pharmacie() {
                                         ))}
                                     </select>
                                 </Grid>
-                                   <Grid item xs={12} sm={6}>
+                                <Grid item xs={12} sm={6}>
 
 
                                     <select
@@ -213,7 +224,7 @@ export default function Pharmacie() {
 
 
             </Container>
-<PharmacieTable key={tableKey} />
+            <PharmacieTable key={tableKey} />
         </ThemeProvider>
     );
 }

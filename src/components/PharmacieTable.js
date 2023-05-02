@@ -100,6 +100,15 @@ export default function PharmacieTable() {
         }
     };
 
+
+    const handlePhotoChange = (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            setPharmaciePhoto(e.target.result);
+        };
+        reader.readAsDataURL(file);
+    };
     const loadPharmacies=async ()=>{
         const res=await axios.get(`http://localhost:8080/api/pharmacies/`);
         setpharmacies(res.data);
@@ -112,13 +121,14 @@ export default function PharmacieTable() {
                     <thead>
                     <tr>
                         <th>ID</th>
+                        <th>photos</th>
                         <th>nom</th>
                         <th>latitude</th>
                         <th>longitude</th>
                         <th>adresse</th>
                         <th>zone</th>
                         <th>user</th>
-                        <th>photos</th>
+
                         <th>actions</th>
                     </tr>
                     </thead>
@@ -126,13 +136,14 @@ export default function PharmacieTable() {
                     {pharmacies.map((pharmacie) => (
                         <tr key={pharmacie.id}>
                             <td>{pharmacie.id}</td>
+                            <td style={{width:"5%",height:"auto"}}><img src={pharmacie.photos} /></td>
                             <td>{pharmacie.nom}</td>
                             <td>{pharmacie.latitude}</td>
                             <td>{pharmacie.longitude}</td>
                             <td>{pharmacie.adresse}</td>
                             <td>{pharmacie.zone && pharmacie.zone.nom}</td>
                             <td>{pharmacie.user && pharmacie.user.nom}</td>
-                            <td>{pharmacie.photos}</td>
+
 
                             <td>
                                 <Button variant="contained" color="warning" onClick={() => handleDelete(pharmacie.id)}>
@@ -202,7 +213,7 @@ export default function PharmacieTable() {
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="pharmacie-adresse" className="form-label">Photo:</label>
-                                <input type="text" className="form-control" id="user-password" value={pharmaciePhoto} onChange={(e) => setPharmaciePhoto(e.target.value)} />
+                                <input type="file" className="form-control" id="user-password"  onChange={handlePhotoChange} />
                             </div>
                             <div className="row mb-3">
                                 <div className="col-md-6">

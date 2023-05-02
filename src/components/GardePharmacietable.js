@@ -66,7 +66,6 @@ export default function GardePharmacietable() {
                     setgardepharmacies((prevGardePharmacies) =>
                         prevGardePharmacies.filter(
                             (gardepharmacie) =>
-                                gardepharmacie.garde_pharmacyEMb !== gardepharmacie.garde_pharmacyEMb ||
                                 gardepharmacie.dateDebut !== datedebut ||
                                 gardepharmacie.pharmacie !== idpharmacie ||
                                 gardepharmacie.garde !== idgarde
