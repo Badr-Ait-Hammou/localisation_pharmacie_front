@@ -4,6 +4,7 @@ import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
+import Pharmacies from "./components/clientComponents/Pharmacies"
 
 import Header from "./components/Header";
 import {BrowserRouter as Router,Routes,Route} from "react-router-dom";
@@ -31,6 +32,7 @@ function App() {
                 <Route exact path="/gardepharmacie" element={<GardePharmacie/>}/>
                 <Route exact path="/pharmacie" element={<Pharmacie/>}/>
                 <Route exact path="/user" element={<User/>}/>
+                <Route exact path="/allpharmacies" element={<Pharmacies/>}/>
 
 
 

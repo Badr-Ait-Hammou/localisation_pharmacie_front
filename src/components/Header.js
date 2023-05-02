@@ -39,6 +39,11 @@ export default function Header() {
             icon: 'pi pi-bolt',
             command: () => {navigate('/user') }
         },
+        {
+            label: 'products',
+            icon: 'pi pi-bolt',
+            command: () => {navigate('/allpharmacies') }
+        },
 
 
     ];

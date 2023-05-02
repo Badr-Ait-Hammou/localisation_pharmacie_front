@@ -4,6 +4,7 @@ import React,{useState,useEffect} from "react";
 import Modal from "react-modal";
 import 'bootstrap/dist/css/bootstrap.css';
 import Button from "@mui/material/Button";
+import ReactPaginate from 'react-paginate';
 
 
 
@@ -26,6 +27,11 @@ export default function PharmacieTable() {
     const [pharmacieUser, setPharmacieUser] = useState('');
     const [pharmacieZone, setPharmacieZone] = useState('');
     const [selectedPharmacie, setSelectedPharmacie] = useState(null);
+    const [pageNumber, setPageNumber] = useState(0);
+    const itemsPerPage = 4;
+    const offset = pageNumber * itemsPerPage;
+    const currentPageItems = pharmacies.slice(offset, offset + itemsPerPage);
+
 
 
 
@@ -133,7 +139,7 @@ export default function PharmacieTable() {
                     </tr>
                     </thead>
                     <tbody>
-                    {pharmacies.map((pharmacie) => (
+                    {currentPageItems.map((pharmacie) => (
                         <tr key={pharmacie.id}>
                             <td>{pharmacie.id}</td>
                             <td style={{width:"5%",height:"auto"}}><img src={pharmacie.photos} /></td>
@@ -155,7 +161,21 @@ export default function PharmacieTable() {
                             </td>
                         </tr>
                     ))}
+
                     </tbody>
+
+                    <ReactPaginate
+                        previousLabel={"←"}
+                        nextLabel={"→"}
+                        pageCount={Math.ceil(pharmacies.length / itemsPerPage)}
+                        onPageChange={({ selected }) => setPageNumber(selected)}
+                        containerClassName={"pagination"}
+                        previousLinkClassName={"pagination__link"}
+                        nextLinkClassName={"pagination__link"}
+                        disabledClassName={"pagination__link--disabled"}
+                        activeClassName={"pagination__link--active"}
+                    />
+
                 </table>
             </div>
 
