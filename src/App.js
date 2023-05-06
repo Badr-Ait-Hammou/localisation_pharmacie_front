@@ -7,6 +7,7 @@ import "primereact/resources/primereact.min.css";
 import Pharmacies from "./components/clientComponents/Pharmacies"
 
 import Header from "./components/Header";
+import PharmacieDetails from "./components/clientComponents/PharmacieDetails"
 import {BrowserRouter as Router,Routes,Route} from "react-router-dom";
 
 //import SideBar from "./components/SideBar"
@@ -33,6 +34,8 @@ function App() {
                 <Route exact path="/pharmacie" element={<Pharmacie/>}/>
                 <Route exact path="/user" element={<User/>}/>
                 <Route exact path="/allpharmacies" element={<Pharmacies/>}/>
+                <Route exact path="/pharmacies/:id" element={<PharmacieDetails/>}/>
+
 
 
 

@@ -1,66 +1,119 @@
 
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from "axios";
 import React,{useState,useEffect,useReducer} from "react";
+import PharmacieDetails from "./PharmacieDetails";
+import { Link, useParams } from 'react-router-dom';
 
 
-
-const theme = createTheme();
 
 
 
 export default function Pharmacies() {
+    const [pharmacies, setPharmacies] = useState([]);
+    const { id } = useParams();
+    const [cities, setCities] = useState([]);
     const [zones, setZones] = useState([]);
-    const [users, setUsers] = useState([]);
-    const [zoneid, setZoneid] = useState("");
-    const [pharmacies, setpharmacies] = useState([]);
-    const [userid, setUserid] = useState("");
-    const [nom, setNom] = useState("");
-    const [longitude, setLongitude] = useState("");
-    const [latitude, setLatitude] = useState("");
-    const [adresse, setAdresse] = useState("");
-    const [photos, setPhotos] = useState("");
-    const [upTB, forceUpdate] = useReducer((x) => x + 1, 0);
-    const [tableKey, setTableKey] = useState(Date.now());
-
-
-
+    const [selectedCity, setSelectedCity] = useState(null);
+    const [selectedZone, setSelectedZone] = useState(null);
 
     useEffect(() => {
         axios.get("http://localhost:8080/api/pharmacies/").then((response) => {
-            setpharmacies(response.data);
+            setPharmacies(response.data);
         });
     }, []);
 
 
+    useEffect(() => {
+        axios.get("http://localhost:8080/api/villes/").then((response) => {
+            setCities(response.data);
+        });
+    }, []);
 
+    // Fetch zones for the selected city
+    useEffect(() => {
+        if (selectedCity) {
+            axios
+                .get(`http://localhost:8080/api/zones/${selectedCity}`)
+                .then((response) => {
+                    setZones(response.data);
+                });
+        }
+    }, [selectedCity]);
 
+    // Fetch pharmacies for the selected city and zone
+    useEffect(() => {
+        if (selectedCity && selectedZone) {
+            axios
+                .get(
+                    `http://localhost:8080/api/pharmacies/ville/${selectedCity}/zone/${selectedZone}`
+                )
+                .then((response) => {
+                    setPharmacies(response.data);
+                });
+        }
+    }, [selectedCity, selectedZone]);
+
+    // Handle city select
+    const handleCityChange = (event) => {
+        setSelectedCity(event.target.value);
+        setSelectedZone("");
+    };
+
+    const handleZoneChange = (event) => {
+        setSelectedZone(event.target.value);
+    };
 
 
     return (
         <div className="container mt-5">
+
+            <div className="col-md-3 d-flex">
+                <select className="form-select mb-3 me-3" value={selectedCity} onChange={handleCityChange}>
+                    <option value="">Select a city</option>
+                    {cities.map((ville) => (
+                        <option key={ville.id} value={ville.nom}>{ville.nom}</option>
+                    ))}
+                </select>
+                {selectedCity ? (
+                    <select className="form-select mb-3" value={selectedZone} onChange={handleZoneChange}>
+                        <option value="">Select a zone</option>
+                        {zones.map((zone) => (
+                            <option key={zone.id} value={zone.nom}>{zone.nom}</option>
+                        ))}
+                    </select>
+                ) : (
+                    <select className="form-select mb-3" disabled>
+                        <option value="">No zone</option>
+                    </select>
+                )}
+            </div>
+
+
+
+
             <div className="row row-cols-2 row-cols-md-2 row-cols-lg-4 g-4">
                 {pharmacies.map((pharmacy) => (
-                    <div key={pharmacy.id} className="col">
-                        <div className="card h-100 shadow-sm">
-                            <img src={pharmacy.photos} className="card-img-top" alt="Pharmacy" />
+                    <div key={pharmacy.id} className="col mb-4">
+                        <div className="card h-100">
+                            <Link to={`/pharmacies/${pharmacy.id}`}>
+                                <img
+                                    src={pharmacy.photos}
+                                    className="card-img-top"
+                                    alt="Pharmacy"
+                                    style={{ objectFit: "cover", height: "auto" }}
+                                />
+                            </Link>
                             <div className="card-body">
-                                <h3 className="card-title">{pharmacy.nom}</h3>
+                                <h5 className="card-title">{pharmacy.nom}</h5>
                                 <p className="card-text">Address: {pharmacy.adresse}</p>
                             </div>
                         </div>
                     </div>
                 ))}
             </div>
+            {id && <PharmacieDetails id={id} />}
         </div>
 
     );
 }
+

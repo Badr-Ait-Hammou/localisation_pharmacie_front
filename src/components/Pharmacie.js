@@ -14,7 +14,7 @@ import PharmacieTable from "../components/PharmacieTable";
 
 
 
-const theme = createTheme();
+
 
 
 
@@ -85,8 +85,8 @@ export default function Pharmacie() {
 
 
     return (
-        <ThemeProvider theme={theme}>
-            <Container component="main" maxWidth="xs">
+
+            <Container component="main" maxWidth="lg">
                 <CssBaseline />
                 <form onSubmit={handleSubmit}>
                     <Box
@@ -104,7 +104,7 @@ export default function Pharmacie() {
                         <Box   sx={{ mt: 3 }}>
                             <Grid container spacing={2}>
 
-                                <Grid item xs={12} sm={6}>
+                                <Grid item xs={12} sm={4}>
                                     <TextField
                                         required
                                         fullWidth
@@ -117,7 +117,7 @@ export default function Pharmacie() {
                                         onChange={(event) => setNom(event.target.value)}
                                     />
                                 </Grid>
-                                <Grid item xs={12} sm={6}>
+                                <Grid item xs={12} sm={4}>
                                     <TextField
                                         required
                                         fullWidth
@@ -131,7 +131,7 @@ export default function Pharmacie() {
                                     />
                                 </Grid>
 
-                                <Grid item xs={12} sm={6}>
+                                <Grid item xs={12} sm={4}>
                                     <TextField
                                         required
                                         fullWidth
@@ -158,12 +158,10 @@ export default function Pharmacie() {
                                     />
                                 </Grid>
 
-                                <Grid item xs={12}>
+                                <Grid item xs={12} sm={6}>
                                     <TextField
                                         required
                                         fullWidth
-
-                                        label="photo"
                                         type="file" accept="image/*" onChange={handlePhotoChange}
                                         //autoComplete="photo"
                                         //id="photo"
@@ -210,7 +208,7 @@ export default function Pharmacie() {
                             </Grid>
                             <Button
                                 type="submit"
-                                fullWidth
+
                                 sx={{ mt: 3, mb: 2 }}
                                 variant="contained"
                             >
@@ -222,9 +220,9 @@ export default function Pharmacie() {
                     </Box>
                 </form>
 
-
+                <PharmacieTable key={tableKey} />
             </Container>
-            <PharmacieTable key={tableKey} />
-        </ThemeProvider>
+
+
     );
 }

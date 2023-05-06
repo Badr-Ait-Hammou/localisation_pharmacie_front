@@ -251,7 +251,8 @@ export default function PharmacieTable() {
                                         width: "100%",
                                         marginBottom: "12px"
                                     }}
-                                >
+                                >  <option value="">Select a zone </option>
+
                                     {zones.map((zone) => (
                                         <option key={zone.id} value={zone.id}>
                                             {zone.nom}
@@ -275,6 +276,8 @@ export default function PharmacieTable() {
                                         marginBottom: "12px"
                                     }}
                                 >
+                                    <option value="">Select a user </option>
+
                                     {users.map((user) => (
                                         <option key={user.id} value={user.id}>
                                             {user.nom}
