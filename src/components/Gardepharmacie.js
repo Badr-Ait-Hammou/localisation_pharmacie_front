@@ -1,14 +1,11 @@
 
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import { Dropdown } from 'primereact/dropdown';
 
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from "axios";
 import GardePharmacietable from "./GardePharmacietable";
 import React, { useState, useEffect, useReducer } from "react";
@@ -16,14 +13,14 @@ import { Card, CardContent } from '@mui/material';
 
 
 
-const theme = createTheme();
+//const theme = createTheme();
 
 
 
 export default function Gardepharmacie() {
     const [gardes, setgardes] = useState([]);
     const [pharmacies, setpharmacies] = useState([]);
-    const [gardepharmacies, setgardepharmacies] = useState("");
+    //const [gardepharmacies, setgardepharmacies] = useState("");
 
     const [dateDebut, setdatedebut] = useState("");
     const [date_fin, setdatefin] = useState("");
