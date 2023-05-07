@@ -122,51 +122,52 @@ export default function PharmacieTable() {
 
     return (
         <div >
-            <div className="table-responsive">
+            <div className="table-responsive  ">
                 <table className="table mt-5 text-center">
-                    <thead>
+                    <thead className="bg-dark text-white">
                     <tr>
                         <th>ID</th>
-                        <th>photos</th>
-                        <th>nom</th>
-                        <th>latitude</th>
-                        <th>longitude</th>
-                        <th>adresse</th>
-                        <th>zone</th>
-                        <th>user</th>
-
-                        <th>actions</th>
+                        <th>Photos</th>
+                        <th>Nom</th>
+                        <th>Latitude</th>
+                        <th>Longitude</th>
+                        <th>Adresse</th>
+                        <th>Zone</th>
+                        <th>User</th>
+                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     {currentPageItems.map((pharmacie) => (
                         <tr key={pharmacie.id}>
-                            <td>{pharmacie.id}</td>
-                            <td style={{width:"5%",height:"auto"}}><img src={pharmacie.photos} /></td>
-                            <td>{pharmacie.nom}</td>
-                            <td>{pharmacie.latitude}</td>
-                            <td>{pharmacie.longitude}</td>
-                            <td>{pharmacie.adresse}</td>
-                            <td>{pharmacie.zone && pharmacie.zone.nom}</td>
-                            <td>{pharmacie.user && pharmacie.user.nom}</td>
-
-
+                            <td style={{ padding:"30px" }}>{pharmacie.id}</td>
+                            <td style={{ maxWidth: "100px" }}>
+                                <img src={pharmacie.photos} alt="Pharmacie" style={{ maxWidth: "60%" ,borderRadius:"10px"}} />
+                            </td>
+                            <td style={{ padding:"30px" }}>{pharmacie.nom}</td>
+                            <td style={{ padding:"30px" }}>{pharmacie.latitude}</td>
+                            <td style={{ padding:"30px" }}>{pharmacie.longitude}</td>
+                            <td style={{ padding:"30px" }}>{pharmacie.adresse}</td>
+                            <td style={{ padding:"30px" }}>{pharmacie.zone && pharmacie.zone.nom}</td>
+                            <td style={{ padding:"30px" }}>{pharmacie.user && pharmacie.user.nom}</td>
                             <td>
-                                <Button variant="contained" color="warning" onClick={() => handleDelete(pharmacie.id)}>
+                                <Button style={{ margin:"15px" }} variant="contained" color="warning" onClick={() => handleDelete(pharmacie.id)}>
                                     Delete
                                 </Button>
-                                <Button variant="contained" color="info" sx={{ ml:2 }}  onClick={() => handleOpenModal(pharmacie)}>
+                                <Button variant="contained" color="info" sx={{ ml: 2 }} onClick={() => handleOpenModal(pharmacie)}>
                                     Edit
                                 </Button>
                             </td>
                         </tr>
                     ))}
-
                     </tbody>
+                </table>
 
+
+                <div className="pagination-container">
                     <ReactPaginate
-                        previousLabel={"←"}
-                        nextLabel={"→"}
+                        previousLabel={<button className="pagination-button">&lt;</button>}
+                        nextLabel={<button className="pagination-button">&gt;</button>}
                         pageCount={Math.ceil(pharmacies.length / itemsPerPage)}
                         onPageChange={({ selected }) => setPageNumber(selected)}
                         containerClassName={"pagination"}
@@ -175,8 +176,7 @@ export default function PharmacieTable() {
                         disabledClassName={"pagination__link--disabled"}
                         activeClassName={"pagination__link--active"}
                     />
-
-                </table>
+                </div>
             </div>
 
             <Modal

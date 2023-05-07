@@ -67,7 +67,7 @@ export default function Pharmacies() {
     return (
         <div className="container mt-5">
 
-            <div className="col-md-3 d-flex">
+            <div className="col-md-6 d-flex">
                 <select className="form-select mb-3 me-3" value={selectedCity} onChange={handleCityChange}>
                     <option value="">Select a city</option>
                     {cities.map((ville) => (

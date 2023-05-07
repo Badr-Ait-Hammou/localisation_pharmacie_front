@@ -8,3 +8,43 @@
     font-family: sans-serif;
     text-align: center;
 }
+.pagination-container {
+    display: flex;
+    justify-content: right;
+    margin-top: 20px;
+
+}
+
+.pagination-button {
+    font-size: 16px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    background-color: #252e38;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+
+.pagination__link--disabled {
+    color: #6c757d;
+    cursor: default;
+    background-color: transparent;
+    border-color: transparent;
+}
+.pagination-container ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.pagination-container li {
+    margin: 0 5px;
+}
+
+.pagination-container li a {
+    padding: 5px 5px;
+}
