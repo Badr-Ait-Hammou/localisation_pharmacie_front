@@ -1,20 +1,15 @@
 
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from "axios";
 import React,{useState,useEffect,useReducer} from "react";
 import PharmacieTable from "../components/PharmacieTable";
-
-
-
-
+import { Card, CardContent } from '@mui/material';
 
 
 
@@ -42,6 +37,7 @@ export default function Pharmacie() {
             setZones(response.data);
         });
     }, [upTB]);
+
 
     const handleSubmit = (event) => {
         console.log("jsjkjksjkjkqsdjks",photos);
@@ -87,11 +83,12 @@ export default function Pharmacie() {
     return (
 
             <Container component="main" maxWidth="lg">
-                <CssBaseline />
+                <Card sx={{ marginTop: 3 }} >
+                    <CardContent>
                 <form onSubmit={handleSubmit}>
                     <Box
                         sx={{
-                            marginTop: 8,
+                            marginTop: 3,
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
@@ -163,10 +160,6 @@ export default function Pharmacie() {
                                         required
                                         fullWidth
                                         type="file" accept="image/*" onChange={handlePhotoChange}
-                                        //autoComplete="photo"
-                                        //id="photo"
-                                        //value={photos}
-                                        //onChange={(event) => setPhotos(event.target.value)}
                                     />
                                 </Grid>
 
@@ -219,8 +212,13 @@ export default function Pharmacie() {
                         </Box>
                     </Box>
                 </form>
-
+                    </CardContent>
+                </Card>
+                <Card sx={{ marginTop: 5 }}>
+                    <CardContent>
                 <PharmacieTable key={tableKey} />
+                    </CardContent>
+                </Card>
             </Container>
 
 

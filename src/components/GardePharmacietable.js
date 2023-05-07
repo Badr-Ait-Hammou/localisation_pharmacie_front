@@ -4,6 +4,8 @@ import React,{useState,useEffect} from "react";
 import Modal from "react-modal";
 import 'bootstrap/dist/css/bootstrap.css';
 import Button from "@mui/material/Button";
+import ReactPaginate from 'react-paginate';
+
 
 
 export default function GardePharmacietable() {
@@ -17,7 +19,10 @@ export default function GardePharmacietable() {
     const [gardepharmaciegarde, setgardepharmaciegarde] = useState('');
     const [gardePharmaciepharmacie, setgardePharmaciepharmacie] = useState('');
     const [selectedGardePharmacie, setselectedGardePharmacie] = useState(null);
-
+    const [pageNumber, setPageNumber] = useState(0);
+    const itemsPerPage = 4;
+    const offset = pageNumber * itemsPerPage;
+    const currentPageItems = gardepharmacies.slice(offset, offset + itemsPerPage);
 
 
 
@@ -129,7 +134,7 @@ export default function GardePharmacietable() {
         <div >
             <div className="table-responsive">
                 <table className="table mt-5 text-center">
-                    <thead>
+                    <thead className="bg-dark text-white">
                     <tr>
 
                         <th>Date Debut</th>
@@ -140,7 +145,7 @@ export default function GardePharmacietable() {
                     </tr>
                     </thead>
                     <tbody>
-                    {gardepharmacies.map((gardepharmacie) => (
+                    {currentPageItems.map((gardepharmacie) => (
                         <tr key={gardepharmacie.garde_pharmacyEMb.dateDebut + gardepharmacie.garde_pharmacyEMb.pharmacie + gardepharmacie.garde_pharmacyEMb.garde}>
                             <td>{gardepharmacie.garde_pharmacyEMb.dateDebut}</td>
                             <td>{gardepharmacie.date_fin}</td>
@@ -168,6 +173,19 @@ export default function GardePharmacietable() {
                     ))}
                     </tbody>
                 </table>
+                <div className="pagination-container">
+                    <ReactPaginate
+                        previousLabel={<button className="pagination-button">&lt;</button>}
+                        nextLabel={<button className="pagination-button">&gt;</button>}
+                        pageCount={Math.ceil(gardepharmacies.length / itemsPerPage)}
+                        onPageChange={({ selected }) => setPageNumber(selected)}
+                        containerClassName={"pagination"}
+                        previousLinkClassName={"pagination__link"}
+                        nextLinkClassName={"pagination__link"}
+                        disabledClassName={"pagination__link--disabled"}
+                        activeClassName={"pagination__link--active"}
+                    />
+                </div>
             </div>
 
             <Modal

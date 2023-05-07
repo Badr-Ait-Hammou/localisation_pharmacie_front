@@ -12,6 +12,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from "axios";
 import GardePharmacietable from "./GardePharmacietable";
 import React, { useState, useEffect, useReducer } from "react";
+import { Card, CardContent } from '@mui/material';
 
 
 
@@ -66,13 +67,14 @@ export default function Gardepharmacie() {
 
 
     return (
-        <ThemeProvider theme={theme}>
-            <Container component="main" maxWidth="xs">
-                <CssBaseline />
+
+        <Container component="main" maxWidth="lg">
+            <Card sx={{ marginTop: 3 }} >
+                <CardContent>
                 <form onSubmit={handleSubmit}>
                     <Box
                         sx={{
-                            marginTop: 8,
+                            marginTop: 3,
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
@@ -85,8 +87,7 @@ export default function Gardepharmacie() {
                         <Box   sx={{ mt: 3 }}>
                             <Grid container spacing={2}>
 
-
-                                <Grid item xs={12}>
+                                <Grid item xs={12} sm={6}>
                                     <TextField
                                         required
                                         fullWidth
@@ -101,7 +102,7 @@ export default function Gardepharmacie() {
                                     />
                                 </Grid>
 
-                                <Grid item xs={12}>
+                                <Grid item xs={12} sm={6}>
                                     <TextField
                                         required
                                         fullWidth
@@ -116,7 +117,7 @@ export default function Gardepharmacie() {
                                     />
                                 </Grid>
 
-                                <Grid item xs={12}>
+                                <Grid item xs={12} sm={6}>
 
 
                                     <select
@@ -135,7 +136,7 @@ export default function Gardepharmacie() {
                                     </select>
                                 </Grid>
 
-                                <Grid item xs={12}>
+                                <Grid item xs={12} sm={6}>
 
 
                                     <select
@@ -159,7 +160,7 @@ export default function Gardepharmacie() {
                             </Grid>
                             <Button
                                 type="submit"
-                                fullWidth
+
                                 sx={{ mt: 3, mb: 2 }}
                                 variant="contained"
                             >
@@ -170,10 +171,13 @@ export default function Gardepharmacie() {
                         </Box>
                     </Box>
                 </form>
-
-
+                </CardContent>
+            </Card>
+            <Card sx={{ marginTop: 3 }} >
+                <CardContent>
+                <GardePharmacietable key={tableKey} />
+                </CardContent>
+            </Card>
             </Container>
-<GardePharmacietable key={tableKey} />
-        </ThemeProvider>
     );
 }
