@@ -84,8 +84,11 @@ export default function GardePharmacietable() {
 
 
     const handleOpenModal = (gardepharmacie) => {
-        console.log(gardepharmacie);
         setselectedGardePharmacie(gardepharmacie);
+        setgardePharmaciepharmacie(gardepharmacie.garde_pharmacyEMb.pharmacie);
+        setgardepharmaciegarde(gardepharmacie.garde_pharmacyEMb.garde);
+        setgardePharmacieDateDebut(gardepharmacie.garde_pharmacyEMb.dateDebut);
+        setgardePharmacieDateFin(gardepharmacie.date_fin);
         setModalIsOpen(true);
     };
 

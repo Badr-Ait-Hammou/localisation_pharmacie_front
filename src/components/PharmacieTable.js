@@ -3,9 +3,10 @@ import axios from "axios";
 import React,{useState,useEffect} from "react";
 import Modal from "react-modal";
 import 'bootstrap/dist/css/bootstrap.css';
-import Button from "@mui/material/Button";
 import ReactPaginate from 'react-paginate';
-
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import {IconButton} from "@mui/material";
 
 
 
@@ -68,7 +69,16 @@ export default function PharmacieTable() {
 
     const handleOpenModal = (pharmacie) => {
         setSelectedPharmacie(pharmacie);
+        setPharmacieNom(pharmacie.nom);
+        setPharmacieLatitude(pharmacie.latitude);
+        setPharmacieLongitude(pharmacie.longitude);
+        setPharmacieAdresse(pharmacie.adresse);
+        setPharmaciePhoto(pharmacie.photos);
+        setPharmacieUser(pharmacie.user.id);
+        setPharmacieZone(pharmacie.zone.id);
         setModalIsOpen(true);
+        //setSelectedPharmacie(pharmacie);
+       // setModalIsOpen(true);
     };
 
     const handleCloseModal = () => {
@@ -140,23 +150,34 @@ export default function PharmacieTable() {
                     <tbody>
                     {currentPageItems.map((pharmacie) => (
                         <tr key={pharmacie.id}>
-                            <td style={{ padding:"30px" }}>{pharmacie.id}</td>
-                            <td style={{ maxWidth: "100px" }}>
-                                <img src={pharmacie.photos} alt="Pharmacie" style={{ maxWidth: "60%" ,borderRadius:"10px"}} />
+                            <td style={{ padding:"10px" }}>{pharmacie.id}</td>
+                            <td style={{ maxWidth: "80px" }}>
+                                <img src={pharmacie.photos} alt="Pharmacie" style={{ maxWidth: "70%" ,borderRadius:"10px"}} />
                             </td>
-                            <td style={{ padding:"30px" }}>{pharmacie.nom}</td>
-                            <td style={{ padding:"30px" }}>{pharmacie.latitude}</td>
-                            <td style={{ padding:"30px" }}>{pharmacie.longitude}</td>
-                            <td style={{ padding:"30px" }}>{pharmacie.adresse}</td>
-                            <td style={{ padding:"30px" }}>{pharmacie.zone && pharmacie.zone.nom}</td>
-                            <td style={{ padding:"30px" }}>{pharmacie.user && pharmacie.user.nom}</td>
+                            <td style={{ padding:"10px" }}>{pharmacie.nom}</td>
+                            <td style={{ padding:"10px" }}>{pharmacie.latitude}</td>
+                            <td style={{ padding:"10px" }}>{pharmacie.longitude}</td>
+                            <td style={{ padding: "10px", maxWidth: "100px", overflowX: "scroll",  whiteSpace: "nowrap" }}>
+                                {pharmacie.adresse}
+                            </td>
+                            <td style={{ padding:"10px" }}>{pharmacie.zone && pharmacie.zone.nom}</td>
+                            <td style={{ padding:"10px" }}>{pharmacie.user && pharmacie.user.nom}</td>
                             <td>
-                                <Button style={{ margin:"15px" }} variant="contained" color="warning" onClick={() => handleDelete(pharmacie.id)}>
-                                    Delete
-                                </Button>
-                                <Button variant="contained" color="info" sx={{ ml: 2 }} onClick={() => handleOpenModal(pharmacie)}>
-                                    Edit
-                                </Button>
+                                <IconButton
+                                    style={{color:"red"}}
+                                    aria-label="delete"
+                                    onClick={() => handleDelete(pharmacie.id)}
+                                >
+                                    <DeleteIcon />
+                                </IconButton>
+                                <IconButton
+                                    style={{color:"teal"}}
+                                    aria-label="edit"
+
+                                    onClick={() => handleOpenModal(pharmacie)}
+                                >
+                                    <EditIcon />
+                                </IconButton>
                             </td>
                         </tr>
                     ))}
