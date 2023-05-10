@@ -1,47 +1,45 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, {useState, useEffect, useReducer, useRef} from "react";
 import axios from 'axios';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+import { Button } from 'primereact/button';
+import { Toast } from 'primereact/toast';
+
 import 'bootstrap/dist/css/bootstrap.css';
 import GardeTable from "../components/GardeTable";
 
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Modal from "react-modal";
+import {Card, CardContent} from "@mui/material";
 
-const theme = createTheme();
 export default function Garde() {
 
-
+    const toast = useRef(null);
     const [garde, setgarde] = useState([]);
     const [type, settype] = useState("");
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+
     const [upTB, forceUpdate] = useReducer((x) => x + 1, 0);
     const [tableKey, setTableKey] = useState(Date.now());
-   
+
 
     const onInputChange = (e) => {
         settype(e.target.value);
         setgarde({ ...garde,type: e.target.value });
     };
 
-    const onSubmit = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (!type) {
-            alert("Please enter a garde name");
+            alert("Please enter a grade name");
         } else {
-            await axios.post("http://localhost:8080/api/gardes/save", garde);
+            await axios.post("http://localhost:8080/api/gardes/save", { type });
             settype("");
             loadgardes();
             forceUpdate();
             setTableKey(Date.now());
-
-
-
+            setModalIsOpen(false);
+            showSuccess();
         }
     };
+
     useEffect(() => {
         loadgardes();
     }, [upTB]);
@@ -53,47 +51,101 @@ export default function Garde() {
         setgarde(res.data);
     }
 
+    const handleOpenModal = (garde) => {
+        setgarde(garde);
+        setModalIsOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setModalIsOpen(false)
+    };
+
+    const showSuccess = () => {
+        toast.current.show({severity:'success', summary: 'Success', detail:'item added successfully', life: 1000});
+    }
     return (
-        <ThemeProvider theme={theme}>
-            <Container component="main" maxWidth="md">
-                <CssBaseline />
-                <Box
-                    sx={{
-                        marginTop: 8,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                >
+        <div>
+            <Card className="mx-3 mt-3 p-3">
+                <CardContent >
+                    <div style={{ alignItems: "center" }}>
+                        <h3 >GARDE</h3>
+                    </div>
+                    <div >
+                        <Toast ref={toast} position="top-center" />
 
-                    <Typography component="h1" variant="h5">
-                        garde
-                    </Typography>
-                    <form onSubmit={(e) => onSubmit(e)} noValidate>
-                        <Box sx={{ mt: 3 }}>
-                            <Grid container spacing={2}>
-                                <Grid item xs={12} sm={30}>
-                                    <TextField
-                                        label="garde"
-                                        fullWidth
-                                        name="garde"
-                                        value={type}
-                                        onChange={(e) => onInputChange(e)}
-                                    />
-                                </Grid>
-                            </Grid>
-                            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-                                add
-                            </Button>
-                        </Box>
+                        <Button
+                            label="Add"
+                            severity="success"
+                            raised
+                            className="mx-2"
+                            onClick={() => handleOpenModal(garde)}
 
-                    </form>
-                </Box>
-                <div>
+                        />
+                        {/*
+                        <InputText placeholder="Search"  />
+                        */}
+                    </div>
+
+
+                </CardContent>
+                <GardeTable key={tableKey}/>
+            </Card>
+
+
+            <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={handleCloseModal}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+
+                style={{
+                    overlay: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                        zIndex: 1000
+                    },
+                    content: {
+                        top: '50%',
+                        left: '50%',
+                        right: 'auto',
+                        bottom: 'auto',
+                        marginRight: '-50%',
+                        transform: 'translate(-50%, -50%)',
+                        backgroundColor: '#fff',
+                        borderRadius: '10px',
+                        boxShadow: '20px 30px 25px rgba(0, 0, 0, 0.2)',
+                        padding: '20px',
+                        width:'350px',
+                        height:'300px'
+                    }
+                }}
+            >
+                <div className="card">
+                    <div className="card-body">
+                        <h5 className="card-title" id="modal-modal-title">SAVE GARDE</h5>
+                        <form>
+                            <div className="mb-3">
+                                <label htmlFor="user-nom" className="form-label">Type:</label>
+                                <input type="text" className="form-control" id="user-nom" value={type} onChange={(e) => settype(e.target.value)} />
+                            </div>
+
+                        </form>
+                        <div className="d-flex justify-content-center mt-3">
+                            <Button  label="Cancel"
+                                     severity="warning"
+                                     raised
+                                     className="mx-2"
+                                     onClick={handleCloseModal}/>
+
+                            <Button  label="Save"
+                                     severity="success"
+                                     raised
+
+                                     onClick={(e) => handleSubmit(e)}/>
+                        </div>
+                    </div>
                 </div>
-            </Container>
-            <GardeTable key={tableKey}/>
-        </ThemeProvider>
+            </Modal>
+        </div>
     );
 
 }

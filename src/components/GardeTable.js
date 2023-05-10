@@ -1,15 +1,20 @@
 
 import axios from "axios";
-import React,{useState,useEffect} from "react";
-import Button from "@mui/material/Button";
+import React,{useState,useEffect,useRef} from "react";
+import { Button } from 'primereact/button';
 import Modal from "react-modal";
-
+import "../styles/villetable.css"
+import ReactPaginate from "react-paginate";
 export default function GardeTable() {
     const [gardes, setGardes] = useState([]);
     const [gardeType, setGardeType] = useState('');
     const [selectedGarde, setSelectedGarde] = useState(null);
     const [modalIsOpen, setModalIsOpen] = useState(false);
-
+    const [pageNumber, setPageNumber] = useState(0);
+    const itemsPerPage = 4;
+    const offset = pageNumber * itemsPerPage;
+    const currentPageItems = gardes.slice(offset, offset + itemsPerPage);
+    const toast = useRef(null);
 
 
 
@@ -86,15 +91,13 @@ export default function GardeTable() {
                     </tr>
                     </thead>
                     <tbody>
-                    {gardes.map((garde,index)=>(
+                    {currentPageItems.map((garde,index)=>(
                         <tr key={index}>
                             <th scope="row">{garde.id}</th>
                             <td>{garde.type}</td>
                             <td>
-
-                                <Button variant="contained" color="info" onClick={() => handleOpenModal(garde)} >edit</Button>
-
-                                <Button variant="contained" color="warning" sx={{ ml:2 }}onClick={() => handleDelete(garde.id)}>delete</Button>
+                                <Button label="Delete" severity="danger"  className="mx-1" text raised   onClick={() => handleDelete(garde.id)}/>
+                                <Button  label="Edit" severity="help" raised  className="mx-1"  onClick={() => handleOpenModal(garde)} />
 
                             </td>
                         </tr>
@@ -102,6 +105,20 @@ export default function GardeTable() {
 
                     </tbody>
                 </table>
+
+                <div className="pagination-container">
+                    <ReactPaginate
+                        previousLabel={<button className="pagination-button">&lt;</button>}
+                        nextLabel={<button className="pagination-button">&gt;</button>}
+                        pageCount={Math.ceil(gardes.length / itemsPerPage)}
+                        onPageChange={({ selected }) => setPageNumber(selected)}
+                        containerClassName={"pagination"}
+                        previousLinkClassName={"pagination__link"}
+                        nextLinkClassName={"pagination__link"}
+                        disabledClassName={"pagination__link--disabled"}
+                        activeClassName={"pagination__link--active"}
+                    />
+                </div>
             </div>
 
             <Modal

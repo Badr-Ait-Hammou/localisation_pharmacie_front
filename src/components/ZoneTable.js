@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
 import axios from "axios";
 import Modal from "react-modal";
 import 'bootstrap/dist/css/bootstrap.css';
-import Button from "@mui/material/Button";
+import { Button } from 'primereact/button';
+import ReactPaginate from "react-paginate";
 
 
 
@@ -13,6 +14,12 @@ export default function ZoneList({ cityId })  {
     const [villes, setVilles] = useState([]);
     const [zoneName, setZoneName] = useState('');
     const [zoneCity, setZoneCity] = useState('');
+    const [pageNumber, setPageNumber] = useState(0);
+
+    const itemsPerPage = 4;
+    const offset = pageNumber * itemsPerPage;
+    const currentPageItems = zones.slice(offset, offset + itemsPerPage);
+    const toast = useRef(null);
 
 
 
@@ -94,23 +101,34 @@ export default function ZoneList({ cityId })  {
                 </tr>
                 </thead>
                 <tbody>
-                {zones.map((zone) => (
+                {currentPageItems.map((zone) => (
                     <tr key={zone.id}>
                         <td>{zone.id}</td>
                         <td>{zone.nom}</td>
                         <td>{zone.ville && zone.ville.nom}</td>
                         <td>
-                            <Button variant="contained" color="warning"  onClick={() => handleDelete(zone.id)}>
-                                Delete
-                            </Button>
-                            <Button variant="contained" color="info" sx={{ ml:1 }} onClick={() => handleOpenModal(zone)}>
-                                Edit
-                            </Button>
+                            <Button  label="Edit" severity="help" raised  className="mx-1"  onClick={() => handleOpenModal(zone)}/>
+                            <Button label="Delete" severity="danger"  className="mx-1" text raised  onClick={() => handleDelete(zone.id)}/>
+
                         </td>
                     </tr>
                 ))}
                 </tbody>
             </table>
+                <div className="pagination-container">
+                    <ReactPaginate
+                        previousLabel={<button className="pagination-button">&lt;</button>}
+                        nextLabel={<button className="pagination-button">&gt;</button>}
+                        pageCount={Math.ceil(zones.length / itemsPerPage)}
+                        onPageChange={({ selected }) => setPageNumber(selected)}
+                        containerClassName={"pagination"}
+                        previousLinkClassName={"pagination__link"}
+                        nextLinkClassName={"pagination__link"}
+                        disabledClassName={"pagination__link--disabled"}
+                        activeClassName={"pagination__link--active"}
+                    />
+                </div>
+
             </div>
             <Modal
                 isOpen={modalIsOpen}

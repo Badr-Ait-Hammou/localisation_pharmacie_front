@@ -17,6 +17,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/react": "^18.0.34",
+    "antd": "^5.4.7",
     "axios": "^1.3.4",
     "bootstrap": "^5.2.3",
     "framer-motion": "^10.12.2",
