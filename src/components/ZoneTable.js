@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useRef } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Modal from "react-modal";
 import 'bootstrap/dist/css/bootstrap.css';
@@ -19,7 +19,6 @@ export default function ZoneList({ cityId })  {
     const itemsPerPage = 4;
     const offset = pageNumber * itemsPerPage;
     const currentPageItems = zones.slice(offset, offset + itemsPerPage);
-    const toast = useRef(null);
 
 
 

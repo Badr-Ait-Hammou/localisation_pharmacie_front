@@ -45,9 +45,8 @@ export default function Villetable(){
     const handleDelete = (villeId) => {
         if (window.confirm("Are you sure you want to delete this Item?")) {
             axios.delete(`http://localhost:8080/api/villes/${villeId}`).then(() => {
-                showDelete();
                 setVilles(villes.filter((ville) => ville.id !== villeId));
-
+                loadVilles();
             });
         }
     };

@@ -1,6 +1,6 @@
 
 import axios from "axios";
-import React,{useState,useEffect,useRef} from "react";
+import React,{useState,useEffect} from "react";
 import { Button } from 'primereact/button';
 import Modal from "react-modal";
 import "../styles/villetable.css"
@@ -14,7 +14,6 @@ export default function GardeTable() {
     const itemsPerPage = 4;
     const offset = pageNumber * itemsPerPage;
     const currentPageItems = gardes.slice(offset, offset + itemsPerPage);
-    const toast = useRef(null);
 
 
 

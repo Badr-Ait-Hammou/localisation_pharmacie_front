@@ -1,14 +1,10 @@
 import React, {useState, useEffect, useReducer, useRef} from "react";
 import axios from 'axios';
-
 import 'bootstrap/dist/css/bootstrap.css';
 import Villetable from "../components/Villetable";
 import"../styles/villetable.css"
 import { Card, CardContent } from '@mui/material';
-
 import { Toast } from 'primereact/toast';
-
-
 import { Button } from 'primereact/button';
 import Modal from "react-modal";
 
@@ -24,10 +20,7 @@ export default function Ville() {
     const [tableKey, setTableKey] = useState(Date.now());
     const toast = useRef(null);
 
-    const onInputChange = (e) => {
-        setNom(e.target.value);
-        setVille({ ...ville, nom: e.target.value });
-    };
+
     const showSuccess = () => {
         toast.current.show({severity:'success', summary: 'Success', detail:'item added successfully', life: 1000});
     }

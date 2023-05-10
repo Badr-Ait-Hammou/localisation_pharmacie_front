@@ -2,7 +2,7 @@
 import {useNavigate} from "react-router-dom";
 
 import logo from "../images/Pharmacielogo.svg"
-import React, {useEffect} from 'react';
+import React from 'react';
 import { Menubar } from 'primereact/menubar';
 
 export default function Header() {

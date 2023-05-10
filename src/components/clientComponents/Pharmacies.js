@@ -1,6 +1,6 @@
 
 import axios from "axios";
-import React,{useState,useEffect,useReducer} from "react";
+import React,{useState,useEffect} from "react";
 import PharmacieDetails from "./PharmacieDetails";
 import { Link, useParams } from 'react-router-dom';
 

@@ -1,7 +1,4 @@
-
 import { Button } from 'primereact/button';
-
-
 import axios from "axios";
 import React, { useState, useEffect, useReducer,useRef } from "react";
 import ZoneTable from "../components/ZoneTable";
@@ -17,7 +14,6 @@ import "../styles/villetable.css"
 export default function Zone() {
     const [villes, setVilles] = useState([]);
     const [zones, setZones] = useState([]);
-
     const [nom, setName] = useState("");
     const [villeid, setvilleid] = useState("");
     const [upTB, forceUpdate] = useReducer((x) => x + 1, 0);
@@ -63,9 +59,7 @@ export default function Zone() {
     }
     return (
 
-
         <div>
-
             <Card className="mx-3 mt-3 p-3">
                 <CardContent >
                     <div style={{ alignItems: "center" }}>
@@ -141,7 +135,9 @@ export default function Zone() {
                                     width: "100%",
                                     marginBottom: "12px"
                                 }}
+
                             >
+                                <option >Select a city </option>
                                 {villes.map((ville) => (
                                     <option key={ville.id} value={ville.id}>
                                         {ville.nom}

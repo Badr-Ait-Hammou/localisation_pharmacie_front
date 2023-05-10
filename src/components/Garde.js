@@ -2,13 +2,10 @@ import React, {useState, useEffect, useReducer, useRef} from "react";
 import axios from 'axios';
 import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
-
 import 'bootstrap/dist/css/bootstrap.css';
 import GardeTable from "../components/GardeTable";
-
 import Modal from "react-modal";
 import {Card, CardContent} from "@mui/material";
-
 export default function Garde() {
 
     const toast = useRef(null);
@@ -20,10 +17,7 @@ export default function Garde() {
     const [tableKey, setTableKey] = useState(Date.now());
 
 
-    const onInputChange = (e) => {
-        settype(e.target.value);
-        setgarde({ ...garde,type: e.target.value });
-    };
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
