@@ -3,7 +3,7 @@ import axios from "axios";
 import React,{useState,useEffect} from "react";
 import Modal from "react-modal";
 import 'bootstrap/dist/css/bootstrap.css';
-import Button from "@mui/material/Button";
+import { Button } from 'primereact/button';
 import ReactPaginate from 'react-paginate';
 
 
@@ -137,7 +137,7 @@ export default function GardePharmacietable() {
         <div >
             <div className="table-responsive">
                 <table className="table mt-5 text-center">
-                    <thead className="bg-dark text-white">
+                    <thead >
                     <tr>
 
                         <th>Date Debut</th>
@@ -156,21 +156,17 @@ export default function GardePharmacietable() {
                             <td>{pharmacies.find((pharmacie) => pharmacie.id === gardepharmacie.garde_pharmacyEMb.pharmacie)?.nom}</td>
                             <td>{gardes.find((garde) => garde.id === gardepharmacie.garde_pharmacyEMb.garde)?.type}</td>
                             <td>
-                                <Button variant="contained" color="warning" onClick={() =>
+
+                                <Button label="Edit" severity="help" raised  className="mx-1" onClick={() => handleOpenModal(gardepharmacie)}/>
+
+                                <Button label="Delete" severity="danger"  className="mx-1" text raised  onClick={() =>
                                     handleDelete(
                                         gardepharmacie.garde_pharmacyEMb.dateDebut,
                                         gardepharmacie.garde_pharmacyEMb.pharmacie,
                                         gardepharmacie.garde_pharmacyEMb.garde
                                     )
-                                }>
-                                    Delete
-                                </Button>
-                                <Button variant="contained" color="info" sx={{ ml:2 }}  onClick={() => handleOpenModal(gardepharmacie
+                                }/>
 
-
-                                )}>
-                                    Edit
-                                </Button>
                             </td>
                         </tr>
                     ))}
@@ -224,17 +220,18 @@ export default function GardePharmacietable() {
                     <div className="card-body" >
                         <h5 className="card-title" id="modal-modal-title">Update pharmacy garde</h5>
                         <form>
-                            <div className="mb-3">
+                            <div className="row mb-3">
+                                <div className="col-md-6">
                                 <label htmlFor="date debut" className="form-label">Date debut:</label>
                                 <input type="date" className="form-control" id="user-nom" value={gardepharmacieDateDebut} onChange={(e) => setgardePharmacieDateDebut(e.target.value)} required/>
-                            </div>
-
-                            <div className="row mb-3">
+                                </div>
                                 <div className="col-md-6">
                                     <label htmlFor="date fin" className="form-label">Date fin:</label>
                                     <input type="date" className="form-control" id="user-prenom" value={gardepharmacieDateFin} onChange={(e) => setgardePharmacieDateFin(e.target.value)} required />
                                 </div>
                             </div>
+
+
 
                             <div className="row mb-3">
                                 <div className="col-md-6">
@@ -291,10 +288,10 @@ export default function GardePharmacietable() {
                         </form>
 
                         <div className="d-flex justify-content-center mt-3">
-                            <button type="button" className="btn btn-secondary me-2" onClick={handleCloseModal}>Annuler</button>
-                            <button type="button" className="btn btn-primary" onClick={() => handleEditPharmacie(selectedGardePharmacie.garde_pharmacyEMb.dateDebut,
+                            <Button severity="warning"  className="mx-1" onClick={handleCloseModal}>Annuler</Button>
+                            <Button severity="success"  className="mx-1" onClick={() => handleEditPharmacie(selectedGardePharmacie.garde_pharmacyEMb.dateDebut,
                                 selectedGardePharmacie.garde_pharmacyEMb.pharmacie,
-                                selectedGardePharmacie.garde_pharmacyEMb.garde)}>Sauvegarder</button>
+                                selectedGardePharmacie.garde_pharmacyEMb.garde)}>Sauvegarder</Button>
                         </div>
                     </div>
                 </div>
