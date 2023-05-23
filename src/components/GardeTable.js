@@ -1,5 +1,5 @@
 
-import axios from "axios";
+import axios from '../service/callerService';
 import React,{useState,useEffect} from "react";
 import { Button } from 'primereact/button';
 import Modal from "react-modal";
@@ -19,9 +19,9 @@ export default function GardeTable() {
 
     useEffect(() => {
         const getGarde = async () => {
-            const res = await fetch('http://localhost:8080/api/gardes/');
-            const getdata = await res.json();
-            setGardes(getdata);
+            const res = await axios.get('/api/controller/gardes/');
+           // const getdata = await res.json();
+            setGardes(res.data);
             loadGardes();
         }
         getGarde();
@@ -30,13 +30,13 @@ export default function GardeTable() {
 
 
     const loadGardes=async ()=>{
-        const res=await axios.get("http://localhost:8080/api/gardes/");
+        const res=await axios.get("/api/controller/gardes/");
         setGardes(res.data);
     }
 
     const handleDelete = (gardeId) => {
         if (window.confirm("Are you sure you want to delete this Item?")) {
-            axios.delete(`http://localhost:8080/api/gardes/${gardeId}`).then(() => {
+            axios.delete(`/api/controller/gardes/${gardeId}`).then(() => {
                 setGardes(gardes.filter((garde) => garde.id !== gardeId));
             });
         }
@@ -56,7 +56,7 @@ export default function GardeTable() {
 
     const handleEditVille = async (id) => {
         try {
-            const response = await axios.put(`http://localhost:8080/api/gardes/${id}`, {
+            const response = await axios.put(`/api/controller/gardes/${id}`, {
                 type: gardeType,
 
             })

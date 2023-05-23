@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useReducer, useRef} from "react";
-import axios from 'axios';
+import axios from '../service/callerService';
 import 'bootstrap/dist/css/bootstrap.css';
 import Villetable from "../components/Villetable";
 import"../styles/villetable.css"
@@ -31,7 +31,7 @@ export default function Ville() {
         if (!nom) {
             alert("Please enter a ville name");
         } else {
-            await axios.post("http://localhost:8080/api/villes/save", { nom });
+            await axios.post("/api/controller/villes/save", { nom });
             setNom("");
             forceUpdate();
             setTableKey(Date.now());
@@ -48,7 +48,7 @@ export default function Ville() {
 
     const getVilles = async () => {
 
-        const res = await axios.get(`http://localhost:8080/api/villes/`);
+        const res = await axios.get(`/api/controller/villes/`);
         setVille(res.data);
 
 

@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../../service/callerService';
 import { useEffect, useState } from "react";
 //import "../clientstyles/pharmaciedetails.css"
 import {Card, CardContent} from "@mui/material";
@@ -12,7 +12,7 @@ function PharmacieDetails() {
     const [pharmacy, setPharmacy] = useState(null);
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/pharmacies/id/${id}`).then((response) => {
+        axios.get(`/api/controller/pharmacies/id/${id}`).then((response) => {
             setLatitude(response.data.latitude);
             setLongitude(response.data.longitude);
             setPharmacy(response.data);

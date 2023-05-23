@@ -1,5 +1,5 @@
 
-import axios from "axios";
+import axios from '../../service/callerService';
 import React,{useState,useEffect} from "react";
 import PharmacieDetails from "./PharmacieDetails";
 import { Link, useParams } from 'react-router-dom';
@@ -17,14 +17,14 @@ export default function Pharmacies() {
     const [selectedZone, setSelectedZone] = useState(null);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/api/pharmacies/").then((response) => {
+        axios.get("/api/controller/pharmacies/").then((response) => {
             setPharmacies(response.data);
         });
     }, []);
 
 
     useEffect(() => {
-        axios.get("http://localhost:8080/api/villes/").then((response) => {
+        axios.get("/api/controller/villes/").then((response) => {
             setCities(response.data);
         });
     }, []);
@@ -33,7 +33,7 @@ export default function Pharmacies() {
     useEffect(() => {
         if (selectedCity) {
             axios
-                .get(`http://localhost:8080/api/zones/${selectedCity}`)
+                .get(`/api/controller/zones/${selectedCity}`)
                 .then((response) => {
                     setZones(response.data);
                 });
@@ -45,7 +45,7 @@ export default function Pharmacies() {
         if (selectedCity && selectedZone) {
             axios
                 .get(
-                    `http://localhost:8080/api/pharmacies/ville/${selectedCity}/zone/${selectedZone}`
+                    `/api/controller/pharmacies/ville/${selectedCity}/zone/${selectedZone}`
                 )
                 .then((response) => {
                     setPharmacies(response.data);
@@ -95,7 +95,7 @@ export default function Pharmacies() {
                 {pharmacies.map((pharmacy) => (
                     <div key={pharmacy.id} className="col mb-4">
                         <div className="card h-100">
-                            <Link to={`/pharmacies/${pharmacy.id}`}>
+                            <Link to={`/admin/pharmacies/pharmacies/${pharmacy.id}`}>
                                 <img
                                     src={pharmacy.photos}
                                     className="card-img-top"

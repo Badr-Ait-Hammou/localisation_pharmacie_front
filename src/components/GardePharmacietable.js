@@ -1,10 +1,10 @@
 
-import axios from "axios";
 import React,{useState,useEffect} from "react";
 import Modal from "react-modal";
 import 'bootstrap/dist/css/bootstrap.css';
 import { Button } from 'primereact/button';
 import ReactPaginate from 'react-paginate';
+import axios from '../service/callerService';
 
 
 
@@ -27,14 +27,14 @@ export default function GardePharmacietable() {
 
 
     useEffect(() => {
-        axios.get("http://localhost:8080/api/gardepharmacies/").then((response) => {
+        axios.get("/api/controller/gardepharmacies/").then((response) => {
             setgardepharmacies(response.data);
         });
     }, []);
 
     useEffect(() => {
         const fetchpharmacies = async () => {
-            const result = await axios(`http://localhost:8080/api/pharmacies/`);
+            const result = await axios.get(`/api/controller/pharmacies/`);
             setPharmacies(result.data);
         };
         fetchpharmacies();
@@ -42,7 +42,7 @@ export default function GardePharmacietable() {
 
     useEffect(() => {
         const fetchgardes = async () => {
-            const result = await axios(`http://localhost:8080/api/gardes/`);
+            const result = await axios.get(`/api/controller/gardes/`);
             setGardes(result.data);
         };
         fetchgardes();
@@ -50,7 +50,7 @@ export default function GardePharmacietable() {
 /*
     const handleDelete = (idg) => {
         if (window.confirm("Are you sure you want to delete this Item?")) {
-            axios.delete(`http://localhost:8080/api/gardepharmacies/${idg}`).then(() => {
+            axios.delete(`/api/controller/gardepharmacies/${idg}`).then(() => {
                 setgardepharmacies(gardepharmacies.filter((gardepharmacie) => gardepharmacie.garde_pharmacyEMb !== idg));
             });
         }
@@ -65,7 +65,7 @@ export default function GardePharmacietable() {
         if (window.confirm("Are you sure you want to delete this item?")) {
             axios
                 .delete(
-                    `http://localhost:8080/api/gardepharmacies/${datedebut}/idpharmacie/${idpharmacie}/idgarde/${idgarde}`
+                    `/api/controller/gardepharmacies/${datedebut}/idpharmacie/${idpharmacie}/idgarde/${idgarde}`
                 )
                 .then(() => {
                     setgardepharmacies((prevGardePharmacies) =>
@@ -98,7 +98,7 @@ export default function GardePharmacietable() {
 
     const handleEditPharmacie = async (datedebut, idpharmacie, idgarde) => {
         try {
-            const response = await axios.put(`http://localhost:8080/api/gardepharmacies/${datedebut}/idpharmacie/${idpharmacie}/idgarde/${idgarde}`, {
+            const response = await axios.put(`/api/controller/gardepharmacies/${datedebut}/idpharmacie/${idpharmacie}/idgarde/${idgarde}`, {
                 garde_pharmacyEMb: {
                     pharmacie: gardePharmaciepharmacie,
                     garde: gardepharmaciegarde,
@@ -129,7 +129,7 @@ export default function GardePharmacietable() {
 
 
     const loadgardePharmacies=async ()=>{
-        const res=await axios.get(`http://localhost:8080/api/gardepharmacies/`);
+        const res=await axios.get(`/api/controller/gardepharmacies/`);
         setgardepharmacies(res.data);
     }
 

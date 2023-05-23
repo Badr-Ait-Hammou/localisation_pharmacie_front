@@ -1,15 +1,13 @@
+import { Toast } from 'primereact/toast';
+import { Button } from 'primereact/button';
+import"../styles/table.css"
 
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import axios from "axios";
+import axios from '../service/callerService';
 import React,{useState,useEffect,useReducer} from "react";
 import PharmacieTable from "../components/PharmacieTable";
 import { Card, CardContent } from '@mui/material';
+import Modal from "react-modal";
+import {useRef} from "react";
 
 
 
@@ -25,33 +23,32 @@ export default function Pharmacie() {
     const [photos, setPhotos] = useState("");
     const [upTB, forceUpdate] = useReducer((x) => x + 1, 0);
     const [tableKey, setTableKey] = useState(Date.now());
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const toast = useRef(null);
 
 
 
 
     useEffect(() => {
-        axios.get("http://localhost:8080/api/users/").then((response) => {
+        axios.get("/api/controller/users/").then((response) => {
             setUsers(response.data);
         });
-        axios.get("http://localhost:8080/api/zones/").then((response) => {
+        axios.get("/api/controller/zones/").then((response) => {
             setZones(response.data);
         });
     }, [upTB]);
 
 
     const handleSubmit = (event) => {
-        console.log("jsjkjksjkjkqsdjks",photos);
+        console.log("img",photos);
 
         event.preventDefault();
-        axios.post("http://localhost:8080/api/pharmacies/save", {
+        axios.post("/api/controller/pharmacies/save", {
             nom,
             longitude,
             latitude,
             adresse,
             photos,
-            user: {
-                id: userid
-            },
             zone: {
                 id: zoneid
             }
@@ -62,13 +59,15 @@ export default function Pharmacie() {
             setAdresse("");
             setPhotos("");
             setZoneid("");
-            setUserid("");
             forceUpdate();
             setTableKey(Date.now());
+            setModalIsOpen(false);
 
         });
     };
-
+    const showSuccess = () => {
+        toast.current.show({severity:'success', summary: 'Success', detail:'item added successfully', life: 1000});
+    }
 
     const handlePhotoChange = (event) => {
         const file = event.target.files[0];
@@ -78,148 +77,160 @@ export default function Pharmacie() {
         };
         reader.readAsDataURL(file);
     };
+    const handleOpenModal = (pharmacie) => {
+        setModalIsOpen(true);
+        //setSelectedRestaurant(restaurant);
+        // setModalIsOpen(true);
+    };
 
+    const handleCloseModal = () => {
+        setModalIsOpen(false)
+    };
 
     return (
 
-            <Container component="main" maxWidth="lg">
-                <Card sx={{ marginTop: 3 }} >
-                    <CardContent>
-                <form onSubmit={handleSubmit}>
-                    <Box
-                        sx={{
-                            marginTop: 3,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                        }}
-                    >
+        <div>
+            <Card className="mx-3 mt-3 p-3">
+                <CardContent >
+                    <div style={{ alignItems: "center" }}>
+                        <h3 >RESTAURANT</h3>
+                    </div>
+                    <div >
+                        <Toast ref={toast} position="top-center" />
 
-                        <Typography component="h1" variant="h5">
-                            Pharmacie
-                        </Typography>
-                        <Box   sx={{ mt: 3 }}>
-                            <Grid container spacing={2}>
+                        <Button
+                            label="Add"
+                            style={{backgroundColor:"lightseagreen"}}
+                            raised
+                            className="mx-2"
+                            onClick={() => handleOpenModal(zones)}
 
-                                <Grid item xs={12} sm={4}>
-                                    <TextField
-                                        required
-                                        fullWidth
+                        />
 
-                                        label="pharmacie"
-
-                                        autoComplete="pharmacie"
-                                        id="nom"
-                                        value={nom}
-                                        onChange={(event) => setNom(event.target.value)}
-                                    />
-                                </Grid>
-                                <Grid item xs={12} sm={4}>
-                                    <TextField
-                                        required
-                                        fullWidth
-
-                                        label="latitude"
-
-                                        autoComplete="latitude"
-                                        id="latitude"
-                                        value={latitude}
-                                        onChange={(event) => setLatitude(event.target.value)}
-                                    />
-                                </Grid>
-
-                                <Grid item xs={12} sm={4}>
-                                    <TextField
-                                        required
-                                        fullWidth
-
-                                        label="longitude"
-
-                                        autoComplete="longitude"
-                                        id="longitude"
-                                        value={longitude}
-                                        onChange={(event) => setLongitude(event.target.value)}
-                                    />
-                                </Grid>
-                                <Grid item xs={12} sm={6}>
-                                    <TextField
-                                        required
-                                        fullWidth
-
-                                        label="adresse"
-
-                                        autoComplete="adresse"
-                                        id="adresse"
-                                        value={adresse}
-                                        onChange={(event) => setAdresse(event.target.value)}
-                                    />
-                                </Grid>
-
-                                <Grid item xs={12} sm={6}>
-                                    <TextField
-                                        required
-                                        fullWidth
-                                        type="file" accept="image/*" onChange={handlePhotoChange}
-                                    />
-                                </Grid>
-
-                                <Grid item xs={12} sm={6} >
+                    </div>
 
 
+                </CardContent>
+                <PharmacieTable key={tableKey} />
+            </Card>
+
+            <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={handleCloseModal}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+                style={{
+                    overlay: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                        zIndex: 999
+                    },
+                    content: {
+                        top: '50%',
+                        left: '50%',
+                        right: 'auto',
+                        bottom: 'auto',
+                        marginRight: '-50%',
+                        transform: 'translate(-50%, -50%)',
+                        backgroundColor: '#fff',
+                        borderRadius: '10px',
+                        boxShadow: '20px 30px 25px rgba(0, 0, 0, 0.2)',
+                        padding: '20px',
+                        width: '100%',
+                        maxWidth: '700px',
+                        height: 'auto',
+                        maxHeight: '90%',
+                        overflow: 'auto'
+                    }
+                }}
+            >
+                <div className="card" >
+                    <div className="card-body" >
+                        <h5 className="card-title" id="modal-modal-title">Save Restaurant</h5>
+                        <form>
+                            <div className="row mb-3">
+                                <div className="col-md-6"><label htmlFor="restaurant-nom" className="form-label">Name:</label>
+                                    <input type="text" className="form-control" id="user-nom" value={nom} onChange={(e) => setNom(e.target.value)} required/>
+                                </div>
+                                <div className="col-md-6">
+                                    <label htmlFor="restaurant-adresse" className="form-label">Adresse:</label>
+                                    <input type="text" className="form-control" id="user-password" value={adresse} onChange={(e) => setAdresse(e.target.value)} />
+                                </div>
+                            </div>
+
+
+                            <div className="row mb-3">
+                                <div className="col-md-6">
+                                    <label htmlFor="restaurant-latitude" className="form-label">Latitude:</label>
+                                    <input type="text" className="form-control" id="user-prenom" value={latitude} onChange={(e) => setLatitude(e.target.value)} required />
+                                </div>
+                                <div className="col-md-6">
+                                    <label htmlFor="restaurant-longitude" className="form-label">Longitude:</label>
+                                    <input type="text" className="form-control" id="user-email" value={longitude} onChange={(e) => setLongitude(e.target.value)} />
+                                </div>
+                            </div>
+
+
+
+
+
+                            <div className="row mb-3">
+                                <div className="col-md-6">
+                                    <label htmlFor="restaurant-adresse" className="form-label">Photo:</label>
+                                    <input  className="form-control"   type="file" accept="image/*" onChange={handlePhotoChange} />
+                                </div>
+                                <div className="col-md-6">
+                                    <label htmlFor="restaurant-adresse" className="form-label">Zone:</label>
                                     <select
+
                                         className="form-control"
                                         id="cityId"
                                         value={zoneid}
                                         onChange={(event) => setZoneid(event.target.value)}
-                                    >
-                                        <option value="">Select a zone </option>
+
+                                        style={{
+                                            backgroundColor: "#f2f2f2",
+                                            border: "none",
+                                            borderRadius: "4px",
+                                            color: "#555",
+                                            fontSize: "16px",
+                                            padding: "8px 12px",
+                                            width: "100%",
+                                            marginBottom: "12px"
+                                        }}
+                                    >  <option value="">Select a zone </option>
+
                                         {zones && zones.map((zone) => (
                                             <option key={zone.id} value={zone.id}>
                                                 {zone.nom}
                                             </option>
                                         ))}
                                     </select>
-                                </Grid>
-                                <Grid item xs={12} sm={6}>
+                                </div>
 
 
-                                    <select
-                                        className="form-control"
-                                        id="cityId"
-                                        value={userid}
-                                        onChange={(event) => setUserid(event.target.value)}
-                                    >
-                                        <option value="">Select  user </option>
-                                        {users && users.map((user) => (
-                                            <option key={user.id} value={user.id}>
-                                                {user.nom}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </Grid>
-
-                            </Grid>
-                            <Button
-                                type="submit"
-
-                                sx={{ mt: 3, mb: 2 }}
-                                variant="contained"
-                            >
-                                add
-                            </Button>
 
 
-                        </Box>
-                    </Box>
-                </form>
-                    </CardContent>
-                </Card>
-                <Card sx={{ marginTop: 5 }}>
-                    <CardContent>
-                <PharmacieTable key={tableKey} />
-                    </CardContent>
-                </Card>
-            </Container>
+
+                            </div>
+                        </form>
+                        <div className="d-flex justify-content-center mt-3">
+                            <Button  label="Cancel"
+                                     severity="warning"
+                                     raised
+                                     className="mx-2"
+                                     onClick={handleCloseModal}/>
+
+                            <Button  label="Save"
+                                     severity="success"
+                                     raised
+
+                                     onClick={(e) => handleSubmit(e)}/>
+                        </div>
+                    </div>
+                </div>
+            </Modal>
+
+        </div>
 
 
     );

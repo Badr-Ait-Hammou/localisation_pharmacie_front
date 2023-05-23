@@ -1,6 +1,6 @@
 
 import"../styles/villetable.css"
-import axios from "axios";
+import axios from '../service/callerService';
 import GardePharmacietable from "./GardePharmacietable";
 import React, { useState, useEffect, useReducer,useRef } from "react";
 import { Card, CardContent } from '@mui/material';
@@ -31,10 +31,10 @@ export default function Gardepharmacie() {
 
 
     useEffect(() => {
-        axios.get("http://localhost:8080/api/gardes/").then((response) => {
+        axios.get("/api/controller/gardes/").then((response) => {
             setgardes(response.data);
         });
-        axios.get("http://localhost:8080/api/pharmacies/").then((response) => {
+        axios.get("/api/controller/pharmacies/").then((response) => {
             setpharmacies(response.data);
         });
     }, [upTB]);
@@ -43,7 +43,7 @@ export default function Gardepharmacie() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        axios.post("http://localhost:8080/api/gardepharmacies/save", {
+        axios.post("/api/controller/gardepharmacies/save", {
             garde_pharmacyEMb: {
                 pharmacie: pharmacieid,
                 garde: gardeid,

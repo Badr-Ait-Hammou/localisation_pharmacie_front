@@ -1,0 +1,44 @@
+.table-responsive {
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th,
+td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+thead {
+    background-color: #f5f5f5;
+    color: #333;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+thead th {
+    padding: 12px;
+    border-bottom: 2px solid #ddd;
+}
+
+
+tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+}
+
+.actions button {
+    margin: 0 0.25rem;
+}

@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useReducer, useRef} from "react";
-import axios from 'axios';
+import axios from '../service/callerService';
 import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -24,7 +24,7 @@ export default function Garde() {
         if (!type) {
             alert("Please enter a grade name");
         } else {
-            await axios.post("http://localhost:8080/api/gardes/save", { type });
+            await axios.post("/api/controller/gardes/save", { type });
             settype("");
             loadgardes();
             forceUpdate();
@@ -41,7 +41,7 @@ export default function Garde() {
 
 
     const loadgardes=async ()=>{
-        const res=await axios.get(`http://localhost:8080/api/gardes/`);
+        const res=await axios.get(`/api/controller/gardes/`);
         setgarde(res.data);
     }
 

@@ -4,45 +4,52 @@ import {useNavigate} from "react-router-dom";
 import logo from "../images/Pharmacielogo.svg"
 import React from 'react';
 import { Menubar } from 'primereact/menubar';
-
+import {accountService} from "../service/accountService";
 export default function Header() {
     const navigate = useNavigate();
+
+    const handleLogout = () => {
+        accountService.logout();
+        navigate('/', { replace: true });
+
+    };
 
     const items = [
         {
             label: 'Ville',
             icon: 'pi pi-fw pi-user',
-            command: () => {navigate('/') }
+            command: () => {navigate('/admin/city') }
         },
         {
             label: 'Zone',
             icon: 'pi pi-fw pi-book',
-            command: () => {navigate('/zone') }
+            command: () => {navigate('/admin/zone') }
         },
         {
             label: 'Garde',
             icon: 'pi pi-fw pi-verified',
-            command: () => {navigate('/garde') }
+            command: () => {navigate('/admin/garde') }
         },
         {
             label: 'Pharmacie',
             icon: 'pi pi-fw pi-slack',
-            command: () => {navigate('/pharmacie') }
+            command: () => {navigate('/admin/pharmacy') }
         },
         {
             label: 'GardePharmacie',
             icon: 'pi pi-spin pi-spinner',
-            command: () => {navigate('/gardepharmacie') }
+            command: () => {navigate('/admin/gardepharmacie') }
         },
         {
             label: 'User',
             icon: 'pi pi-bolt',
-            command: () => {navigate('/user') }
+            command: () => {navigate('/admin/user') }
         },
+
         {
-            label: 'products',
+            label: 'logout',
             icon: 'pi pi-bolt',
-            command: () => {navigate('/allpharmacies') }
+            command: () => {handleLogout() }
         },
 
 

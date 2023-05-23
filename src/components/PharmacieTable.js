@@ -1,12 +1,12 @@
 
-import axios from "axios";
-import React,{useState,useEffect} from "react";
+import axios from '../service/callerService';
+import React,{useState,useEffect,useRef} from "react";
 import Modal from "react-modal";
 import 'bootstrap/dist/css/bootstrap.css';
 import ReactPaginate from 'react-paginate';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import {IconButton} from "@mui/material";
+import {Button} from "primereact/button";
+import {ConfirmDialog, confirmDialog} from "primereact/confirmdialog";
+import {Toast} from "primereact/toast";
 
 
 
@@ -16,7 +16,6 @@ import {IconButton} from "@mui/material";
 
 
 export default function PharmacieTable() {
-    const [pharmacies, setpharmacies] = useState([]);
     const [users, setUsers] = useState([]);
     const [zones, setZones] = useState([]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -29,43 +28,76 @@ export default function PharmacieTable() {
     const [pharmacieZone, setPharmacieZone] = useState('');
     const [selectedPharmacie, setSelectedPharmacie] = useState(null);
     const [pageNumber, setPageNumber] = useState(0);
+    const [pharmacies, setpharmacies] = useState([]);
     const itemsPerPage = 4;
     const offset = pageNumber * itemsPerPage;
-    const currentPageItems = pharmacies.slice(offset, offset + itemsPerPage);
+    const toast = useRef(null);
 
+    //const currentPageItems = filteredPharmacies.slice(offset, offset + itemsPerPage);
+
+    //filtrer les pharmacies
+    const [searchQuery, setSearchQuery] = useState('');
+    const filteredPharmacies = pharmacies && pharmacies.filter((pharmacie) => pharmacie.nom && pharmacie.nom.includes(searchQuery));
+    const currentPageItems = filteredPharmacies.slice(offset, offset + itemsPerPage);
+    const handleSearch = (event) => {
+        setSearchQuery(event.target.value);
+    };
 
 
 
 
     useEffect(() => {
-        axios.get("http://localhost:8080/api/pharmacies/").then((response) => {
+        axios.get("/api/controller/pharmacies/").then((response) => {
             setpharmacies(response.data);
         });
     }, []);
 
     useEffect(() => {
         const fetchusers = async () => {
-            const result = await axios(`http://localhost:8080/api/users/`);
+            const result = await axios(`/api/controller/users/`);
             setUsers(result.data);
         };
         fetchusers();
     }, []);
 
+
     useEffect(() => {
         const fetchzones = async () => {
-            const result = await axios(`http://localhost:8080/api/zones/`);
+            const result = await axios(`/api/controller/zones/`);
             setZones(result.data);
         };
         fetchzones();
     }, []);
 
+
+
+
     const handleDelete = (id) => {
-        if (window.confirm("Are you sure you want to delete this User?")) {
-            axios.delete(`http://localhost:8080/api/pharmacies/${id}`).then(() => {
+        const confirmDelete = () => {
+            axios.delete(`/api/controller/pharmacies/${id}`).then(() => {
                 setpharmacies(pharmacies.filter((pharmacie) => pharmacie.id !== id));
+                toast.current.show({severity:'success', summary: 'Done', detail:'Pharmacy deleted successfully', life: 2000});
             });
-        }
+        };
+
+        confirmDialog({
+            message: 'Are you sure you want to Delete this Pharmacy ?',
+            header: 'Confirmation',
+            icon: 'pi pi-exclamation-triangle',
+            acceptLabel: 'Yes',
+            rejectLabel: 'No',
+            acceptClassName: 'p-button-danger',
+            accept: confirmDelete
+        });
+        loadPharmacies();
     };
+
+
+
+
+
+
+
 
     const handleOpenModal = (pharmacie) => {
         setSelectedPharmacie(pharmacie);
@@ -74,20 +106,19 @@ export default function PharmacieTable() {
         setPharmacieLongitude(pharmacie.longitude);
         setPharmacieAdresse(pharmacie.adresse);
         setPharmaciePhoto(pharmacie.photos);
-        setPharmacieUser(pharmacie.user.id);
         setPharmacieZone(pharmacie.zone.id);
         setModalIsOpen(true);
-        //setSelectedPharmacie(pharmacie);
-       // setModalIsOpen(true);
+
     };
 
     const handleCloseModal = () => {
         setModalIsOpen(false)
     };
 
+
     const handleEditPharmacie = async (id) => {
         try {
-            const response = await axios.put(`http://localhost:8080/api/pharmacies/${id}`, {
+            const response = await axios.put(`/api/controller/pharmacies/${id}`, {
                 nom:pharmacienom,
                 longitude:pharmacielongitude,
                 latitude:pharmacielatitude,
@@ -117,6 +148,7 @@ export default function PharmacieTable() {
     };
 
 
+
     const handlePhotoChange = (event) => {
         const file = event.target.files[0];
         const reader = new FileReader();
@@ -126,15 +158,22 @@ export default function PharmacieTable() {
         reader.readAsDataURL(file);
     };
     const loadPharmacies=async ()=>{
-        const res=await axios.get(`http://localhost:8080/api/pharmacies/`);
+        const res=await axios.get(`/api/controller/pharmacies/`);
         setpharmacies(res.data);
     }
 
     return (
         <div >
-            <div className="table-responsive  ">
-                <table className="table mt-5 text-center">
-                    <thead className="bg-dark text-white">
+            <div className="mb-3">
+                <label htmlFor="search-query" className="form-label">Search:</label>
+                <input type="text" className="form-control" id="search-query" value={searchQuery} onChange={handleSearch} />
+            </div>
+
+                <Toast ref={toast} />
+                <ConfirmDialog />
+                <div className="table-responsive">
+                    <table className="table mt-5 text-center">
+                        <thead>
                     <tr>
                         <th>ID</th>
                         <th>Photos</th>
@@ -163,21 +202,9 @@ export default function PharmacieTable() {
                             <td style={{ padding:"10px" }}>{pharmacie.zone && pharmacie.zone.nom}</td>
                             <td style={{ padding:"10px" }}>{pharmacie.user && pharmacie.user.nom}</td>
                             <td>
-                                <IconButton
-                                    style={{color:"red"}}
-                                    aria-label="delete"
-                                    onClick={() => handleDelete(pharmacie.id)}
-                                >
-                                    <DeleteIcon />
-                                </IconButton>
-                                <IconButton
-                                    style={{color:"teal"}}
-                                    aria-label="edit"
+                                <Button  label="Edit" severity="help" raised  className="mx-1"  onClick={() => handleOpenModal(pharmacie)}/>
+                                <Button label="Delete" severity="danger"  className="mx-1" text raised  onClick={() => handleDelete(pharmacie.id)}/>
 
-                                    onClick={() => handleOpenModal(pharmacie)}
-                                >
-                                    <EditIcon />
-                                </IconButton>
                             </td>
                         </tr>
                     ))}
@@ -281,36 +308,12 @@ export default function PharmacieTable() {
                                     ))}
                                 </select>
                             </div>
-                                <div className="col-md-6">
-                                <label htmlFor="pharmacie-adresse" className="form-label">Adresse:</label>
-                                <select
-                                    value={pharmacieUser}
-                                    onChange={(e) => setPharmacieUser(e.target.value)}
-                                    style={{
-                                        backgroundColor: "#f2f2f2",
-                                        border: "none",
-                                        borderRadius: "4px",
-                                        color: "#555",
-                                        fontSize: "16px",
-                                        padding: "8px 12px",
-                                        width: "100%",
-                                        marginBottom: "12px"
-                                    }}
-                                >
-                                    <option value="">Select a user </option>
 
-                                    {users.map((user) => (
-                                        <option key={user.id} value={user.id}>
-                                            {user.nom}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
                             </div>
                         </form>
                         <div className="d-flex justify-content-center mt-3">
-                            <button type="button" className="btn btn-secondary me-2" onClick={handleCloseModal}>Annuler</button>
-                            <button type="button" className="btn btn-primary" onClick={() => handleEditPharmacie(selectedPharmacie.id)}>Sauvegarder</button>
+                            <Button  label="Cancel" severity="warning" raised  className="mx-1" onClick={handleCloseModal}/>
+                            <Button  label="Save" severity="success" raised  className="mx-1" sx={{ ml:1 }} onClick={() => handleEditPharmacie(selectedPharmacie.id)}/>
                         </div>
                     </div>
                 </div>
