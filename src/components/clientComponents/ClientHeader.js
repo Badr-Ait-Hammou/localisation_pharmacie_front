@@ -47,30 +47,11 @@ export default function Header() {
     };
 
     return (
-        <AppBar position="static" style={{backgroundColor:"lightseagreen"}}>
+        <AppBar position="static" style={{backgroundColor:"whitesmoke" }}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
 
-                    <img src={Logo} style={{width:"70px"}}/>
-                    {/*<Restaurant sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="a"
-                        href="/"
-                        sx={{
-                            mr: 2,
-                            display: { xs: "none", md: "flex" },
-                            fontFamily: "monospace",
-                            fontWeight: 700,
-                            letterSpacing: ".3rem",
-                            color: "inherit",
-                            textDecoration: "none",
-                        }}
-                    >
-                        Restaurant
-                    </Typography>
-*/}
+
                     <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
                         <IconButton
                             size="large"
@@ -78,12 +59,13 @@ export default function Header() {
                             aria-controls="menu-appbar"
                             aria-haspopup="true"
                             onClick={handleOpenNavMenu}
-                            color="inherit"
+                            color="black"
                         >
                             <MenuIcon />
                         </IconButton>
 
                         <Menu
+
                             id="menu-appbar"
                             anchorEl={anchorElNav}
                             anchorOrigin={{
@@ -114,7 +96,6 @@ export default function Header() {
                             ))}
                         </Menu>
                     </Box>
-                    <Restaurant sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
                     <Typography
                         variant="h5"
                         noWrap
@@ -127,21 +108,21 @@ export default function Header() {
                             fontFamily: "monospace",
                             fontWeight: 700,
                             letterSpacing: ".3rem",
-                            color: "inherit",
+                            color: "black",
                             textDecoration: "none",
                         }}
                     >
-                        Rs
+                       BADR
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
                         {pages.map((page) => (
                             <Button
                                 key={page}
                                 onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: "white", display: "block" }}
+                                sx={{ my: 2, color: "black", "&:hover": { color: "lightseagreen" } }}
                             >
                                 <Link
-                                    style={{ textDecoration: "none", color: "white" }}
+                                    style={{ textDecoration: "none", color: "black",fontFamily:"better" }}
                                     to={`${page}`}
                                 >
                                     {page}
@@ -153,7 +134,7 @@ export default function Header() {
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/logo.png" />
+                                <Avatar style={{backgroundColor:"white",width:"50px",height:"50px"}} alt="Badr" src={Logo} />
                             </IconButton>
                         </Tooltip>
                         <Menu

@@ -182,7 +182,6 @@ export default function PharmacieTable() {
                         <th>Longitude</th>
                         <th>Adresse</th>
                         <th>Zone</th>
-                        <th>User</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
@@ -200,7 +199,6 @@ export default function PharmacieTable() {
                                 {pharmacie.adresse}
                             </td>
                             <td style={{ padding:"10px" }}>{pharmacie.zone && pharmacie.zone.nom}</td>
-                            <td style={{ padding:"10px" }}>{pharmacie.user && pharmacie.user.nom}</td>
                             <td>
                                 <Button  label="Edit" severity="help" raised  className="mx-1"  onClick={() => handleOpenModal(pharmacie)}/>
                                 <Button label="Delete" severity="danger"  className="mx-1" text raised  onClick={() => handleDelete(pharmacie.id)}/>

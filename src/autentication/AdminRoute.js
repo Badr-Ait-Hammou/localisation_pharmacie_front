@@ -23,12 +23,14 @@ const AdminRoute = () => {
             {accountService.isLogged && accountService.getRole() === 'ADMIN' && (
                 <Header />
                 )}
+
              {accountService.isLogged && accountService.getRole() === 'USER' && (
                 <ClientHeader/>
                 )}
 
             <Routes>
             <Route>
+
             <Route index element={<Home/>}/>
                     <Route path="/home" element={<Home/>}/>
 
@@ -53,9 +55,9 @@ const AdminRoute = () => {
                     <Route path="/gardepharmacie" element={<GardePharmacie/>}/>
                     )}
 
+                <Route exact path="/pharmacies/:id" element={<PharmacieDetails />} />
 
                     <Route path="/pharmacies" element={<Pharmacies/>}/>
-                    <Route path="/admin/pharmacies/pharmacies/:id " element={<PharmacieDetails/>}/>
 
 
             </Route>

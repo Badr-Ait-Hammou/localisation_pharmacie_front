@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import "./App.css"
 import "primereact/resources/themes/lara-light-indigo/theme.css";
-
 import "primereact/resources/primereact.min.css";
 
 import AuthRoute from './autentication/AuthRoute';

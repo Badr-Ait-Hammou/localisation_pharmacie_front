@@ -30,7 +30,7 @@ function PharmacieDetails() {
 
 
 
-    if (!pharmacy) {
+   if (!pharmacy) {
         return <div>Loading...</div>;
     }
 
@@ -46,7 +46,6 @@ function PharmacieDetails() {
                         <div className="details-container">
                             <h3 style={{fontFamily:"Peralta"}}>{pharmacy.nom}</h3>
                             <p>Address: {pharmacy.adresse}</p>
-                            <p>User: {pharmacy.user.nom}</p>
                         </div>
                     </Col>
                     <Col sm={12} md={6}>
