@@ -100,8 +100,9 @@ export default function Pharmacie() {
 
                         <Button
                             label="Add"
-                            style={{backgroundColor:"lightseagreen"}}
                             raised
+                            severity="success"
+                            style={{ fontSize: "20px",width:"220px" }}
                             className="mx-2"
                             onClick={() => handleOpenModal(zones)}
 

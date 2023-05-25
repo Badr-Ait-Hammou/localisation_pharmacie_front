@@ -5,7 +5,7 @@ import { Routes, Route } from "react-router-dom"
 import Ville from '../components/Ville';
 import Pharmacie  from "../components/Pharmacie";
 import Zone from '../components/Zone';
-import User from '../components/User';
+import User from '../components/UserTable';
 import Garde from '../components/Garde';
 import Header from '../components/Header';
 import Home from "../components/Home"

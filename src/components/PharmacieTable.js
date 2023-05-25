@@ -7,6 +7,9 @@ import ReactPaginate from 'react-paginate';
 import {Button} from "primereact/button";
 import {ConfirmDialog, confirmDialog} from "primereact/confirmdialog";
 import {Toast} from "primereact/toast";
+import TextField from "@mui/material/TextField";
+import { Card, CardContent } from '@mui/material';
+import Pharmacie from "../components/Pharmacie"
 
 
 
@@ -27,13 +30,13 @@ export default function PharmacieTable() {
     const [pharmacieUser, setPharmacieUser] = useState('');
     const [pharmacieZone, setPharmacieZone] = useState('');
     const [selectedPharmacie, setSelectedPharmacie] = useState(null);
-    const [pageNumber, setPageNumber] = useState(0);
+
     const [pharmacies, setpharmacies] = useState([]);
+    const [pageNumber, setPageNumber] = useState(0);
     const itemsPerPage = 4;
     const offset = pageNumber * itemsPerPage;
     const toast = useRef(null);
 
-    //const currentPageItems = filteredPharmacies.slice(offset, offset + itemsPerPage);
 
     //filtrer les pharmacies
     const [searchQuery, setSearchQuery] = useState('');
@@ -157,22 +160,28 @@ export default function PharmacieTable() {
         };
         reader.readAsDataURL(file);
     };
+
+
     const loadPharmacies=async ()=>{
         const res=await axios.get(`/api/controller/pharmacies/`);
         setpharmacies(res.data);
     }
 
     return (
-        <div >
-            <div className="mb-3">
-                <label htmlFor="search-query" className="form-label">Search:</label>
-                <input type="text" className="form-control" id="search-query" value={searchQuery} onChange={handleSearch} />
-            </div>
+        <div>
+
+
 
                 <Toast ref={toast} />
                 <ConfirmDialog />
                 <div className="table-responsive">
-                    <table className="table mt-5 text-center">
+
+                    <div className="header" style={{display:"flex",justifyContent:"center",alignItems:"center",marginBottom:"1rem"}}>
+                            <TextField type="text" id="search-query"
+                                       label="Search" value={searchQuery} onChange={handleSearch} />
+                    </div>
+
+                    <table className="table mt-2 text-center">
                         <thead>
                     <tr>
                         <th>ID</th>

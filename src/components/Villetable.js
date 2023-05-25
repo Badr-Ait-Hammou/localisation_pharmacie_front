@@ -2,10 +2,11 @@ import React,{useState,useEffect,useRef} from "react";
 import 'bootstrap/dist/css/bootstrap.css';
 import axios from '../service/callerService';
 import Modal from "react-modal";
-import { Toast } from 'primereact/toast';
 import { Button } from 'primereact/button';
 import ReactPaginate from "react-paginate";
-
+import {ConfirmDialog, confirmDialog} from "primereact/confirmdialog";
+import {Toast} from "primereact/toast";
+import TextField from "@mui/material/TextField";
 
 
 
@@ -17,7 +18,12 @@ export default function Villetable(){
     const [pageNumber, setPageNumber] = useState(0);
     const itemsPerPage = 4;
     const offset = pageNumber * itemsPerPage;
-    const currentPageItems = villes.slice(offset, offset + itemsPerPage);
+    const [searchQuery, setSearchQuery] = useState('');
+    const filteredPharmacies = villes && villes.filter((ville) => ville.nom && ville.nom.includes(searchQuery));
+    const currentPageItems = filteredPharmacies.slice(offset, offset + itemsPerPage);
+    const handleSearch = (event) => {
+        setSearchQuery(event.target.value);
+    };
     const toast = useRef(null);
 
 
@@ -42,17 +48,28 @@ export default function Villetable(){
 
     }
 
+
     const handleDelete = (villeId) => {
-        if (window.confirm("Are you sure you want to delete this Item?")) {
+        const confirmDelete = () => {
             axios.delete(`/api/controller/villes/${villeId}`).then(() => {
                 setVilles(villes.filter((ville) => ville.id !== villeId));
-                loadVilles();
+                toast.current.show({severity:'success', summary: 'Done', detail:'City deleted successfully', life: 2000});
             });
-        }
+        };
+
+        confirmDialog({
+            message: 'Are you sure you want to Delete this City ?',
+            header: 'Confirmation',
+            icon: 'pi pi-exclamation-triangle',
+            acceptLabel: 'Yes',
+            rejectLabel: 'No',
+            acceptClassName: 'p-button-danger',
+            accept: confirmDelete
+        });
+        loadVilles();
     };
-    const showDelete = () => {
-        toast.current.show({severity:'error', summary: 'Error', detail:'item deleted successfully', life: 3000});
-    }
+
+
 
     const handleOpenModal = (ville) => {
         setSelectedVille(ville);
@@ -91,7 +108,13 @@ export default function Villetable(){
 
     return (
         <div>
+            <Toast ref={toast} />
+            <ConfirmDialog />
             <div className="table-responsive">
+                <div className="header" style={{display:"flex",justifyContent:"center",alignItems:"center",marginBottom:"1rem"}}>
+                    <TextField type="text" id="search-query"
+                               label="Search" value={searchQuery} onChange={handleSearch} />
+                </div>
                 <table className="table mt-5 text-center">
                 <thead>
                 <tr>

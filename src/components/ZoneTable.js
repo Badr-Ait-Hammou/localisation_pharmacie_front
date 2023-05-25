@@ -4,7 +4,10 @@ import Modal from "react-modal";
 import 'bootstrap/dist/css/bootstrap.css';
 import { Button } from 'primereact/button';
 import ReactPaginate from "react-paginate";
-
+import {useRef} from "react";
+import {ConfirmDialog, confirmDialog} from "primereact/confirmdialog";
+import {Toast} from "primereact/toast";
+import TextField from "@mui/material/TextField";
 
 
 export default function ZoneList({ cityId })  {
@@ -15,11 +18,16 @@ export default function ZoneList({ cityId })  {
     const [zoneName, setZoneName] = useState('');
     const [zoneCity, setZoneCity] = useState('');
     const [pageNumber, setPageNumber] = useState(0);
+    const toast = useRef(null);
 
     const itemsPerPage = 4;
     const offset = pageNumber * itemsPerPage;
-    const currentPageItems = zones.slice(offset, offset + itemsPerPage);
-
+    const [searchQuery, setSearchQuery] = useState('');
+    const filteredPharmacies = zones && zones.filter((zone) => zone.nom && zone.nom.includes(searchQuery));
+    const currentPageItems = filteredPharmacies.slice(offset, offset + itemsPerPage);
+    const handleSearch = (event) => {
+        setSearchQuery(event.target.value);
+    };
 
 
     useEffect(() => {
@@ -38,13 +46,28 @@ export default function ZoneList({ cityId })  {
         fetchCities();
     }, []);
 
+
+
     const handleDelete = (zoneId) => {
-        if (window.confirm("Are you sure you want to delete this zone?")) {
+        const confirmDelete = () => {
             axios.delete(`/api/controller/zones/id/${zoneId}`).then(() => {
                 setZones(zones.filter((zone) => zone.id !== zoneId));
+                toast.current.show({severity:'success', summary: 'Done', detail:'Zone deleted successfully', life: 2000});
             });
-        }
+        };
+
+        confirmDialog({
+            message: 'Are you sure you want to Delete this Zone ?',
+            header: 'Confirmation',
+            icon: 'pi pi-exclamation-triangle',
+            acceptLabel: 'Yes',
+            rejectLabel: 'No',
+            acceptClassName: 'p-button-danger',
+            accept: confirmDelete
+        });
+        loadzones();
     };
+
 
     const handleOpenModal = (zone) => {
         setSelectedZone(zone);
@@ -89,7 +112,13 @@ export default function ZoneList({ cityId })  {
 
     return (
         <div>
+            <Toast ref={toast} />
+            <ConfirmDialog />
             <div className="table-responsive">
+                <div className="header" style={{display:"flex",justifyContent:"center",alignItems:"center",marginBottom:"1rem"}}>
+                    <TextField type="text" id="search-query"
+                               label="Search" value={searchQuery} onChange={handleSearch} />
+                </div>
                 <table className="table mt-5 text-center">
                 <thead>
                 <tr>

@@ -5,6 +5,10 @@ import { Button } from 'primereact/button';
 import Modal from "react-modal";
 import "../styles/villetable.css"
 import ReactPaginate from "react-paginate";
+import TextField from "@mui/material/TextField";
+import {useRef} from "react";
+import {ConfirmDialog, confirmDialog} from "primereact/confirmdialog";
+import {Toast} from "primereact/toast";
 export default function GardeTable() {
     const [gardes, setGardes] = useState([]);
     const [gardeType, setGardeType] = useState('');
@@ -13,14 +17,19 @@ export default function GardeTable() {
     const [pageNumber, setPageNumber] = useState(0);
     const itemsPerPage = 4;
     const offset = pageNumber * itemsPerPage;
-    const currentPageItems = gardes.slice(offset, offset + itemsPerPage);
-
+    const toast = useRef(null);
+    //filtrer les pharmacies
+    const [searchQuery, setSearchQuery] = useState('');
+    const filteredPharmacies = gardes && gardes.filter((garde) => garde.type && garde.type.includes(searchQuery));
+    const currentPageItems = filteredPharmacies.slice(offset, offset + itemsPerPage);
+    const handleSearch = (event) => {
+        setSearchQuery(event.target.value);
+    };
 
 
     useEffect(() => {
         const getGarde = async () => {
             const res = await axios.get('/api/controller/gardes/');
-           // const getdata = await res.json();
             setGardes(res.data);
             loadGardes();
         }
@@ -34,13 +43,29 @@ export default function GardeTable() {
         setGardes(res.data);
     }
 
+
+
     const handleDelete = (gardeId) => {
-        if (window.confirm("Are you sure you want to delete this Item?")) {
+        const confirmDelete = () => {
             axios.delete(`/api/controller/gardes/${gardeId}`).then(() => {
                 setGardes(gardes.filter((garde) => garde.id !== gardeId));
+                toast.current.show({severity:'success', summary: 'Done', detail:'Garde deleted successfully', life: 2000});
             });
-        }
+        };
+
+        confirmDialog({
+            message: 'Are you sure you want to Delete this Garde ?',
+            header: 'Confirmation',
+            icon: 'pi pi-exclamation-triangle',
+            acceptLabel: 'Yes',
+            rejectLabel: 'No',
+            acceptClassName: 'p-button-danger',
+            accept: confirmDelete
+        });
+        loadGardes();
     };
+
+
 
 
     const handleOpenModal = (garde) => {
@@ -79,7 +104,13 @@ export default function GardeTable() {
 
     return (
         <div>
+            <Toast ref={toast} />
+            <ConfirmDialog />
             <div className="table-responsive">
+                <div className="header" style={{display:"flex",justifyContent:"center",alignItems:"center",marginBottom:"1rem"}}>
+                    <TextField type="text" id="search-query"
+                               label="Search" value={searchQuery} onChange={handleSearch} />
+                </div>
                 <table className="table mt-5 text-center">
                     <thead>
                     <tr>
