@@ -13,6 +13,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
+    "formik": "^2.2.9",
     "jwt-decode": "^3.1.2",
     "link-react": "^3.0.0",
     "moment": "^2.29.4",
@@ -28,7 +29,8 @@
     "react-scripts": "^5.0.1",
     "styled-components": "^5.3.9",
     "swiper": "^9.2.3",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^1.2.0"
   },
   "scripts": {
     "start": "react-scripts start",

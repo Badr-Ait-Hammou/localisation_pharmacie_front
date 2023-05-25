@@ -1,12 +1,8 @@
+import React, { useState, useEffect } from "react";
+import "../../styles/notfound.css"
 
-import {useNavigate} from "react-router-dom";
+export default function Notfound() {
 
-import axios from '../service/callerService';
-import React from 'react';
-import { Menubar } from 'primereact/menubar';
-import HomePage from "./clientComponents/Notfound"
-
-export default function Home() {
     return(
         <div className="card "  >
             <div>
@@ -30,15 +26,14 @@ export default function Home() {
             <section className="error">
                 <div className="error__content">
                     <div className="error__message message">
-                        <h1 className="message__title">WELCOME TO PHARMACY_LOC</h1>
-                        <p className="message__text"> Discover Your Nearest Pharmacy.</p>
+                        <h1 className="message__title">Pharmacy Not Found</h1>
+                        <p className="message__text">We're sorry, the pharmacy you were looking for isn't found . Please try again .
+                            </p>
                     </div>
                 </div>
             </section>
         </div>
 
 
-
     );
 }
-

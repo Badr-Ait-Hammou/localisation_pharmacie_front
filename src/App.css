@@ -48,3 +48,15 @@
 .pagination-container li a {
     padding: 5px 5px;
 }
+.animated-text-field {
+    animation: fadeIn 1s ease-in-out; /* Example animation: fade in */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

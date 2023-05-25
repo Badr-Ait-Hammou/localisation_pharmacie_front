@@ -85,10 +85,9 @@ export default function Header() {
                         >
                             {pages.map((page) => (
                                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
                                     <Link
                                         style={{ textDecoration: "none", color: "white" }}
-                                        to={`admin/${page}`}
+                                        to={`${page}`}
                                     >
                                         {page}
                                     </Link>
@@ -112,7 +111,7 @@ export default function Header() {
                             textDecoration: "none",
                         }}
                     >
-                       BADR
+                       PHARMACY
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
                         {pages.map((page) => (

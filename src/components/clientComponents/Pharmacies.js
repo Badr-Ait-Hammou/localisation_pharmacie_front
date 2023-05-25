@@ -2,7 +2,7 @@ import axios from '../../service/callerService';
 import React, { useState, useEffect } from "react";
 import PharmacieDetails from "./PharmacieDetails";
 import { Link, useParams } from 'react-router-dom';
-
+import NotFound from "./Notfound"
 export default function Pharmacies() {
     const [pharmacies, setPharmacies] = useState([]);
     const { id } = useParams();
@@ -124,27 +124,30 @@ export default function Pharmacies() {
 
 
 
-
-            <div className="row row-cols-2 row-cols-md-2 row-cols-lg-4 g-4">
-                {pharmacies.map((pharmacy) => (
-                    <div key={pharmacy.id} className="col mb-4">
-                        <div className="card h-100">
-                            <Link to={`/admin/pharmacies/${pharmacy.id}`}>
-                                <img
-                                    src={pharmacy.photos}
-                                    className="card-img-top"
-                                    alt="Pharmacy"
-                                    style={{ objectFit: "cover", height: "auto" }}
-                                />
-                            </Link>
-                            <div className="card-body">
-                                <h5 className="card-title">{pharmacy.nom}</h5>
-                                <p className="card-text">Address: {pharmacy.adresse}</p>
+            {pharmacies.length === 0 ? (
+               <NotFound/>
+            ) : (
+                <div className="row row-cols-2 row-cols-md-2 row-cols-lg-4 g-4">
+                    {pharmacies.map((pharmacy) => (
+                        <div key={pharmacy.id} className="col mb-4">
+                            <div className="card h-100">
+                                <Link to={`/admin/pharmacies/${pharmacy.id}`}>
+                                    <img
+                                        src={pharmacy.photos}
+                                        className="card-img-top"
+                                        alt="Pharmacy"
+                                        style={{ objectFit: "cover", height: "auto" }}
+                                    />
+                                </Link>
+                                <div className="card-body">
+                                    <h5 className="card-title">{pharmacy.nom}</h5>
+                                    <p className="card-text">Address: {pharmacy.adresse}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ))}
-            </div>
+                    ))}
+                </div>
+            )}
             {id && <PharmacieDetails id={id} />}
         </div>
 

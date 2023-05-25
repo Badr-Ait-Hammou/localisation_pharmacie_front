@@ -1,86 +1,166 @@
-
-import {useNavigate} from "react-router-dom";
-
-import logo from "../images/Pharmacielogo.svg"
-import React from 'react';
-import { Menubar } from 'primereact/menubar';
+import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Menu from '@mui/material/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
+import Container from '@mui/material/Container';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import MenuItem from '@mui/material/MenuItem';
+import { Restaurant } from "@mui/icons-material";
+import {Link} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {accountService} from "../service/accountService";
+import Logo from "../images/Pharmacielogo.svg"
+
+const pages = ['city' ,'zone','garde','pharmacy', 'gardepharmacie','user'];
+const settings = [ ''];
+
 export default function Header() {
+    const [anchorElNav, setAnchorElNav] = React.useState(null);
+    const [anchorElUser, setAnchorElUser] = React.useState(null);
     const navigate = useNavigate();
 
     const handleLogout = () => {
         accountService.logout();
         navigate('/', { replace: true });
-
+        handleCloseUserMenu();
     };
 
-    const items = [
-        {
-            label: 'Ville',
-            icon: 'pi pi-fw pi-user',
-            command: () => {navigate('/admin/city') }
-        },
-        {
-            label: 'Zone',
-            icon: 'pi pi-fw pi-book',
-            command: () => {navigate('/admin/zone') }
-        },
-        {
-            label: 'Garde',
-            icon: 'pi pi-fw pi-verified',
-            command: () => {navigate('/admin/garde') }
-        },
-        {
-            label: 'Pharmacie',
-            icon: 'pi pi-fw pi-slack',
-            command: () => {navigate('/admin/pharmacy') }
-        },
-        {
-            label: 'GardePharmacie',
-            icon: 'pi pi-spin pi-spinner',
-            command: () => {navigate('/admin/gardepharmacie') }
-        },
-        {
-            label: 'User',
-            icon: 'pi pi-bolt',
-            command: () => {navigate('/admin/user') }
-        },
-
-        {
-            label: 'logout',
-            icon: 'pi pi-bolt',
-            command: () => {handleLogout() }
-        },
-
-
-    ];
-    const style = {
-        backgroundColor: 'rgba(245,243,246,0.88)',
-        color: '#230202',
-        borderRadius:"20px",
-        justifyContent: 'left'
+    const handleOpenNavMenu = (event) => {
+        setAnchorElNav(event.currentTarget);
+    };
+    const handleOpenUserMenu = (event) => {
+        setAnchorElUser(event.currentTarget);
     };
 
+    const handleCloseNavMenu = () => {
+        setAnchorElNav(null);
+    };
 
-    const end = (
-        <img
-            alt="logo"
-            src={logo}
-            width="50px"
-            className="mr-2"
-        />
-    );
-
-
+    const handleCloseUserMenu = () => {
+        setAnchorElUser(null);
+    };
 
     return (
-        <div>
-            <div className="card">
-                <Menubar  end={end} style={style}  model={items}  />
+        <AppBar position="static" style={{backgroundColor:"whitesmoke"}}>
+            <Container maxWidth="xl">
+                <Toolbar disableGutters>
 
-            </div>
-        </div>
+
+
+                    <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+                        <IconButton
+                            size="large"
+                            aria-label="account of current user"
+                            aria-controls="menu-appbar"
+                            aria-haspopup="true"
+                            onClick={handleOpenNavMenu}
+                            color="inherit"
+                        >
+                            <MenuIcon />
+                        </IconButton>
+
+                        <Menu
+                            id="menu-appbar"
+                            anchorEl={anchorElNav}
+                            anchorOrigin={{
+                                vertical: "bottom",
+                                horizontal: "left",
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: "top",
+                                horizontal: "left",
+                            }}
+                            open={Boolean(anchorElNav)}
+                            onClose={handleCloseNavMenu}
+                            sx={{
+                                display: { xs: "block", md: "none" },
+                            }}
+                        >
+                            {pages.map((page) => (
+                                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                                    <Link
+                                        style={{ textDecoration: "none", color: "black" }}
+                                        to={`${page}`}
+                                    >
+                                        {page}
+                                    </Link>
+                                </MenuItem>
+                            ))}
+                        </Menu>
+                    </Box>
+                    <Typography
+                        variant="h5"
+                        noWrap
+                        component="a"
+                        href=""
+                        sx={{
+                            mr: 2,
+                            display: { xs: "flex", md: "none" },
+                            flexGrow: 1,
+                            fontFamily: "monospace",
+                            fontWeight: 700,
+                            letterSpacing: ".3rem",
+                            color: "inherit",
+                            textDecoration: "none",
+                        }}
+                    >
+                        PHARMACY
+                    </Typography>
+                    <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+                        {pages.map((page) => (
+                            <Button
+                                key={page}
+                                onClick={handleCloseNavMenu}
+                                sx={{ my: 2, color: "black", "&:hover": { color: "lightseagreen" } }}
+                            >
+                                <Link
+                                    style={{ textDecoration: "none", color: "black",fontFamily:"better" }}
+                                    to={`${page}`}
+                                >
+                                    {page}
+                                </Link>
+                            </Button>
+                        ))}
+                    </Box>
+
+                    <Box sx={{ flexGrow: 0 }}>
+                        <Tooltip title="Open settings">
+                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                <Avatar style={{backgroundColor:"white",width:"50px",height:"50px"}} alt="Badr" src={Logo} />
+                            </IconButton>
+                        </Tooltip>
+                        <Menu
+                            sx={{ mt: "45px" }}
+                            id="menu-appbar"
+                            anchorEl={anchorElUser}
+                            anchorOrigin={{
+                                vertical: "top",
+                                horizontal: "right",
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: "top",
+                                horizontal: "right",
+                            }}
+                            open={Boolean(anchorElUser)}
+                            onClose={handleCloseUserMenu}
+                        >
+
+                            <Button onClick={handleLogout} sx={{ color: "black"}}>
+                                <Typography textAlign="center">Logout</Typography>
+                            </Button>
+                        </Menu>
+                    </Box>
+
+                </Toolbar>
+            </Container>
+        </AppBar>
     );
-
 }
-

@@ -180,6 +180,8 @@ export default function ZoneList({ cityId })  {
                                         marginBottom: "12px"
                                     }}
                                 >
+                                    <option >Select a city </option>
+
                                     {villes.map((ville) => (
                                         <option key={ville.id} value={ville.id}>
                                             {ville.nom}
@@ -191,12 +193,10 @@ export default function ZoneList({ cityId })  {
 
                         </form>
                         <div className="d-flex justify-content-center mt-3">
-                            <Button variant="contained" color="error"  onClick={handleCloseModal}>
-                                Annuler
-                            </Button>
-                            <Button variant="contained" color="success" sx={{ ml:1 }} onClick={() => handleEditZone(selectedZone.id)}>
-                                Sauvegarder
-                            </Button>
+                            <Button label="Cancel" severity="warning" raised    className="mx-2" onClick={handleCloseModal}/>
+
+                            <Button label="Save" severity="success" raised    className="mx-2" onClick={() => handleEditZone(selectedZone.id)}/>
+
                         </div>
                     </div>
                 </div>

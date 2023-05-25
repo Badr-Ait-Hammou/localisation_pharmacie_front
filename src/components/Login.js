@@ -150,7 +150,6 @@ export default function Login() {
 import React, { useContext, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import {Link} from "react-router-dom";
 import Grid from '@mui/material/Grid';
@@ -160,9 +159,10 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
-
+import backgroundImage from "../images/las.png"
 
 import { accountService } from '../service/accountService';
+import Logo from "../images/Pharmacielogo.svg";
 
 
 
@@ -181,9 +181,9 @@ const onSubmit = (e) => {
         const password = data.get("password");
         try {
             accountService.login(email, password).then(async (res) => {
-                const token = decodeToken(res.data.access_token); // decode the token to get user details
+                const token = decodeToken(res.data.access_token); /** decode the token to get the  user details**/
                 const user = await accountService.getUserByEmail(token.sub);
-                console.log("rol",user.role);
+                console.log("role",user.role);
                 accountService.saveToken(res.data.access_token);
                 accountService.saveRole(user.role);
                 navigate("/admin", {replace: true});
@@ -193,103 +193,85 @@ const onSubmit = (e) => {
         }
     };
 
-/*
-    const onSubmit = (e) => {
-        e.preventDefault();
-        const data = new FormData(e.currentTarget);
-        const email = data.get("email");
-        const password = data.get("password");
-        try {
-            accountService.login(email, password).then(async (res) => {
-                const token = decodeToken(res.data.access_token); // decode the token to get user details
-                const user = await accountService.getUserByEmail(token.sub);
-                console.log(user.role);
-                // get the user associated with the token
-                if (user.role === 'USER') {
-                    navigate("/use", { replace: true });
-                } else {
-                    navigate("/admin", {replace: true}); // redirect to user page
-                }
-            });
-        } catch (error) {
-            console.log(error);
-        }
-    };
 
     function decodeToken(token) {
         const base64Url = token.split('.')[1];
         const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
         return JSON.parse(atob(base64));
     }
-*/
-
-    function decodeToken(token) {
-        const base64Url = token.split('.')[1];
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        return JSON.parse(atob(base64));
-    }
-
 
     return (
+        <Box
+            sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                minHeight: '100vh',
+                backgroundColor:"whitesmoke",
+                backgroundSize: 'cover',
 
-            <Container component="main" maxWidth="xs" >
-                <CssBaseline />
-                <Box
-                    sx={{
-                        marginTop: 8,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
-                    </Avatar>
-                    <Typography component="h1" variant="h5">
-                        Login
-                    </Typography>
-                    <Box component="form" onSubmit={onSubmit} noValidate sx={{ mt: 1 }}>
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
-                            autoFocus
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
-                        />
+            }}
+        >
+            <Box
+                sx={{
+                    maxWidth: 400,
+                    width: '100%',
+                    padding: '2rem',
+                    borderRadius: '0.5rem',
+                    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                    boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                }}
+            >
+                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }} style={{width:"80px",height:"80px"}}>
+                    <Avatar style={{backgroundColor:"white",width:"78px",height:"78px"}} alt="Badr" src={Logo} />
+                </Avatar>
 
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                        >
-                            Login
-                        </Button>
-                        <Grid container>
+                <Box component="form" onSubmit={onSubmit} noValidate sx={{ mt: 1 }}>
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="email"
+                        label="Email Address"
+                        name="email"
+                        className="animated-text-field" // Add a class for animation styles
+                        autoComplete="email"
+                        autoFocus
+                    />
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="password"
+                        className="animated-text-field"
+                        autoComplete="off"
+                    />
+                    <Button
+                        type="submit"
+                        style={{ margin:"8px" ,backgroundColor:"steelblue",color:"white"}}
+                    >Login</Button>
+                    <Button
+                        component={Link}
+                        to="/register"
+                        style={{ margin:"8px" ,backgroundColor:"lightseagreen",color:"white"}}
 
-                            <Grid item>
-                                <Button>
-                                <Link  to={`/register`} variant="body2">
-                                    {"SIGN UP"}
-                                </Link>
-                                </Button>
-                            </Grid>
+                    >
+                        {"SIGN UP"}
+                    </Button>
+
+                    <Grid container justifyContent="center">
+                        <Grid item>
+
                         </Grid>
-                    </Box>
+                    </Grid>
                 </Box>
-            </Container>
+            </Box>
+        </Box>
     );
 }
