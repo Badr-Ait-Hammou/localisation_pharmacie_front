@@ -157,7 +157,7 @@ import Box from '@mui/material/Box';
 
 import { useNavigate } from 'react-router-dom';
 
-import { accountService } from '../service/accountService';
+import { accountService } from '../service/AccService';
 import Logo from "../images/transparent pharmacy.svg";
 
 

@@ -1,4 +1,4 @@
-import Axios from  '../service/callerService'
+import Axios from './RetrieverService'
 import jwt_decode from 'jwt-decode'
 
 

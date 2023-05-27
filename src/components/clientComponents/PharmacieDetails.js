@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import axios from '../../service/callerService';
+import axios from '../../service/RetrieverService';
 import { useEffect, useState } from "react";
 //import "../clientstyles/pharmaciedetails.css"
 import {Card, CardContent} from "@mui/material";

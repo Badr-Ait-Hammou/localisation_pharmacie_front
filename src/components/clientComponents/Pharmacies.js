@@ -1,4 +1,4 @@
-import axios from '../../service/callerService';
+import axios from '../../service/RetrieverService';
 import React, { useState, useEffect } from "react";
 import PharmacieDetails from "./PharmacieDetails";
 import { Link, useParams } from 'react-router-dom';

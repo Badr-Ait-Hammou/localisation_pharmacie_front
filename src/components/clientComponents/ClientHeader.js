@@ -14,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { Restaurant } from "@mui/icons-material";
 import {Link} from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import {accountService} from "../../service/accountService";
+import {accountService} from "../../service/AccService";
 import Logo from "../../images/transparent pharmacy.svg"
 
 const pages = ['home','pharmacies'];

@@ -1,6 +1,6 @@
 import React,{useState,useEffect,useRef} from "react";
 import 'bootstrap/dist/css/bootstrap.css';
-import axios from '../service/callerService';
+import axios from '../service/RetrieverService';
 import Modal from "react-modal";
 import { Button } from 'primereact/button';
 import ReactPaginate from "react-paginate";

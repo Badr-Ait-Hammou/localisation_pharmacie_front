@@ -2,7 +2,7 @@ import { Toast } from 'primereact/toast';
 import { Button } from 'primereact/button';
 import"../styles/table.css"
 
-import axios from '../service/callerService';
+import axios from '../service/RetrieverService';
 import React,{useState,useEffect,useReducer} from "react";
 import PharmacieTable from "../components/PharmacieTable";
 import { Card, CardContent } from '@mui/material';

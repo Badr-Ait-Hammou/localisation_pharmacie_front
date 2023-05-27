@@ -9,7 +9,7 @@ import User from '../components/UserTable';
 import Garde from '../components/Garde';
 import Header from '../components/Header';
 import Home from "../components/Home"
-import { accountService } from '../service/accountService';
+import { accountService } from '../service/AccService';
 import Footer from "../components/Footer";
 import PharmacieDetails from "../components/clientComponents/PharmacieDetails"
 import GardePharmacie from "../components/Gardepharmacie"

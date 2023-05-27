@@ -1,6 +1,6 @@
 
 import"../styles/villetable.css"
-import axios from '../service/callerService';
+import axios from '../service/RetrieverService';
 import GardePharmacietable from "./GardePharmacietable";
 import React, { useState, useEffect, useReducer,useRef } from "react";
 import { Card, CardContent } from '@mui/material';

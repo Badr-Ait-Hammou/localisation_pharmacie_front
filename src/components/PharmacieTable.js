@@ -1,5 +1,5 @@
 
-import axios from '../service/callerService';
+import axios from '../service/RetrieverService';
 import React,{useState,useEffect,useRef} from "react";
 import Modal from "react-modal";
 import 'bootstrap/dist/css/bootstrap.css';
@@ -8,8 +8,7 @@ import {Button} from "primereact/button";
 import {ConfirmDialog, confirmDialog} from "primereact/confirmdialog";
 import {Toast} from "primereact/toast";
 import TextField from "@mui/material/TextField";
-import { Card, CardContent } from '@mui/material';
-import Pharmacie from "../components/Pharmacie"
+
 
 
 

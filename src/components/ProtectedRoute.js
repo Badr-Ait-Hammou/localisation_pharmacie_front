@@ -1,6 +1,6 @@
 
 import { Navigate } from "react-router-dom";
-import { accountService } from "../service/accountService";
+import { accountService } from "../service/AccService";
 
 const ProtectedRoute = ({children}) => {
 

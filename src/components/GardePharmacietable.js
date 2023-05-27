@@ -4,7 +4,7 @@ import Modal from "react-modal";
 import 'bootstrap/dist/css/bootstrap.css';
 import { Button } from 'primereact/button';
 import ReactPaginate from 'react-paginate';
-import axios from '../service/callerService';
+import axios from '../service/RetrieverService';
 import {Toast} from "primereact/toast";
 
 

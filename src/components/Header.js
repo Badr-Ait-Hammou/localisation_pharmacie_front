@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import {Link} from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import {accountService} from "../service/accountService";
+import {accountService} from "../service/AccService";
 import Logo from "../images/transparent pharmacy.svg"
 
 const pages = ['city' ,'zone','garde','pharmacy', 'garde_pharmacy','user',];

@@ -1,5 +1,5 @@
 import { Button } from 'primereact/button';
-import axios from '../service/callerService';
+import axios from '../service/RetrieverService';
 import React, { useState, useEffect, useReducer,useRef } from "react";
 import ZoneTable from "../components/ZoneTable";
 import Modal from "react-modal";

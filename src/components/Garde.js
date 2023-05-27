@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useReducer, useRef} from "react";
-import axios from '../service/callerService';
+import axios from '../service/RetrieverService';
 import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
 import 'bootstrap/dist/css/bootstrap.css';

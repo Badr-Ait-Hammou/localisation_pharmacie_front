@@ -1,5 +1,5 @@
 
-import axios from '../service/callerService';
+import axios from '../service/RetrieverService';
 import React,{useState,useEffect} from "react";
 import Modal from "react-modal";
 import 'bootstrap/dist/css/bootstrap.css';

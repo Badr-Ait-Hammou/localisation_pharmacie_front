@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useReducer, useRef} from "react";
-import axios from '../service/callerService';
+import axios from '../service/RetrieverService';
 import 'bootstrap/dist/css/bootstrap.css';
 import Villetable from "../components/Villetable";
 import"../styles/villetable.css"
