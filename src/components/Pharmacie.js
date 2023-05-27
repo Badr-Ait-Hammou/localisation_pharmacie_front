@@ -216,7 +216,8 @@ export default function Pharmacie() {
 
                                         {zones && zones.map((zone) => (
                                             <option key={zone.id} value={zone.id}>
-                                                {zone.nom}
+                                                {zone.nom} --- {zone.ville && zone.ville.nom}
+
                                             </option>
                                         ))}
                                     </select>
