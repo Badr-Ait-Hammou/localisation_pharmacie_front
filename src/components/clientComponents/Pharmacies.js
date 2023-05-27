@@ -3,6 +3,9 @@ import React, { useState, useEffect } from "react";
 import PharmacieDetails from "./PharmacieDetails";
 import { Link, useParams } from 'react-router-dom';
 import NotFound from "./Notfound"
+
+import { Tag } from 'primereact/tag';
+
 export default function Pharmacies() {
     const [pharmacies, setPharmacies] = useState([]);
     const { id } = useParams();
@@ -131,17 +134,21 @@ export default function Pharmacies() {
                     {pharmacies.map((pharmacy) => (
                         <div key={pharmacy.id} className="col mb-4">
                             <div className="card h-100">
-                                <Link to={`/admin/pharmacies/${pharmacy.id}`}>
-                                    <img
-                                        src={pharmacy.photos}
-                                        className="card-img-top"
-                                        alt="Pharmacy"
-                                        style={{ objectFit: "cover", height: "auto" }}
-                                    />
+                                <Link to={`/pharmacy/pharmacies/${pharmacy.id}`}>
+                                    <div className="position-relative">
+                                        <img
+                                            src={pharmacy.photos}
+                                            className="card-img-top"
+                                            alt="Pharmacy"
+                                            style={{ objectFit: "cover", height: "200px" }} // Set a fixed height for the image
+                                        />
+                                        <div className="sale-tag">New</div>
+                                    </div>
+
                                 </Link>
                                 <div className="card-body">
-                                    <h5 className="card-title">{pharmacy.nom}</h5>
-                                    <p className="card-text">Address: {pharmacy.adresse}</p>
+                                    <h5 className="card-title" style={{fontFamily: "Peralta"}}>{pharmacy.nom}</h5>
+                                    <strong className="card-text">Address: {pharmacy.adresse}</strong>
                                 </div>
                             </div>
                         </div>

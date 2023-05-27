@@ -22,7 +22,7 @@ export default function Garde() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!type) {
-            alert("Please enter a grade name");
+            showInfo();
         } else {
             await axios.post("/api/controller/gardes/save", { type });
             settype("");
@@ -39,7 +39,9 @@ export default function Garde() {
     }, [upTB]);
 
 
-
+    const showInfo = () => {
+        toast.current.show({severity:'warn', summary: 'Info', detail:'Garde type field is empty', life: 3000});
+    }
     const loadgardes=async ()=>{
         const res=await axios.get(`/api/controller/gardes/`);
         setgarde(res.data);
@@ -72,13 +74,11 @@ export default function Garde() {
                             raised
                             severity="success"
                             style={{ fontSize: "20px",width:"220px" }}
-                            className="mx-2"
+                            className="animated-button mx-2"
                             onClick={() => handleOpenModal(garde)}
 
                         />
-                        {/*
-                        <InputText placeholder="Search"  />
-                        */}
+
                     </div>
 
 
@@ -120,7 +120,16 @@ export default function Garde() {
                         <form>
                             <div className="mb-3">
                                 <label htmlFor="user-nom" className="form-label">Type:</label>
-                                <input type="text" className="form-control" id="user-nom" value={type} onChange={(e) => settype(e.target.value)} />
+                                <input type="text"
+                                       className="form-control"
+                                       id="user-nom"
+                                       value={type}
+                                       onChange={(e) => {
+                                           const inputValue = e.target.value;
+                                           const onlyLetters = inputValue.replace(/[^A-Za-z]/g, "");
+                                           settype(onlyLetters);
+                                       }}
+                                        />
                             </div>
 
                         </form>

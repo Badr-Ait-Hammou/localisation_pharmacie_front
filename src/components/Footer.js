@@ -11,35 +11,36 @@ export default function Footer() {
             <footer>
                 <div className="container">
                     <div className="row">
-                        <div className="col-md-6 item text">
-                            <h3>About Our App</h3>
-                            <p>Our Pharmacy Location App helps you find the nearest pharmacy in your area quickly and easily.</p>
-                            <p>With detailed information on each pharmacy, including hours of operation, contact information, and services offered, our app makes it easy to find the right pharmacy for your needs.</p>
-                        </div>
-
-                        <div className="col-sm-6 col-md-3 item">
+                        <div className="col-md-3 item text">
                             <h3>About Us</h3>
                             <ul>
-                                <li><a href="/#">Company</a></li>
-                                <li><a href="/#">Team</a></li>
-                                <li><a href="/#">Careers</a></li>
+                                <li><a >Company</a></li>
+                                <li><a >Team</a></li>
+                                <li><a >Careers</a></li>
                             </ul>
+                        </div>
+
+                        <div className="col-sm-6 col-md-6 item">
+                            <h3>About Our App</h3>
+
+                            <p>Our Pharmacy Location App helps you find the nearest pharmacy in your area quickly and easily.</p>
+                            <p>With detailed information on each pharmacy, including hours of operation, contact information, and services offered, our app makes it easy to find the right pharmacy for your needs.</p>
+
                         </div>
                         <div className="col-sm-6 col-md-3 item">
                             <h3>Contact Us</h3>
                             <ul>
-                                <li><a href="#">Phone: 555-123-4567</a></li>
-                                <li><a href="#">Email: info@pharmacylocationapp.com</a></li>
-                                <li><a href="#">Address: 123 Main St, Morocco</a></li>
+                                <li><a >Phone: 0669697675</a></li>
+                                <li><a >Email: badraithammou2000@gmail.com</a></li>
                             </ul>
                         </div>
                         <div className="col item social">
-                            <a href="#"><RiTelegramFill/></a>
-                            <a href="#"><RiFacebookCircleFill/></a>
-                            <a href="#"><AiFillTwitterCircle/></a>
-                            <a href="#"><RiInstagramFill/></a></div>
+                            <a ><RiTelegramFill/></a>
+                            <a ><RiFacebookCircleFill/></a>
+                            <a ><AiFillTwitterCircle/></a>
+                            <a ><RiInstagramFill/></a></div>
                     </div>
-                    <p className="copyright">B.A.H Pharmacy © 2023</p>
+                    <p className="copyright">Designed and developed by ©AIT HAMMOU</p>
                 </div>
             </footer>
         </div>

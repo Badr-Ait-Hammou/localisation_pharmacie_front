@@ -1,10 +1,8 @@
 
-import {useNavigate} from "react-router-dom";
-
-import axios from '../service/callerService';
+import { Button } from 'primereact/button';
 import React from 'react';
-import { Menubar } from 'primereact/menubar';
-import HomePage from "./clientComponents/Notfound"
+import {Link} from "react-router-dom";
+
 
 export default function Home() {
     return(
@@ -30,9 +28,24 @@ export default function Home() {
             <section className="error">
                 <div className="error__content">
                     <div className="error__message message">
-                        <h1 className="message__title">WELCOME TO PHARMACY_LOC</h1>
-                        <p className="message__text"> Discover Your Nearest Pharmacy.</p>
+                        <h1 className="message__title" >WELCOME TO PHARMACY_LOCATION</h1>
+                        <p className="message__text"style={{fontFamily:"Peralta"}}> Discover Your Nearest Pharmacy.</p>
                     </div>
+
+                        <Link
+                            style={{ textDecoration: "none", color: "black",fontFamily:"better" }}
+                            to={`/pharmacy/pharmacies`}
+                        >
+                            <Button
+                                label="Check it out"
+                                className="animated-button mt-5"
+                                style={{
+                                    backgroundColor: "#0bd5e8",
+
+                                }}
+                            />
+                        </Link>
+
                 </div>
             </section>
         </div>

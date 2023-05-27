@@ -15,6 +15,7 @@ import PharmacieDetails from "../components/clientComponents/PharmacieDetails"
 import GardePharmacie from "../components/Gardepharmacie"
 import ClientHeader from "../components/clientComponents/ClientHeader"
 import Pharmacies from "../components/clientComponents/Pharmacies"
+import ErrorNotfound from "../components/ErrorPage"
 
 
 const AdminRoute = () => {
@@ -52,12 +53,13 @@ const AdminRoute = () => {
                     <Route path="/user" element={<User/>}/>
                     )}
                 {accountService.isLogged && accountService.getRole() === 'ADMIN' && (
-                    <Route path="/gardepharmacie" element={<GardePharmacie/>}/>
+                    <Route path="/garde_pharmacy" element={<GardePharmacie/>}/>
                     )}
 
                 <Route exact path="/pharmacies/:id" element={<PharmacieDetails />} />
 
                     <Route path="/pharmacies" element={<Pharmacies/>}/>
+                    <Route path="*" element={<ErrorNotfound/>}/>
 
 
             </Route>

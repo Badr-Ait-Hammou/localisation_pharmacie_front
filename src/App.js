@@ -15,7 +15,7 @@ function App() {
             <Router>
                 <Routes>
                     <Route path="/*" element={<AuthRoute/>}/>
-                    <Route path="admin/*" element={
+                    <Route path="pharmacy/*" element={
                         <ProtectedRoute>
                             <AdminRoute />
                         </ProtectedRoute>

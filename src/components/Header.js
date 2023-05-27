@@ -11,14 +11,12 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import { Restaurant } from "@mui/icons-material";
 import {Link} from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import {accountService} from "../service/accountService";
-import Logo from "../images/Pharmacielogo.svg"
+import Logo from "../images/transparent pharmacy.svg"
 
-const pages = ['city' ,'zone','garde','pharmacy', 'gardepharmacie','user'];
-const settings = [ ''];
+const pages = ['city' ,'zone','garde','pharmacy', 'garde_pharmacy','user',];
 
 export default function Header() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -60,7 +58,7 @@ export default function Header() {
                             aria-controls="menu-appbar"
                             aria-haspopup="true"
                             onClick={handleOpenNavMenu}
-                            color="inherit"
+                            color="black"
                         >
                             <MenuIcon />
                         </IconButton>
@@ -87,7 +85,7 @@ export default function Header() {
                                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                                     <Link
                                         style={{ textDecoration: "none", color: "black" }}
-                                        to={`${page}`}
+                                        to={`/pharmacy/${page}`}
                                     >
                                         {page}
                                     </Link>
@@ -107,7 +105,7 @@ export default function Header() {
                             fontFamily: "monospace",
                             fontWeight: 700,
                             letterSpacing: ".3rem",
-                            color: "inherit",
+                            color: "black",
                             textDecoration: "none",
                         }}
                     >

@@ -15,7 +15,7 @@ export default function UserTable() {
     const [users, setusers] = useState([]);
 
     const [pageNumber, setPageNumber] = useState(0);
-    const itemsPerPage = 4;
+    const itemsPerPage = 6;
     const offset = pageNumber * itemsPerPage;
     const [searchQuery, setSearchQuery] = useState('');
     const filteredPharmacies = users && users.filter((user) => user.email && user.email.includes(searchQuery));
@@ -54,10 +54,11 @@ export default function UserTable() {
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>nom</th>
-                        <th>prenom</th>
-                        <th>email</th>
-                        <th>Acions</th>
+                        <th>FirstName</th>
+                        <th>LastName</th>
+                        <th>Email</th>
+                        <th>Username</th>
+
                     </tr>
                     </thead>
                     <tbody>
@@ -67,10 +68,8 @@ export default function UserTable() {
                             <td>{user.firstName}</td>
                             <td>{user.lastName}</td>
                             <td>{user.email}</td>
-                            <td>
-                                <Button  label="Block" severity="help" raised  className="mx-1" />
+                            <td>{user.username}</td>
 
-                            </td>
                         </tr>
                     ))}
                     </tbody>

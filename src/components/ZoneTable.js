@@ -82,6 +82,10 @@ export default function ZoneList({ cityId })  {
 
     const handleEditZone = async (id) => {
         try {
+            if (zoneName.trim() === ''  ) {
+                showInfo();
+                return;
+            }
             const response = await axios.put(`/api/controller/zones/id/${id}`, {
                 nom: zoneName,
                 ville: {
@@ -109,6 +113,9 @@ export default function ZoneList({ cityId })  {
         setZones(res.data);
     }
 
+    const showInfo = () => {
+        toast.current.show({severity:'warn', summary: 'Info', detail:'Zone name field is empty', life: 3000});
+    }
 
     return (
         <div>
@@ -190,11 +197,21 @@ export default function ZoneList({ cityId })  {
                         <h5 className="card-title" id="modal-modal-title">Update Zone</h5>
                         <form>
                             <div className="mb-3">
-                                <label htmlFor="user-nom" className="form-label">Zone:</label>
-                                <input type="text" className="form-control" id="user-nom" value={zoneName} onChange={(e) => setZoneName(e.target.value)} />
+                                <label htmlFor="user-nom" className="form-label">Zone Name:</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="user-nom"
+                                    value={zoneName}
+                                    onChange={(e) => {
+                                        const inputValue = e.target.value;
+                                        const onlyLetters = inputValue.replace(/[^A-Za-z]/g, ""); // Remove non-alphabetic characters
+                                        setZoneName(onlyLetters);
+                                    }}
+                                />
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="user-prenom" className="form-label">ville:</label>
+                                <label htmlFor="user-prenom" className="form-label">City Name:</label>
                                 <select
                                     value={zoneCity}
                                     onChange={(e) => setZoneCity(e.target.value)}

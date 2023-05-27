@@ -99,7 +99,9 @@ export default function PharmacieTable() {
 
 
 
-
+    const showInfo = () => {
+        toast.current.show({severity:'warn', summary: 'Info', detail:'One of the field is empty', life: 3000});
+    }
 
 
     const handleOpenModal = (pharmacie) => {
@@ -121,27 +123,34 @@ export default function PharmacieTable() {
 
     const handleEditPharmacie = async (id) => {
         try {
+
+            if (pharmacienom.trim() === ''  || pharmacieAdresse.trim()==='' ) {
+            showInfo();
+            return;
+            }
+
             const response = await axios.put(`/api/controller/pharmacies/${id}`, {
-                nom:pharmacienom,
-                longitude:pharmacielongitude,
-                latitude:pharmacielatitude,
-                adresse:pharmacieAdresse,
-                photos:pharmaciePhoto,
+                nom: pharmacienom,
+                longitude: pharmacielongitude,
+                latitude: pharmacielatitude,
+                adresse: pharmacieAdresse,
+                photos: pharmaciePhoto,
                 user: {
                     id: pharmacieUser
                 },
                 zone: {
                     id: pharmacieZone
                 }
+            });
 
-            })
             const updatedPharmacie = pharmacies.map((pharmacie) => {
                 if (pharmacie.id === id) {
                     return response.data;
-                }else{
+                } else {
                     return pharmacie;
                 }
             });
+
             setpharmacies(updatedPharmacie);
             setModalIsOpen(false);
             loadPharmacies();
@@ -149,6 +158,7 @@ export default function PharmacieTable() {
             console.error(error);
         }
     };
+
 
 
 
@@ -185,11 +195,11 @@ export default function PharmacieTable() {
                         <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Photos</th>
-                        <th>Nom</th>
+                        <th>Photo</th>
+                        <th>Name</th>
                         <th>Latitude</th>
                         <th>Longitude</th>
-                        <th>Adresse</th>
+                        <th>Address</th>
                         <th>Zone</th>
                         <th>Actions</th>
                     </tr>
@@ -265,32 +275,45 @@ export default function PharmacieTable() {
             >
                 <div className="card" >
                     <div className="card-body" >
-                        <h5 className="card-title" id="modal-modal-title">Update User</h5>
+                        <h5 className="card-title" id="modal-modal-title">Update Pharmacy</h5>
                         <form>
-                            <div className="mb-3">
-                                <label htmlFor="pharmacie-nom" className="form-label">Nom:</label>
-                                <input type="text" className="form-control" id="user-nom" value={pharmacienom} onChange={(e) => setPharmacieNom(e.target.value)} required/>
+                            <div className="row mb-3">
+                                <div className="col-md-6">
+                                <label htmlFor="pharmacie-nom" className="form-label">Name:</label>
+                                <input type="text"
+                                       className="form-control"
+                                       id="user-nom"
+                                       value={pharmacienom}
+                                       onChange={(e) => {
+                                           const inputValue = e.target.value;
+                                           const onlyLettersAndSpaces = inputValue.replace(/[^A-Za-z\s]/g, "");
+                                           setPharmacieNom(onlyLettersAndSpaces);
+                                       }}
+                                       />
+                                </div>
+                                <div className="col-md-6">
+                                <label htmlFor="pharmacie-adresse" className="form-label">Adresse:</label>
+                                <input type="text" className="form-control" id="user-address" value={pharmacieAdresse} onChange={(e) => setPharmacieAdresse(e.target.value)} />
+                            </div>
                             </div>
 
                             <div className="row mb-3">
                                 <div className="col-md-6">
                                 <label htmlFor="pharmacie-latitude" className="form-label">Latitude:</label>
-                                <input type="text" className="form-control" id="user-prenom" value={pharmacielatitude} onChange={(e) => setPharmacieLatitude(e.target.value)} required />
+                                <input type="number" className="form-control" id="lattitude" value={pharmacielatitude} onChange={(e) => setPharmacieLatitude(e.target.value)} required />
                             </div>
                                 <div className="col-md-6">
                                 <label htmlFor="pharmacie-longitude" className="form-label">Longitude:</label>
-                                <input type="text" className="form-control" id="user-email" value={pharmacielongitude} onChange={(e) => setPharmacieLongitude(e.target.value)} />
+                                <input type="number" className="form-control" id="user-email" value={pharmacielongitude} onChange={(e) => setPharmacieLongitude(e.target.value)} />
                             </div>
                             </div>
-                            <div className="mb-3">
-                                <label htmlFor="pharmacie-adresse" className="form-label">Adresse:</label>
-                                <input type="text" className="form-control" id="user-password" value={pharmacieAdresse} onChange={(e) => setPharmacieAdresse(e.target.value)} />
-                            </div>
-                            <div className="mb-3">
+
+                            <div className="row mb-3">
+                                <div className="col-md-6">
                                 <label htmlFor="pharmacie-adresse" className="form-label">Photo:</label>
                                 <input type="file" className="form-control" id="user-password"  onChange={handlePhotoChange} />
-                            </div>
-                            <div className="row mb-3">
+                                </div>
+
                                 <div className="col-md-6">
                                 <label htmlFor="pharmacie-adresse" className="form-label">Zone:</label>
                                 <select
@@ -315,8 +338,10 @@ export default function PharmacieTable() {
                                     ))}
                                 </select>
                             </div>
-
                             </div>
+
+
+
                         </form>
                         <div className="d-flex justify-content-center mt-3">
                             <Button  label="Cancel" severity="warning" raised  className="mx-1" onClick={handleCloseModal}/>

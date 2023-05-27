@@ -147,22 +147,18 @@ export default function Login() {
             </form>
 * */
 
-import React, { useContext, useState } from 'react';
+import React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import {Link} from "react-router-dom";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 import { useNavigate } from 'react-router-dom';
-import backgroundImage from "../images/las.png"
 
 import { accountService } from '../service/accountService';
-import Logo from "../images/Pharmacielogo.svg";
+import Logo from "../images/transparent pharmacy.svg";
 
 
 
@@ -186,7 +182,7 @@ const onSubmit = (e) => {
                 console.log("role",user.role);
                 accountService.saveToken(res.data.access_token);
                 accountService.saveRole(user.role);
-                navigate("/admin", {replace: true});
+                navigate("/pharmacy", {replace: true});
             });
         } catch (error) {
             console.log(error);

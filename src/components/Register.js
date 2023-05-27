@@ -10,7 +10,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {useState,useRef} from "react";
 import axios from "axios";
 import {Link} from "react-router-dom";
-import Logo from "../images/Pharmacielogo.svg";
+import Logo from "../images/transparent pharmacy.svg";
 import { Toast } from 'primereact/toast';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';

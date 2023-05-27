@@ -31,20 +31,25 @@ export default function Zone() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        axios.post("/api/controller/zones/save", {
-            nom,
-            ville: {
-                id: villeid
-            }
-        }).then((response) => {
-            setName("");
-            setvilleid("");
-            forceUpdate();
-            setTableKey(Date.now());
-            setModalIsOpen(false);
-            showSuccess();
-        });
-    };
+        if (nom.trim() === '') {
+            showInfo();
+        } else {
+            axios.post("/api/controller/zones/save", {
+                nom,
+                ville: {
+                    id: villeid
+                }
+            }).then((response) => {
+                setName("");
+                setvilleid("");
+                forceUpdate();
+                setTableKey(Date.now());
+                setModalIsOpen(false);
+                showSuccess();
+            });
+        }
+        ;
+    }
     const handleOpenModal = (zone) => {
         setZones(zone);
         setModalIsOpen(true);
@@ -57,14 +62,16 @@ export default function Zone() {
     const showSuccess = () => {
         toast.current.show({severity:'success', summary: 'Success', detail:'item added successfully', life: 1000});
     }
-
+    const showInfo = () => {
+        toast.current.show({severity:'warn', summary: 'Info', detail:'Zone name field is empty', life: 3000});
+    }
 
     return (
 
         <div>
             <Card className="mx-3 mt-3 p-3">
                 <CardContent >
-                    <div style={{ alignItems: "center" }}>
+                    <div style={{ alignItems: "center"  }}>
                         <h3 >ZONE</h3>
                     </div>
                     <div >
@@ -75,7 +82,7 @@ export default function Zone() {
                             raised
                             severity="success"
                             style={{ fontSize: "20px",width:"220px" }}
-                            className="mx-2"
+                            className="animated-button mx-2"
                             onClick={() => handleOpenModal(zones)}
 
                         />
@@ -120,11 +127,20 @@ export default function Zone() {
                         <h5 className="card-title" id="modal-modal-title">SAVE ZONE</h5>
                         <form>
                             <div className="mb-3">
-                                <label htmlFor="user-nom" className="form-label">Zone:</label>
-                                <input type="text" className="form-control" id="user-nom" value={nom} onChange={(e) => setName(e.target.value)} />
+                                <label htmlFor="user-nom" className="form-label">Zone Name:</label>
+                                <input type="text"
+                                       className="form-control"
+                                       id="user-nom"
+                                       value={nom}
+                                       onChange={(e) => {
+                                           const inputValue = e.target.value;
+                                           const onlyLetters = inputValue.replace(/[^A-Za-z]/g, "");
+                                           setName(onlyLetters);
+                                       }}
+                                       />
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="user-prenom" className="form-label">ville:</label>
+                                <label htmlFor="user-prenom" className="form-label">City Name:</label>
                                 <select
                                     value={villeid}
                                     onChange={(e) => setvilleid(e.target.value)}

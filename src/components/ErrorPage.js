@@ -1,7 +1,7 @@
 import React from "react";
-import "../../styles/notfound.css"
+import "../styles/notfound.css"
 
-export default function Notfound() {
+export default function ErrorPage() {
 
     return(
         <div className="card "  >
@@ -13,12 +13,13 @@ export default function Notfound() {
             </div>
 
 
+
             <section className="error">
                 <div className="error__content">
                     <div className="error__message message">
-                        <h1 className="message__title">Pharmacy Not Found</h1>
-                        <p className="message__text">We're sorry, the pharmacy you were looking for isn't found . Please try again .
-                            </p>
+                        <h1 className="message__title">ERROR 404</h1>
+                        <p className="message__text">We're sorry, the page you were looking for isn't found . Please try again .
+                        </p>
                     </div>
                 </div>
             </section>

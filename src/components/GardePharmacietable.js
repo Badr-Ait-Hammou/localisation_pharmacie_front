@@ -1,10 +1,11 @@
 
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect,useRef } from "react";
 import Modal from "react-modal";
 import 'bootstrap/dist/css/bootstrap.css';
 import { Button } from 'primereact/button';
 import ReactPaginate from 'react-paginate';
 import axios from '../service/callerService';
+import {Toast} from "primereact/toast";
 
 
 
@@ -15,7 +16,8 @@ export default function GardePharmacietable() {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [gardepharmacieDateDebut, setgardePharmacieDateDebut] = useState('');
     const [gardepharmacieDateFin, setgardePharmacieDateFin] = useState('');
-   
+    const toast = useRef(null);
+
     const [gardepharmaciegarde, setgardepharmaciegarde] = useState('');
     const [gardePharmaciepharmacie, setgardePharmaciepharmacie] = useState('');
     const [selectedGardePharmacie, setselectedGardePharmacie] = useState(null);
@@ -90,6 +92,10 @@ export default function GardePharmacietable() {
 
     const handleEditPharmacie = async (datedebut, idpharmacie, idgarde) => {
         try {
+            if (gardepharmacieDateFin.trim() === '' || gardepharmacieDateDebut.trim()==='' ) {
+                showInfo();
+                return;
+            }
             const response = await axios.put(`/api/controller/gardepharmacies/${datedebut}/idpharmacie/${idpharmacie}/idgarde/${idgarde}`, {
                 garde_pharmacyEMb: {
                     pharmacie: gardePharmaciepharmacie,
@@ -119,6 +125,9 @@ export default function GardePharmacietable() {
         }
     };
 
+    const showInfo = () => {
+        toast.current.show({severity:'warn', summary: 'Info', detail:'Date  field is empty', life: 3000});
+    }
 
     const loadgardePharmacies=async ()=>{
         const res=await axios.get(`/api/controller/gardepharmacies/`);
@@ -128,6 +137,8 @@ export default function GardePharmacietable() {
     return (
         <div >
             <div className="table-responsive">
+                <Toast ref={toast} position="top-center" />
+
                 <table className="table mt-5 text-center">
                     <thead >
                     <tr>
@@ -214,11 +225,11 @@ export default function GardePharmacietable() {
                         <form>
                             <div className="row mb-3">
                                 <div className="col-md-6">
-                                <label htmlFor="date debut" className="form-label">Date debut:</label>
+                                <label htmlFor="date debut" className="form-label">Start Date:</label>
                                 <input type="date" className="form-control" id="user-nom" value={gardepharmacieDateDebut} onChange={(e) => setgardePharmacieDateDebut(e.target.value)} required/>
                                 </div>
                                 <div className="col-md-6">
-                                    <label htmlFor="date fin" className="form-label">Date fin:</label>
+                                    <label htmlFor="date fin" className="form-label">End Date:</label>
                                     <input type="date" className="form-control" id="user-prenom" value={gardepharmacieDateFin} onChange={(e) => setgardePharmacieDateFin(e.target.value)} required />
                                 </div>
                             </div>

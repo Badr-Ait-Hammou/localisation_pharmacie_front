@@ -15,9 +15,9 @@ import { Restaurant } from "@mui/icons-material";
 import {Link} from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import {accountService} from "../../service/accountService";
-import Logo from "../../images/Pharmacielogo.svg"
+import Logo from "../../images/transparent pharmacy.svg"
 
-const pages = ['pharmacies' ,'home'];
+const pages = ['home','pharmacies'];
 const settings = [ ''];
 
 export default function Header() {
@@ -86,7 +86,7 @@ export default function Header() {
                             {pages.map((page) => (
                                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                                     <Link
-                                        style={{ textDecoration: "none", color: "white" }}
+                                        style={{ textDecoration: "none", color: "black" }}
                                         to={`${page}`}
                                     >
                                         {page}

@@ -43,6 +43,9 @@ export default function Gardepharmacie() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        if (dateDebut.trim()==='' || date_fin.trim()==='') {
+            showInfo();
+        }
         axios.post("/api/controller/gardepharmacies/save", {
             garde_pharmacyEMb: {
                 pharmacie: pharmacieid,
@@ -71,6 +74,10 @@ export default function Gardepharmacie() {
         setModalIsOpen(false)
     };
 
+
+    const showInfo = () => {
+        toast.current.show({severity:'warn', summary: 'Info', detail:'Date  field is empty', life: 3000});
+    }
     return (
 
        <div>
@@ -87,13 +94,11 @@ export default function Gardepharmacie() {
                            raised
                            severity="success"
                            style={{ fontSize: "20px",width:"220px" }}
-                           className="mx-2"
+                           className="animated-button mx-2"
                            onClick={() => handleOpenModal(gardepharmacies)}
 
                        />
-                       {/*
-                        <InputText placeholder="Search"  />
-                        */}
+
                    </div>
 
 
@@ -137,11 +142,11 @@ export default function Gardepharmacie() {
                        <form>
                            <div className="row mb-3">
                                <div className="col-md-6">
-                               <label htmlFor="date debut" className="form-label">Date debut:</label>
+                               <label htmlFor="date debut" className="form-label">Start Date:</label>
                                <input type="date" className="form-control" id="user-nom" value={dateDebut} onChange={(e) => setdatedebut(e.target.value)} required/>
                                </div>
                                <div className="col-md-6">
-                                   <label htmlFor="date fin" className="form-label">Date fin:</label>
+                                   <label htmlFor="date fin" className="form-label">End Date:</label>
                                    <input type="date" className="form-control" id="user-prenom" value={date_fin} onChange={(e) => setdatefin(e.target.value)} required />
                                </div>
                            </div>
@@ -150,7 +155,7 @@ export default function Gardepharmacie() {
 
                            <div className="row mb-3">
                                <div className="col-md-6">
-                                   <label htmlFor="garde name" className="form-label">garde:</label>
+                                   <label htmlFor="garde name" className="form-label">Garde Type:</label>
                                    <select
                                        value={gardeid}
                                        onChange={(e) => setgardeid(e.target.value)}
@@ -166,7 +171,7 @@ export default function Gardepharmacie() {
                                        }}
                                        required
                                    >
-                                       <option value="">Select garde</option>
+                                       <option value="">Select a garde</option>
                                        {gardes.map((garde) => (
                                            <option key={garde.id} value={garde.id}>
                                                {garde.type}
@@ -175,7 +180,7 @@ export default function Gardepharmacie() {
                                    </select>
                                </div>
                                <div className="col-md-6">
-                                   <label htmlFor="pharmacie-adresse" className="form-label">pharmacie:</label>
+                                   <label htmlFor="pharmacie-adresse" className="form-label">Pharmacy:</label>
                                    <select
                                        value={pharmacieid}
                                        onChange={(e) => setpharmacieid(e.target.value)}
@@ -191,7 +196,7 @@ export default function Gardepharmacie() {
                                        }}
                                        required
                                    >
-                                       <option value="">Select pharmacy</option>
+                                       <option value="">Select a Pharmacy</option>
                                        {pharmacies.map((pharmacie) => (
                                            <option key={pharmacie.id} value={pharmacie.id}>
                                                {pharmacie.nom}

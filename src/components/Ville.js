@@ -29,7 +29,7 @@ export default function Ville() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!nom) {
-            alert("Please enter a ville name");
+            showInfo();
         } else {
             await axios.post("/api/controller/villes/save", { nom });
             setNom("");
@@ -40,6 +40,9 @@ export default function Ville() {
 
         }
     };
+    const showInfo = () => {
+        toast.current.show({severity:'warn', summary: 'Info', detail:'city name field is empty', life: 3000});
+    }
 
     useEffect(() => {
         getVilles();
@@ -78,7 +81,7 @@ export default function Ville() {
                             raised
                             severity="success"
                             style={{ fontSize: "20px",width:"220px" }}
-                            className="mx-2"
+                            className="animated-button mx-2"
                             onClick={() => handleOpenModal(ville)}
 
                         />
@@ -127,9 +130,20 @@ export default function Ville() {
                     <h5 className="card-title" id="modal-modal-title">Update City</h5>
                     <form>
                         <div className="mb-3">
-                            <label htmlFor="user-nom" className="form-label">city Name:</label>
-                            <input type="text" className="form-control" id="user-nom" value={nom} onChange={(e) => setNom(e.target.value)} />
+                            <label htmlFor="user-nom" className="form-label">City Name:</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="user-nom"
+                                value={nom}
+                                onChange={(e) => {
+                                    const inputValue = e.target.value;
+                                    const onlyLetters = inputValue.replace(/[^A-Za-z]/g, "");
+                                    setNom(onlyLetters);
+                                }}
+                            />
                         </div>
+
 
                     </form>
                     <div className="d-flex justify-content-center mt-3">

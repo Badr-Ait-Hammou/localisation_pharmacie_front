@@ -346,7 +346,7 @@ label {
     max-width: 200px;
     height: 20px;
     border-radius: 100%;
-    background: #08ffff;
+    background: rgba(8, 255, 255, 0.91);
     position: absolute;
     left: 0px;
     right: 0px;

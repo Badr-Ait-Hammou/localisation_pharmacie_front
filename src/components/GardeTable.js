@@ -81,6 +81,10 @@ export default function GardeTable() {
 
     const handleEditVille = async (id) => {
         try {
+            if (gardeType.trim() === ''  ) {
+                showInfo();
+                return;
+            }
             const response = await axios.put(`/api/controller/gardes/${id}`, {
                 type: gardeType,
 
@@ -99,7 +103,9 @@ export default function GardeTable() {
             console.error(error);
         }
     };
-
+    const showInfo = () => {
+        toast.current.show({severity:'warn', summary: 'Info', detail:'Garde type field is empty', life: 3000});
+    }
 
 
     return (
@@ -126,8 +132,8 @@ export default function GardeTable() {
                             <th scope="row">{garde.id}</th>
                             <td>{garde.type}</td>
                             <td>
-                                <Button label="Delete" severity="danger"  className="mx-1" text raised   onClick={() => handleDelete(garde.id)}/>
                                 <Button  label="Edit" severity="help" raised  className="mx-1"  onClick={() => handleOpenModal(garde)} />
+                                <Button label="Delete" severity="danger"  className="mx-1" text raised   onClick={() => handleDelete(garde.id)}/>
 
                             </td>
                         </tr>
@@ -184,17 +190,24 @@ export default function GardeTable() {
                         <form>
                             <div className="mb-3">
                                 <label htmlFor="user-nom" className="form-label">Garde:</label>
-                                <input type="text" className="form-control" id="user-nom" value={gardeType} onChange={(e) => setGardeType(e.target.value)} />
+                                <input type="text"
+                                       className="form-control"
+                                       id="user-nom"
+                                       value={gardeType}
+                                       onChange={(e) => {
+                                           const inputValue = e.target.value;
+                                           const onlyLetters = inputValue.replace(/[^A-Za-z]/g, "");
+                                           setGardeType(onlyLetters);
+                                       }}
+                                        />
                             </div>
 
                         </form>
                         <div className="d-flex justify-content-center mt-3">
-                            <Button variant="contained" color="error" onClick={handleCloseModal}>
-                                Annuler
-                            </Button>
-                            <Button variant="contained" color="success" sx={{ ml:1 }} onClick={() => handleEditVille(selectedGarde.id)}>
-                                Sauvegarder
-                            </Button>
+                            <Button label="Cancel" severity="warning" raised    className="mx-2" onClick={handleCloseModal}/>
+
+                            <Button label="Save" severity="success" raised    className="mx-2"  onClick={() => handleEditVille(selectedGarde.id)}/>
+
                         </div>
                     </div>
                 </div>
