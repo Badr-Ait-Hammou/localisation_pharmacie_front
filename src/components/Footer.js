@@ -2,7 +2,6 @@ import React from "react";
 import { RiInstagramFill } from "react-icons/ri";
 import { AiFillTwitterCircle } from 'react-icons/ai';
 import { RiTelegramFill } from 'react-icons/ri';
-import {AiOutlineGithub} from "react-icons/ai";
 
 import "../styles/footer.css"
 import {Link} from "react-router-dom";
@@ -37,7 +36,7 @@ export default function Footer() {
                     </div>
                     <Link
                         style={{ textDecoration: "none",fontFamily:"better" }}
-                        to={`https://github.com/Badr-Ait-Hammou`}
+                        to={`https://www.aithammoubadr.me`}
                     > <p className="text-center font-light mt-2  copyright" >Designed and developed by ©AIT HAMMOU</p>
                     </Link>
                 </div>
