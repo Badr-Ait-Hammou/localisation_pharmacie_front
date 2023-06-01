@@ -62,6 +62,12 @@ export default function Register() {
 
     return (
         <ThemeProvider theme={theme}>
+            <div>
+                <div className="starsec"></div>
+                <div className="starthird"></div>
+                <div className="starfourth"></div>
+                <div className="starfifth"></div>
+            </div>
             <Box
                 sx={{
                     display: 'flex',
@@ -89,12 +95,7 @@ export default function Register() {
                         <Avatar style={{ backgroundColor: 'white', width: '78px', height: '78px' }} alt="Badr" src={Logo} />
                     </Avatar>
 
-                    <div>
-                        <div className="starsec"></div>
-                        <div className="starthird"></div>
-                        <div className="starfourth"></div>
-                        <div className="starfifth"></div>
-                    </div>
+
                     <Formik
                         initialValues={{
                             firstName: '',

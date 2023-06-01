@@ -232,6 +232,17 @@ export default function Login({isAuth, setAuth}) {
     }
 
     return (
+        <div>
+
+            <div>
+                <div className="starsec"></div>
+                <div className="starthird"></div>
+                <div className="starfourth"></div>
+                <div className="starfifth"></div>
+            </div>
+
+
+
         <Box
             sx={{
                 display: 'flex',
@@ -243,14 +254,10 @@ export default function Login({isAuth, setAuth}) {
 
             }}
         >
+
             <Toast ref={toast} position="top-center" />
 
-            <div>
-                <div className="starsec"></div>
-                <div className="starthird"></div>
-                <div className="starfourth"></div>
-                <div className="starfifth"></div>
-            </div>
+
             <Box
                 sx={{
                     maxWidth: 350,
@@ -312,5 +319,6 @@ export default function Login({isAuth, setAuth}) {
                 </Box>
             </Box>
         </Box>
+        </div>
     );
 }
