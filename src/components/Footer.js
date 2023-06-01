@@ -1,9 +1,11 @@
 import React from "react";
-import { RiFacebookCircleFill } from "react-icons/ri";
 import { RiInstagramFill } from "react-icons/ri";
 import { AiFillTwitterCircle } from 'react-icons/ai';
 import { RiTelegramFill } from 'react-icons/ri';
+import {AiOutlineGithub} from "react-icons/ai";
+
 import "../styles/footer.css"
+import {Link} from "react-router-dom";
 
 export default function Footer() {
     return (
@@ -11,14 +13,7 @@ export default function Footer() {
             <footer>
                 <div className="container">
                     <div className="row">
-                        <div className="col-md-3 item text">
-                            <h3>About Us</h3>
-                            <ul>
-                                <li><a >Company</a></li>
-                                <li><a >Team</a></li>
-                                <li><a >Careers</a></li>
-                            </ul>
-                        </div>
+
 
                         <div className="col-sm-6 col-md-6 item">
                             <h3>About Our App</h3>
@@ -27,20 +22,23 @@ export default function Footer() {
                             <p>With detailed information on each pharmacy, including hours of operation, contact information, and services offered, our app makes it easy to find the right pharmacy for your needs.</p>
 
                         </div>
-                        <div className="col-sm-6 col-md-3 item">
-                            <h3>Contact Us</h3>
+                        <div className="col-sm-6 col-md-6 item">
+                            <h3>Contact Me</h3>
                             <ul>
-                                <li><a >Phone: 0669697675</a></li>
-                                <li><a >Email: badraithammou2000@gmail.com</a></li>
+                                <li><a>Phone: 0669697675</a></li>
+                                <li><a>Email: badraithammou2000@gmail.com</a></li>
                             </ul>
                         </div>
                         <div className="col item social">
                             <a ><RiTelegramFill/></a>
-                            <a ><RiFacebookCircleFill/></a>
-                            <a ><AiFillTwitterCircle/></a>
+                            <Link
+                                style={{ textDecoration: "none",fontFamily:"better" }}
+                                to={`https://github.com/Badr-Ait-Hammou`}
+                            ><AiOutlineGithub/></Link>
+                            <a href="https://twitter.com/Badr66270786"><AiFillTwitterCircle/></a>
                             <a ><RiInstagramFill/></a></div>
                     </div>
-                    <p className="copyright">Designed and developed by ©AIT HAMMOU</p>
+                    <p className="text-center font-light mt-2 font-burtons copyright" >Designed and developed by ©AIT HAMMOU</p>
                 </div>
             </footer>
         </div>

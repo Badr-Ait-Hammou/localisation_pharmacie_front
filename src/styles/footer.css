@@ -83,10 +83,27 @@
 }
 
 .footer-dark .copyright {
-    text-align:center;
-    padding-top:24px;
-    opacity:0.3;
-    font-size:13px;
-    margin-bottom:0;
+    text-align: center;
+    font-size: 13px;
+    animation: colorCycle 5s infinite;
 }
+
+@keyframes colorCycle {
+    0% {
+        color: #ffffff;
+    }
+    25% {
+        color: #282d32;
+    }
+    50% {
+        color: #c1f6c1;
+    }
+    75% {
+        color: #282d32;
+    }
+    100% {
+        color: #66f5c3;
+    }
+}
+
 
