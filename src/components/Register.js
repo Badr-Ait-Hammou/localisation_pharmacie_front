@@ -37,7 +37,7 @@ export default function Register() {
 
     const handleRegistration = (values) => {
             axios
-                .post('http://localhost:8080/api/auth/register', {
+                .post('https://localisationpharmacie-production.up.railway.app/api/auth/register', {
                     username: values.username,
                     password: values.password,
                     firstname: values.firstName,
