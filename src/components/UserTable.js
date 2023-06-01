@@ -55,7 +55,7 @@ export default function UserTable() {
                         <th>FirstName</th>
                         <th>LastName</th>
                         <th>Email</th>
-                        <th>Username</th>
+                        {/*<th>Username</th>*/}
 
                     </tr>
                     </thead>
@@ -66,7 +66,7 @@ export default function UserTable() {
                             <td>{user.firstName}</td>
                             <td>{user.lastName}</td>
                             <td>{user.email}</td>
-                            <td>{user.username}</td>
+                            {/* <td>{user.username}</td>*/}
 
                         </tr>
                     ))}
