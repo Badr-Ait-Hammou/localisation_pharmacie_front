@@ -37,7 +37,7 @@ export default function Footer() {
                     <Link
                         style={{ textDecoration: "none",fontFamily:"better" }}
                         to={`https://www.aithammoubadr.me`}
-                    > <p className="text-center font-light mt-2  copyright" >Designed and developed by ©AIT HAMMOU</p>
+                    > <p className="text-center font-light mt-2  copyright">Designed and developed by ©AIT HAMMOU</p>
                     </Link>
                 </div>
             </footer>
