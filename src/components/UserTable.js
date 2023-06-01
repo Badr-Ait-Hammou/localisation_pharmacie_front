@@ -1,9 +1,7 @@
 
 import axios from '../service/RetrieverService';
 import React,{useState,useEffect} from "react";
-import Modal from "react-modal";
 import 'bootstrap/dist/css/bootstrap.css';
-import { Button } from 'primereact/button';
 import { Card, CardContent } from '@mui/material';
 import ReactPaginate from "react-paginate";
 import"../styles/table.css"

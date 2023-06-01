@@ -218,8 +218,8 @@ export default function PharmacieTable() {
                             </td>
                             <td style={{ padding:"10px" }}>{pharmacie.zone && pharmacie.zone.nom}</td>
                             <td>
-                                <Button  label="Edit" severity="help" raised  className="mx-1"  onClick={() => handleOpenModal(pharmacie)}/>
-                                <Button label="Delete" severity="danger"  className="mx-1" text raised  onClick={() => handleDelete(pharmacie.id)}/>
+                                <Button  label="Edit" severity="help" raised  className="mx-1 mt-1"  style={{width:"100px"}} onClick={() => handleOpenModal(pharmacie)}/>
+                                <Button label="Delete" severity="danger"  className="mx-1 mt-1"  style={{width:"100px"}} text raised  onClick={() => handleDelete(pharmacie.id)}/>
 
                             </td>
                         </tr>

@@ -139,10 +139,10 @@ export default function Villetable(){
                             <td>{ville.nom}</td>
                             <td>
                                 <Toast ref={toast} position="top-center" />
-                                <Button  label="Edit" severity="help" raised  className="mx-1"   onClick={() => handleOpenModal(ville)} />
+                                <Button  label="Edit" severity="help" raised  className="mx-1 mt-1" style={{width:"100px"}}   onClick={() => handleOpenModal(ville)} />
 
 
-                                <Button label="Delete" severity="danger"  className="mx-1" text raised   onClick={() => handleDelete(ville.id)}/>
+                                <Button label="Delete" severity="danger"  className="mx-1 mt-1"  style={{width:"100px"}} text raised     onClick={() => handleDelete(ville.id)}/>
 
                             </td>
                         </tr>

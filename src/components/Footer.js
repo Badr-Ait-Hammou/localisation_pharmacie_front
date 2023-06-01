@@ -29,7 +29,7 @@ export default function Footer() {
                             </ul>
                         </div>
                         <div className="col item social">
-                            <a ><RiTelegramFill/></a>
+                            <a href="https://twitter.com/Badr66270786" ><RiTelegramFill/></a>
 
                             <a href="https://twitter.com/Badr66270786"><AiFillTwitterCircle/></a>
                             <a ><RiInstagramFill/></a></div>

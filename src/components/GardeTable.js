@@ -132,8 +132,8 @@ export default function GardeTable() {
                             <th scope="row">{garde.id}</th>
                             <td>{garde.type}</td>
                             <td>
-                                <Button  label="Edit" severity="help" raised  className="mx-1"  onClick={() => handleOpenModal(garde)} />
-                                <Button label="Delete" severity="danger"  className="mx-1" text raised   onClick={() => handleDelete(garde.id)}/>
+                                <Button  label="Edit" severity="help" raised  className="mx-1 mt-1"  style={{width:"100px"}}  onClick={() => handleOpenModal(garde)} />
+                                <Button label="Delete" severity="danger"  className="mx-1 mt-1"  style={{width:"100px"}} text raised   onClick={() => handleDelete(garde.id)}/>
 
                             </td>
                         </tr>

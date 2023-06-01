@@ -4,7 +4,6 @@ import PharmacieDetails from "./PharmacieDetails";
 import { Link, useParams } from 'react-router-dom';
 import NotFound from "./Notfound"
 
-import { Tag } from 'primereact/tag';
 
 export default function Pharmacies() {
     const [pharmacies, setPharmacies] = useState([]);

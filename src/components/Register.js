@@ -55,13 +55,7 @@ export default function Register() {
     };
 
 
-    const showSuccess = () => {
-        toast.current.show({severity:'error', summary: 'PASSWORD DOESNT MATCH', detail:'please try again ', life: 3000});
-    }
 
-    const showFailur = () => {
-        toast.current.show({severity:'error', summary: 'one of the fields is empty', detail:'please try again ', life: 3000});
-    }
 
 
 
@@ -80,7 +74,7 @@ export default function Register() {
             >
                 <Box
                     sx={{
-                        maxWidth: 400,
+                        maxWidth: 350,
                         width: '100%',
                         padding: '2rem',
                         borderRadius: '0.5rem',
@@ -95,6 +89,12 @@ export default function Register() {
                         <Avatar style={{ backgroundColor: 'white', width: '78px', height: '78px' }} alt="Badr" src={Logo} />
                     </Avatar>
 
+                    <div>
+                        <div className="starsec"></div>
+                        <div className="starthird"></div>
+                        <div className="starfourth"></div>
+                        <div className="starfifth"></div>
+                    </div>
                     <Formik
                         initialValues={{
                             firstName: '',
@@ -204,12 +204,13 @@ export default function Register() {
                                         />
                                     </Grid>
                                 </Grid>
-                                <Button type="submit" style={{ margin: '8px', backgroundColor: 'lightseagreen', color: 'white' }}>
-                                    Sign Up
-                                </Button>
                                 <Button component={Link} to="/" style={{ margin: '8px', backgroundColor: 'steelblue', color: 'white' }}>
                                     {'SIGN IN'}
                                 </Button>
+                                <Button type="submit" style={{ margin: '8px', backgroundColor: 'lightseagreen', color: 'white' }}>
+                                    Sign Up
+                                </Button>
+
                                 <Grid container justifyContent="center">
                                     <Grid item></Grid>
                                 </Grid>

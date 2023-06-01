@@ -142,8 +142,8 @@ export default function ZoneList({ cityId })  {
                         <td>{zone.nom}</td>
                         <td>{zone.ville && zone.ville.nom}</td>
                         <td>
-                            <Button  label="Edit" severity="help" raised  className="mx-1"  onClick={() => handleOpenModal(zone)}/>
-                            <Button label="Delete" severity="danger"  className="mx-1" text raised  onClick={() => handleDelete(zone.id)}/>
+                            <Button  label="Edit" severity="help" raised  className="mx-1 mt-1"  style={{width:"100px"}}  onClick={() => handleOpenModal(zone)}/>
+                            <Button label="Delete" severity="danger"  className="mx-1 mt-1"  style={{width:"100px"}} text raised  onClick={() => handleDelete(zone.id)}/>
 
                         </td>
                     </tr>

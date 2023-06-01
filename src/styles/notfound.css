@@ -304,6 +304,7 @@ label {
     transform-origin: center top;
     animation-timing-function: cubic-bezier(0.6, 0, 0.38, 1);
     animation: move 5.1s infinite;
+
 }
 
 @keyframes move {
@@ -325,8 +326,8 @@ label {
 }
 
 .cover {
-    width: 200px;
-    height: 80px;
+    width: 150px;
+    height: 30px;
     background: #0bd5e8;
     border-top-left-radius: 50%;
     border-top-right-radius: 50%;
@@ -335,10 +336,10 @@ label {
 }
 
 .in-cover {
-    width: 100%;
-    max-width: 200px;
+    width: 50%;
+    max-width: 50px;
     height: 20px;
-    border-radius: 100%;
+    border-radius: 10%;
     background: rgba(8, 255, 255, 0.91);
     position: absolute;
     left: 0px;
@@ -352,10 +353,10 @@ label {
     height: 50px;
     background-color: #08fffa;
     border-radius: 50%;
-    position: absolute;
+    position: fixed;
     left: 0px;
     right: 0px;
-    bottom: -20px;
+    bottom: -30px;
     margin: 0px auto;
     -webkit-box-shadow: 0 0 15px 7px rgba(0,255,255,0.8), 0 0 40px 25px rgba(0,255,255,0.5), -75px 0 30px 15px rgba(0,255,255,0.2);
     box-shadow: 0 0 25px 7px rgb(127 255 255 / 80%), 0 0 64px 47px rgba(0,255,255,0.5), 0px 0 30px 15px rgba(0,255,255,0.2);
@@ -363,17 +364,17 @@ label {
 
 
 .light {
-    width: 200px;
+    width: 0px;
     height: 0px;
-    border-bottom: 900px solid rgb(44 255 255 / 24%);
-    border-left: 50px solid transparent;
-    border-right: 50px solid transparent;
+    border-bottom: 0px solid rgb(44 255 255 / 14%);
+    border-left: 0px solid transparent;
+    border-right: 0px solid transparent;
     position: absolute;
     left: 0px;
     right: 0px;
-    top: 270px;
+    top: 0px;
     margin: 0px auto;
-    z-index: 1;
+    z-index: 0;
     border-radius: 90px 90px 0px 0px;
 }
 /* 2.3. END Lamp */

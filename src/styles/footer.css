@@ -84,7 +84,7 @@
     text-align: center;
     font-family: "Algerian";
     font-size: 15px;
-    animation: colorCycle 8s infinite;
+    animation: colorCycle 5s infinite;
 }
 
 @keyframes colorCycle {
@@ -95,13 +95,13 @@
         color: #ebecee;
     }
     50% {
-        color: #318191;
+        color: #139db9;
     }
     75% {
         color: #ebecee;
     }
     100% {
-        color: #3befb0;
+        color: #0fb67b;
     }
 }
 

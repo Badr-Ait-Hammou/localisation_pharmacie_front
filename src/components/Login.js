@@ -147,13 +147,14 @@ export default function Login() {
             </form>
 * */
 
-import React from 'react';
+import React,{useRef} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import {Link} from "react-router-dom";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import { Toast } from 'primereact/toast';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -168,13 +169,41 @@ export default function Login({isAuth, setAuth}) {
 
 
     const navigate = useNavigate();
+    const toast = useRef(null);
 
 
-const onSubmit = (e) => {
+    /*
+    const onSubmit = (e) => {
+            e.preventDefault();
+            const data = new FormData(e.currentTarget);
+            const email = data.get("email");
+            const password = data.get("password");
+            try {
+                accountService.login(email, password).then(async (res) => {
+                    const token = decodeToken(res.data.access_token);
+                    const user = await accountService.getUserByEmail(token.sub);
+                    console.log("role",user.role);
+                    accountService.saveToken(res.data.access_token);
+                    accountService.saveRole(user.role);
+                    navigate("/pharmacy", {replace: true});
+                });
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        */
+
+    const onSubmit = (e) => {
         e.preventDefault();
         const data = new FormData(e.currentTarget);
         const email = data.get("email");
         const password = data.get("password");
+
+        if (!email || !password) {
+            showInfo();
+            return;
+        }
+
         try {
             accountService.login(email, password).then(async (res) => {
                 const token = decodeToken(res.data.access_token); /** decode the token to get the  user details**/
@@ -182,12 +211,18 @@ const onSubmit = (e) => {
                 console.log("role",user.role);
                 accountService.saveToken(res.data.access_token);
                 accountService.saveRole(user.role);
+
                 navigate("/pharmacy", {replace: true});
             });
         } catch (error) {
             console.log(error);
         }
     };
+
+    const showInfo = () => {
+        toast.current.show({severity:'error', summary: 'warn', detail:'one of the field is empty', life: 3000});
+    }
+
 
 
     function decodeToken(token) {
@@ -208,9 +243,17 @@ const onSubmit = (e) => {
 
             }}
         >
+            <Toast ref={toast} position="top-center" />
+
+            <div>
+                <div className="starsec"></div>
+                <div className="starthird"></div>
+                <div className="starfourth"></div>
+                <div className="starfifth"></div>
+            </div>
             <Box
                 sx={{
-                    maxWidth: 400,
+                    maxWidth: 350,
                     width: '100%',
                     padding: '2rem',
                     borderRadius: '0.5rem',
@@ -248,10 +291,7 @@ const onSubmit = (e) => {
                         className="animated-text-field"
                         autoComplete="off"
                     />
-                    <Button
-                        type="submit"
-                        style={{ margin:"8px" ,backgroundColor:"steelblue",color:"white"}}
-                    >Login</Button>
+
                     <Button
                         component={Link}
                         to="/register"
@@ -260,7 +300,10 @@ const onSubmit = (e) => {
                     >
                         {"SIGN UP"}
                     </Button>
-
+                    <Button
+                        type="submit"
+                        style={{ margin:"8px" ,backgroundColor:"steelblue",color:"white"}}
+                    >Login</Button>
                     <Grid container justifyContent="center">
                         <Grid item>
 

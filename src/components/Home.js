@@ -18,8 +18,8 @@ export default function Home() {
                 <div className="lamp">
                     <div className="cable"></div>
                     <div className="cover"></div>
-                    <div className="in-cover">
-                        <div className="bulb"></div>
+                    <div className="in-cover " >
+                        <div className="bulb " ></div>
                     </div>
                     <div className="light"></div>
                 </div>

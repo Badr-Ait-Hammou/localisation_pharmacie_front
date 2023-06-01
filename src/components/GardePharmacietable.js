@@ -160,9 +160,9 @@ export default function GardePharmacietable() {
                             <td>{gardes.find((garde) => garde.id === gardepharmacie.garde_pharmacyEMb.garde)?.type}</td>
                             <td>
 
-                                <Button label="Edit" severity="help" raised  className="mx-1" onClick={() => handleOpenModal(gardepharmacie)}/>
+                                <Button label="Edit" severity="help" raised  className="mx-1 mt-1"  style={{width:"100px"}} onClick={() => handleOpenModal(gardepharmacie)}/>
 
-                                <Button label="Delete" severity="danger"  className="mx-1" text raised  onClick={() =>
+                                <Button label="Delete" severity="danger"  className="mx-1 mt-1"  style={{width:"100px"}} text raised  onClick={() =>
                                     handleDelete(
                                         gardepharmacie.garde_pharmacyEMb.dateDebut,
                                         gardepharmacie.garde_pharmacyEMb.pharmacie,
