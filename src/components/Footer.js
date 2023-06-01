@@ -22,23 +22,24 @@ export default function Footer() {
                             <p>With detailed information on each pharmacy, including hours of operation, contact information, and services offered, our app makes it easy to find the right pharmacy for your needs.</p>
 
                         </div>
-                        <div className="col-sm-6 col-md-6 item">
+                        <div className="col-sm-6 col-md-6 item mb-2">
                             <h3>Contact Me</h3>
                             <ul>
                                 <li><a>Phone: 0669697675</a></li>
-                                <li><a>Email: badraithammou2000@gmail.com</a></li>
+                                <li><a>badraithammou2000@gmail.com</a></li>
                             </ul>
                         </div>
                         <div className="col item social">
                             <a ><RiTelegramFill/></a>
-                            <Link
-                                style={{ textDecoration: "none",fontFamily:"better" }}
-                                to={`https://github.com/Badr-Ait-Hammou`}
-                            ><AiOutlineGithub/></Link>
+
                             <a href="https://twitter.com/Badr66270786"><AiFillTwitterCircle/></a>
                             <a ><RiInstagramFill/></a></div>
                     </div>
-                    <p className="text-center font-light mt-2 font-burtons copyright" >Designed and developed by ©AIT HAMMOU</p>
+                    <Link
+                        style={{ textDecoration: "none",fontFamily:"better" }}
+                        to={`https://github.com/Badr-Ait-Hammou`}
+                    > <p className="text-center font-light mt-2  copyright" >Designed and developed by ©AIT HAMMOU</p>
+                    </Link>
                 </div>
             </footer>
         </div>

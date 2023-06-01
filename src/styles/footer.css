@@ -1,15 +1,15 @@
 
 .footer-dark {
-    padding:50px 0;
+    padding:15px 0;
     color: #121313;
     background-color: #ebecee;
 }
 
 .footer-dark h3 {
     margin-top:0;
-    margin-bottom:12px;
+    margin-bottom:5px;
     font-weight:bold;
-    font-size:26px;
+    font-size:25px;
 }
 
 .footer-dark ul {
@@ -33,7 +33,6 @@
 @media (max-width:767px) {
     .footer-dark .item:not(.social) {
         text-align:center;
-        padding-bottom:20px;
     }
 }
 
@@ -59,7 +58,6 @@
 @media (max-width:991px) {
     .footer-dark .item.social {
         text-align:center;
-        margin-top:20px;
     }
 }
 
@@ -84,25 +82,26 @@
 
 .footer-dark .copyright {
     text-align: center;
-    font-size: 13px;
-    animation: colorCycle 5s infinite;
+    font-family: "Algerian";
+    font-size: 15px;
+    animation: colorCycle 8s infinite;
 }
 
 @keyframes colorCycle {
     0% {
-        color: #ffffff;
+        color: #262525;
     }
     25% {
-        color: #282d32;
+        color: #ebecee;
     }
     50% {
-        color: #c1f6c1;
+        color: #318191;
     }
     75% {
-        color: #282d32;
+        color: #ebecee;
     }
     100% {
-        color: #66f5c3;
+        color: #3befb0;
     }
 }
 
