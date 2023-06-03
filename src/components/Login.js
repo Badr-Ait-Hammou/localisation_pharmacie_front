@@ -206,21 +206,28 @@ export default function Login({isAuth, setAuth}) {
 
         try {
             accountService.login(email, password).then(async (res) => {
-                const token = decodeToken(res.data.access_token); /** decode the token to get the  user details**/
+                const token = decodeToken(res.data.access_token);
                 const user = await accountService.getUserByEmail(token.sub);
-                console.log("role",user.role);
+                console.log("role", user.role);
                 accountService.saveToken(res.data.access_token);
                 accountService.saveRole(user.role);
 
-                navigate("/pharmacy", {replace: true});
+                navigate("/pharmacy", { replace: true });
+            }).catch(error => {
+                console.log(error);
+                showpwderror(); // Display error message
             });
         } catch (error) {
             console.log(error);
         }
     };
 
+
     const showInfo = () => {
-        toast.current.show({severity:'error', summary: 'warn', detail:'one of the field is empty', life: 3000});
+        toast.current.show({severity:'error', summary: 'warning!', detail:'one of the field is empty', life: 3000});
+    }
+   const showpwderror = () => {
+        toast.current.show({severity:'info', summary: 'Warning!', detail:'username or password doesnt match', life: 3000});
     }
 
 
