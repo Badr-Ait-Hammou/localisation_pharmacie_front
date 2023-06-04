@@ -50,9 +50,19 @@ export default function ZoneList({ cityId })  {
 
     const handleDelete = (zoneId) => {
         const confirmDelete = () => {
-            axios.delete(`/api/controller/zones/id/${zoneId}`).then(() => {
-                setZones(zones.filter((zone) => zone.id !== zoneId));
-                toast.current.show({severity:'success', summary: 'Done', detail:'Zone deleted successfully', life: 2000});
+            axios
+                .delete(`/api/controller/zones/id/${zoneId}`)
+                .then(() => {
+                     setZones(zones.filter((zone) => zone.id !== zoneId));
+                     toast.current.show({severity:'success', summary: 'Done', detail:'Zone deleted successfully', life: 2000});
+                     })
+                .catch((error) => {
+                toast.current.show({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: 'this zone is assigned to a pharmacy',
+                    life: 2000,
+                });
             });
         };
 
@@ -119,7 +129,7 @@ export default function ZoneList({ cityId })  {
 
     return (
         <div>
-            <Toast ref={toast} />
+            <Toast ref={toast} position="top-center"/>
             <ConfirmDialog />
             <div className="table-responsive">
                 <div className="header" style={{display:"flex",justifyContent:"center",alignItems:"center",marginBottom:"1rem"}}>

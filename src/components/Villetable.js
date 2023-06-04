@@ -51,23 +51,39 @@ export default function Villetable(){
 
     const handleDelete = (villeId) => {
         const confirmDelete = () => {
-            axios.delete(`/api/controller/villes/${villeId}`).then(() => {
-                setVilles(villes.filter((ville) => ville.id !== villeId));
-                toast.current.show({severity:'success', summary: 'Done', detail:'City deleted successfully', life: 2000});
-            });
+            axios
+                .delete(`/api/controller/villes/${villeId}`)
+                .then(() => {
+                    setVilles(villes.filter((ville) => ville.id !== villeId));
+                    toast.current.show({
+                        severity: 'success',
+                        summary: 'Done',
+                        detail: 'City deleted successfully',
+                        life: 2000,
+                    });
+                })
+                .catch((error) => {
+                    toast.current.show({
+                        severity: 'error',
+                        summary: 'Error',
+                        detail: 'this city is assigned to a zone',
+                        life: 2000,
+                    });
+                });
         };
 
         confirmDialog({
-            message: 'Are you sure you want to Delete this City ?',
+            message: 'Are you sure you want to delete this city?',
             header: 'Confirmation',
             icon: 'pi pi-exclamation-triangle',
             acceptLabel: 'Yes',
             rejectLabel: 'No',
             acceptClassName: 'p-button-danger',
-            accept: confirmDelete
+            accept: confirmDelete,
         });
         loadVilles();
     };
+
 
 
 

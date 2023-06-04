@@ -76,9 +76,19 @@ export default function PharmacieTable() {
 
     const handleDelete = (id) => {
         const confirmDelete = () => {
-            axios.delete(`/api/controller/pharmacies/${id}`).then(() => {
-                setpharmacies(pharmacies.filter((pharmacie) => pharmacie.id !== id));
-                toast.current.show({severity:'success', summary: 'Done', detail:'Pharmacy deleted successfully', life: 2000});
+            axios
+                .delete(`/api/controller/pharmacies/${id}`)
+                .then(() => {
+                     setpharmacies(pharmacies.filter((pharmacie) => pharmacie.id !== id));
+                     toast.current.show({severity:'success', summary: 'Done', detail:'Pharmacy deleted successfully', life: 2000});
+                          })
+                .catch((error) => {
+                     toast.current.show({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: 'this pharmacy is assigned to a garde_pharmacy',
+                    life: 2000,
+                });
             });
         };
 
@@ -181,7 +191,7 @@ export default function PharmacieTable() {
 
 
 
-                <Toast ref={toast} />
+                <Toast ref={toast} position="top-center" />
                 <ConfirmDialog />
                 <div className="table-responsive">
 

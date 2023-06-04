@@ -47,9 +47,19 @@ export default function GardeTable() {
 
     const handleDelete = (gardeId) => {
         const confirmDelete = () => {
-            axios.delete(`/api/controller/gardes/${gardeId}`).then(() => {
-                setGardes(gardes.filter((garde) => garde.id !== gardeId));
-                toast.current.show({severity:'success', summary: 'Done', detail:'Garde deleted successfully', life: 2000});
+            axios
+                .delete(`/api/controller/gardes/${gardeId}`)
+                .then(() => {
+                        setGardes(gardes.filter((garde) => garde.id !== gardeId));
+                        toast.current.show({severity:'success', summary: 'Done', detail:'Garde deleted successfully', life: 2000});
+                 })
+                .catch((error) => {
+                toast.current.show({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: 'this garde is assigned to a garde_pharmacy',
+                    life: 2000,
+                });
             });
         };
 
@@ -110,7 +120,7 @@ export default function GardeTable() {
 
     return (
         <div>
-            <Toast ref={toast} />
+            <Toast ref={toast} position={"top-center"} />
             <ConfirmDialog />
             <div className="table-responsive">
                 <div className="header" style={{display:"flex",justifyContent:"center",alignItems:"center",marginBottom:"1rem"}}>
