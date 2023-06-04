@@ -4,6 +4,9 @@ import PharmacieDetails from "./PharmacieDetails";
 import { Link, useParams } from 'react-router-dom';
 import NotFound from "./Notfound"
 
+import { ProgressSpinner } from 'primereact/progressspinner';
+
+
 
 export default function Pharmacies() {
     const [pharmacies, setPharmacies] = useState([]);
@@ -14,12 +17,17 @@ export default function Pharmacies() {
     const [selectedCity, setSelectedCity] = useState(null);
     const [selectedZone, setSelectedZone] = useState(null);
     const [selectedGarde, setSelectedGarde] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+
 
     useEffect(() => {
+        setIsLoading(true);
         axios.get("/api/controller/pharmacies/").then((response) => {
             setPharmacies(response.data);
+            setIsLoading(false);
         });
     }, []);
+
 
     useEffect(() => {
         axios.get("/api/controller/villes/").then((response) => {
@@ -124,11 +132,15 @@ export default function Pharmacies() {
                 )}
             </div>
 
-
-
-            {pharmacies.length === 0 ? (
-               <NotFound/>
+            {isLoading ? (
+                <div >
+                    <ProgressSpinner style={{width: '50px', height: '50px'}} strokeWidth="4" fill="var(--surface-ground)" animationDuration=".6s" />
+                </div>
             ) : (
+                pharmacies.length === 0 && <NotFound />
+            )}
+
+
                 <div className="row row-cols-2 row-cols-md-2 row-cols-lg-4 g-4">
                     {pharmacies.map((pharmacy) => (
                         <div key={pharmacy.id} className="col mb-4">
@@ -153,7 +165,7 @@ export default function Pharmacies() {
                         </div>
                     ))}
                 </div>
-            )}
+
             {id && <PharmacieDetails id={id} />}
         </div>
 
