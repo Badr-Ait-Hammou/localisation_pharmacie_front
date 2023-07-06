@@ -3,7 +3,7 @@ import jwt_decode from 'jwt-decode'
 
 
 let login = (emailL,passwordL) => {
-    return Axios.post(`https://localisationpharmacie-production.up.railway.app/api/auth/login`, {
+    return Axios.post(`https://localisationpharmacie-production-73f5.up.railway.app/api/auth/login`, {
         email: emailL,
         password: passwordL
     });
@@ -38,7 +38,7 @@ let getTokenInfo = () => {
 }
 
 let getUserByEmail = (email) => {
-    return Axios.get(`https://localisationpharmacie-production.up.railway.app/api/auth/${email}`).then(res => res.data)
+    return Axios.get(`https://localisationpharmacie-production-73f5.up.railway.app/api/auth/${email}`).then(res => res.data)
 }
 
 
