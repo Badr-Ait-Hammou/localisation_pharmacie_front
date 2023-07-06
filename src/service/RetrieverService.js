@@ -3,7 +3,7 @@ import { accountService } from "./AccService";
 
 
 const Axios = axios.create({
-    baseURL: 'https://localisationpharmacie-production.up.railway.app'
+    baseURL: 'https://localisationpharmacie-production-73f5.up.railway.app'
 })
 
 
